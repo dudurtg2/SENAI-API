@@ -3,6 +3,8 @@
 Este README descreve a arquitetura híbrida que combina o padrão **n-Layer** (camadas Presentation, Service, Repository) com os princípios da **Clean Architecture** (Entities, Use Cases, Interface Adapters, Frameworks & Drivers) aplicados em um projeto Spring Boot.
 
 ---
+# Visão Geral da API
+Esta API faz parte de uma plataforma web cujo objetivo é permitir que alunos cadastrem, editem e compartilhem projetos acadêmicos de forma simples, centralizada e acessível. Os usuários podem criar perfis, registrar projetos com detalhes relevantes (descrição, links, integrantes, status público/privado) e visualizar tanto seus próprios projetos quanto os de colegas. Além disso, empresas externas interessadas podem acessar e investir nesses projetos. O acesso ao sistema acontece por meio de uma landing page, que disponibiliza tanto o repositório principal (a plataforma em si) quanto o Lab Maker e a Biblioteca Maker.
 
 ## Estrutura de Pastas
 
