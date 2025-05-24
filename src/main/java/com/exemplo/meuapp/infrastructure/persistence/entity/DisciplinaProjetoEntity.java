@@ -1,7 +1,20 @@
 package com.exemplo.meuapp.infrastructure.persistence.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.util.UUID;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "disciplina_projeto")
@@ -11,18 +24,17 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class DisciplinaProjetoEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(length = 36)
-    private String id;
-
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @ManyToOne
-    @JoinColumn(name = "disciplina_id", nullable = false)
+    @JoinColumn(name = "disciplina_uuid")
     private DisciplinaEntity disciplina;
 
-
     @ManyToOne
-    @JoinColumn(name = "projeto_id", nullable = false)
+    @JoinColumn(name = "projeto_uuid")
     private ProjetoEntity projeto;
 }

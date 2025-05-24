@@ -1,6 +1,7 @@
 package com.exemplo.meuapp.domain.model;
 
 import lombok.*;
+import java.util.UUID;
 
 @Builder
 @AllArgsConstructor
@@ -8,8 +9,9 @@ import lombok.*;
 @Getter
 @Setter
 @Data
-public class Endereco{
-    private String id;
+public class Endereco {
+
+    private UUID uuid;
     private String cep;
     private String logradouro;
     private int numero;

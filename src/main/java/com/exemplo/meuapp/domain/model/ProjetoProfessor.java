@@ -1,6 +1,7 @@
 package com.exemplo.meuapp.domain.model;
 
 import lombok.*;
+import java.util.UUID;
 
 @Builder
 @AllArgsConstructor
@@ -9,7 +10,8 @@ import lombok.*;
 @Setter
 @Data
 public class ProjetoProfessor {
-    private String id;
+
+    private UUID uuid;
     private Projeto projeto;
     private Professores professor;
     private Boolean isOrientador;

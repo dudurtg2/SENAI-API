@@ -1,10 +1,24 @@
 package com.exemplo.meuapp.infrastructure.persistence.entity;
 
-import com.exemplo.meuapp.domain.enums.UsuariosStatus;
-import com.exemplo.meuapp.domain.enums.UsuarioTipo;
-import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
+
+import com.exemplo.meuapp.domain.enums.UsuarioTipo;
+import com.exemplo.meuapp.domain.enums.UsuariosStatus;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "usuarios")
@@ -17,16 +31,16 @@ public class UsuariosEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(length = 36)
-    private String id;
+    @Column(name = "uuid")
+    private UUID uuid;
 
-    @Column(length = 50, nullable = false)
+    @Column(length = 50)
     private String usuario;
 
-    @Column(length = 255, nullable = false)
+    @Column(length = 255)
     private String senha;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -37,9 +51,10 @@ public class UsuariosEntity {
     @Column(nullable = false, length = 20)
     private UsuariosStatus status;
 
-    @Column(name = "criado_em", nullable = false)
+    @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 }
+

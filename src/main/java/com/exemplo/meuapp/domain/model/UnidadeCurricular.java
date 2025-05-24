@@ -1,6 +1,7 @@
 package com.exemplo.meuapp.domain.model;
 
 import lombok.*;
+import java.util.UUID;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,8 @@ import java.time.LocalDateTime;
 @Setter
 @Data
 public class UnidadeCurricular {
-    private String id;
+
+    private UUID uuid;
     private String nome;
     private String descricao;
     private String cargaHoraria;

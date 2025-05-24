@@ -1,9 +1,25 @@
 package com.exemplo.meuapp.infrastructure.persistence.entity;
 
-import com.exemplo.meuapp.domain.enums.UsuariosStatus;
-import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
+
+import com.exemplo.meuapp.domain.enums.UsuariosStatus;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "professores")
@@ -16,17 +32,17 @@ public class ProfessoresEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(length = 36)
-    private String id;
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @ManyToOne
-    @JoinColumn(name = "usuarios_id", nullable = false)
+    @JoinColumn(name = "usuarios_uuid")
     private UsuariosEntity usuarios;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String especialidade;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String departamento;
 
     @Column(length = 20)
@@ -39,14 +55,14 @@ public class ProfessoresEntity {
     private String linkedin;
 
     @ManyToOne
-    @JoinColumn(name = "endereco_id")
+    @JoinColumn(name = "endereco_uuid")
     private EnderecoEntity endereco;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private UsuariosStatus status;
 
-    @Column(name = "criado_em", nullable = false)
+    @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
     @Column(name = "atualizado_em")

@@ -3,6 +3,7 @@ package com.exemplo.meuapp.domain.model;
 import com.exemplo.meuapp.domain.enums.ProjetoStatus;
 import com.exemplo.meuapp.domain.enums.Visibilidade;
 import lombok.*;
+import java.util.UUID;
 
 import java.time.LocalDateTime;
 
@@ -13,7 +14,8 @@ import java.time.LocalDateTime;
 @Setter
 @Data
 public class Projeto {
-    private String id;
+
+    private UUID uuid;
     private String titulo;
     private String descricao;
     private String curso;

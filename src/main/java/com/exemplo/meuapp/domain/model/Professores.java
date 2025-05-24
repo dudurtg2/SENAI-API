@@ -2,6 +2,7 @@ package com.exemplo.meuapp.domain.model;
 
 import com.exemplo.meuapp.domain.enums.UsuariosStatus;
 import lombok.*;
+import java.util.UUID;
 
 import java.time.LocalDateTime;
 
@@ -12,7 +13,8 @@ import java.time.LocalDateTime;
 @Setter
 @Data
 public class Professores {
-    private String id;
+
+    private UUID uuid;
     private Usuarios usuariosId;
     private String especialidade;
     private String departamento;

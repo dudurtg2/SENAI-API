@@ -1,6 +1,10 @@
 package com.exemplo.meuapp.domain.model;
 
 import lombok.*;
+import java.util.UUID;
+import java.util.UUID;
+import java.util.UUID;
+import java.util.UUID;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +15,8 @@ import java.time.LocalDateTime;
 @Setter
 @Data
 public class Disciplina {
-    private String id;
+
+    private UUID uuid;
     private String nome;
     private Professores professor;
     private LocalDateTime criadoEm;
