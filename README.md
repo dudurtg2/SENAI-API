@@ -94,4 +94,4 @@ flowchart LR
 
 ## Licença
 
-MIT © Seu Nome
+© SENAI
