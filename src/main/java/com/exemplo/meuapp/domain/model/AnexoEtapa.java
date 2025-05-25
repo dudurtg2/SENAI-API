@@ -19,4 +19,23 @@ public class AnexoEtapa {
     private String url;
     private TipoAnexo tipo;
     private LocalDateTime dataUpload;
+
+    public AnexoEtapa correct() {
+        if (etapa == null) {
+            throw new IllegalArgumentException("O campo etapa deve ser preenchido");
+        }
+        if (nomeArquivo == null || nomeArquivo.isBlank()) {
+            throw new IllegalArgumentException("O campo nomeArquivo deve ser preenchido");
+        }
+        if (url == null || url.isBlank()) {
+            throw new IllegalArgumentException("O campo url deve ser preenchido");
+        }
+        if (tipo == null) {
+            throw new IllegalArgumentException("O campo tipo deve ser preenchido");
+        }
+        if (dataUpload == null) {
+            throw new IllegalArgumentException("O campo dataUpload deve ser preenchido");
+        }
+        return this;
+    }
 }

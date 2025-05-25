@@ -22,4 +22,23 @@ public class EtapasProjeto {
     private EtapaStatus status;
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
+
+    public EtapasProjeto correct() {
+        if (projeto == null) {
+            throw new IllegalArgumentException("Projeto não pode ser nulo");
+        }
+        if (nomeEtapa == null || nomeEtapa.isBlank()) {
+            throw new IllegalArgumentException("Nome da etapa não pode ser nulo ou vazio");
+        }
+        if (descricao == null || descricao.isBlank()) {
+            throw new IllegalArgumentException("Descrição não pode ser nula ou vazia");
+        }
+        if (ordem <= 0) {
+            throw new IllegalArgumentException("Ordem deve ser maior que zero");
+        }
+        if (status == null) {
+            throw new IllegalArgumentException("Status não pode ser nulo");
+        }
+        return this;
+    }
 }

@@ -32,4 +32,29 @@ public class Projeto {
     private ProjetoStatus status;
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
+
+    public Projeto correct() {
+        if (titulo == null || titulo.isBlank()) {
+            throw new IllegalArgumentException("Título não pode ser nulo ou vazio");
+        }
+        if (descricao == null || descricao.isBlank()) {
+            throw new IllegalArgumentException("Descrição não pode ser nula ou vazia");
+        }
+        if (curso == null || curso.isBlank()) {
+            throw new IllegalArgumentException("Curso não pode ser nulo ou vazio");
+        }
+        if (turma == null || turma.isBlank()) {
+            throw new IllegalArgumentException("Turma não pode ser nula ou vazia");
+        }
+        if (unidadeCurricular == null) {
+            throw new IllegalArgumentException("Unidade Curricular não pode ser nula");
+        }
+        if (liderProjeto == null) {
+            throw new IllegalArgumentException("Líder do projeto não pode ser nulo");
+        }
+        if (status == null) {
+            throw new IllegalArgumentException("Status não pode ser nulo");
+        }
+        return this;
+    }
 }

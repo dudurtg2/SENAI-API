@@ -32,4 +32,26 @@ public class Alunos {
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
 
+    public Alunos correct() {
+        if (usariosId == null) {
+            throw new IllegalArgumentException("Usuário não pode ser nulo");
+        }
+        if (matricula == null || matricula.isBlank()) {
+            throw new IllegalArgumentException("Matrícula não pode ser nula ou vazia");
+        }
+        if (curso == null || curso.isBlank()) {
+            throw new IllegalArgumentException("Curso não pode ser nulo ou vazio");
+        }
+        if (telefoneProfissional == null || telefoneProfissional.isBlank()) {
+            throw new IllegalArgumentException("Telefone profissional não pode ser nulo ou vazio");
+        }
+        if (endereco == null) {
+            throw new IllegalArgumentException("Endereço não pode ser nulo");
+        }
+        if (status == null) {
+            throw new IllegalArgumentException("Status não pode ser nulo");
+        }
+        return this;
+    }
+
 }

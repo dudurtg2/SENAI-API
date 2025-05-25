@@ -21,4 +21,14 @@ public class Disciplina {
     private Professores professor;
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
+
+    public Disciplina correct() {
+        if (nome == null || nome.isBlank()) {
+            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
+        }
+        if (professor == null) {
+            throw new IllegalArgumentException("Professor não pode ser nulo");
+        }
+        return this;
+    }
 }
