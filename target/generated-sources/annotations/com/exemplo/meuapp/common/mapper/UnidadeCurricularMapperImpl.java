@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-25T16:09:46-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (JetBrains s.r.o.)"
+    date = "2025-05-27T00:56:33-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
 )
 @Component
 public class UnidadeCurricularMapperImpl implements UnidadeCurricularMapper {
@@ -21,9 +21,16 @@ public class UnidadeCurricularMapperImpl implements UnidadeCurricularMapper {
             return null;
         }
 
-        UnidadeCurricularEntity unidadeCurricularEntity = new UnidadeCurricularEntity();
+        UnidadeCurricularEntity.UnidadeCurricularEntityBuilder unidadeCurricularEntity = UnidadeCurricularEntity.builder();
 
-        return unidadeCurricularEntity;
+        unidadeCurricularEntity.uuid( aluno.getUuid() );
+        unidadeCurricularEntity.nome( aluno.getNome() );
+        unidadeCurricularEntity.descricao( aluno.getDescricao() );
+        unidadeCurricularEntity.cargaHoraria( aluno.getCargaHoraria() );
+        unidadeCurricularEntity.criadoEm( aluno.getCriadoEm() );
+        unidadeCurricularEntity.atualizadoEm( aluno.getAtualizadoEm() );
+
+        return unidadeCurricularEntity.build();
     }
 
     @Override
@@ -32,9 +39,16 @@ public class UnidadeCurricularMapperImpl implements UnidadeCurricularMapper {
             return null;
         }
 
-        UnidadeCurricular unidadeCurricular = new UnidadeCurricular();
+        UnidadeCurricular.UnidadeCurricularBuilder unidadeCurricular = UnidadeCurricular.builder();
 
-        return unidadeCurricular;
+        unidadeCurricular.uuid( alunoEntity.getUuid() );
+        unidadeCurricular.nome( alunoEntity.getNome() );
+        unidadeCurricular.descricao( alunoEntity.getDescricao() );
+        unidadeCurricular.cargaHoraria( alunoEntity.getCargaHoraria() );
+        unidadeCurricular.criadoEm( alunoEntity.getCriadoEm() );
+        unidadeCurricular.atualizadoEm( alunoEntity.getAtualizadoEm() );
+
+        return unidadeCurricular.build();
     }
 
     @Override

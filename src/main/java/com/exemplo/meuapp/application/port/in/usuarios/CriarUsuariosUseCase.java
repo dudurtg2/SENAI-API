@@ -1,17 +1,19 @@
-package com.exemplo.meuapp.application.port.in.alunos;
+package com.exemplo.meuapp.application.port.in.usuarios;
 
-import com.exemplo.meuapp.application.port.out.AlunosGateways;
-import com.exemplo.meuapp.domain.model.Alunos;
+import com.exemplo.meuapp.application.port.out.UsuariosGateways;
+import com.exemplo.meuapp.domain.model.Usuarios;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-public class CriarAlunosUseCase {
+public class CriarUsuariosUseCase {
 
-    private AlunosGateways alunosGateways;
+    private UsuariosGateways usuariosGateways;
 
-    public CriarAlunosUseCase(AlunosGateways alunosGateways) {
-        this.alunosGateways = alunosGateways;
+    public CriarUsuariosUseCase(UsuariosGateways usuariosGateways) {
+        this.usuariosGateways = usuariosGateways;
     }
 
-    public Alunos criar(Alunos alunos) {
-        return alunosGateways.save(alunos);
+    public Usuarios criar(Usuarios usuarios) {
+        usuarios.setSenha(new BCryptPasswordEncoder().encode(usuarios.getSenha()));
+        return usuariosGateways.save(usuarios);
     }
 }

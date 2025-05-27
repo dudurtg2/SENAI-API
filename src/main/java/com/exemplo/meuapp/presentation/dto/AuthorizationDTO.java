@@ -1,4 +1,5 @@
 package com.exemplo.meuapp.presentation.dto;
 
-public class AuthorizationDTO {
+public record AuthorizationDTO(String login, String senha) {
+
 }

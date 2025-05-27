@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-25T16:09:46-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (JetBrains s.r.o.)"
+    date = "2025-05-27T00:56:32-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
 )
 @Component
 public class EnderecoMapperImpl implements EnderecoMapper {
@@ -21,9 +21,19 @@ public class EnderecoMapperImpl implements EnderecoMapper {
             return null;
         }
 
-        EnderecoEntity enderecoEntity = new EnderecoEntity();
+        EnderecoEntity.EnderecoEntityBuilder enderecoEntity = EnderecoEntity.builder();
 
-        return enderecoEntity;
+        enderecoEntity.uuid( aluno.getUuid() );
+        enderecoEntity.cep( aluno.getCep() );
+        enderecoEntity.logradouro( aluno.getLogradouro() );
+        enderecoEntity.numero( aluno.getNumero() );
+        enderecoEntity.complemento( aluno.getComplemento() );
+        enderecoEntity.bairro( aluno.getBairro() );
+        enderecoEntity.cidade( aluno.getCidade() );
+        enderecoEntity.estado( aluno.getEstado() );
+        enderecoEntity.pais( aluno.getPais() );
+
+        return enderecoEntity.build();
     }
 
     @Override
@@ -32,9 +42,19 @@ public class EnderecoMapperImpl implements EnderecoMapper {
             return null;
         }
 
-        Endereco endereco = new Endereco();
+        Endereco.EnderecoBuilder endereco = Endereco.builder();
 
-        return endereco;
+        endereco.uuid( alunoEntity.getUuid() );
+        endereco.cep( alunoEntity.getCep() );
+        endereco.logradouro( alunoEntity.getLogradouro() );
+        endereco.numero( alunoEntity.getNumero() );
+        endereco.complemento( alunoEntity.getComplemento() );
+        endereco.bairro( alunoEntity.getBairro() );
+        endereco.cidade( alunoEntity.getCidade() );
+        endereco.estado( alunoEntity.getEstado() );
+        endereco.pais( alunoEntity.getPais() );
+
+        return endereco.build();
     }
 
     @Override

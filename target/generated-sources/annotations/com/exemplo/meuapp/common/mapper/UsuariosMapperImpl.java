@@ -9,42 +9,60 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-25T16:09:46-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (JetBrains s.r.o.)"
+    date = "2025-05-27T00:56:33-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
 )
 @Component
 public class UsuariosMapperImpl implements UsuariosMapper {
 
     @Override
-    public UsuariosEntity toEntity(Usuarios aluno) {
-        if ( aluno == null ) {
+    public UsuariosEntity toEntity(Usuarios usuarios) {
+        if ( usuarios == null ) {
             return null;
         }
 
-        UsuariosEntity usuariosEntity = new UsuariosEntity();
+        UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
 
-        return usuariosEntity;
+        usuariosEntity.uuid( usuarios.getUuid() );
+        usuariosEntity.usuario( usuarios.getUsuario() );
+        usuariosEntity.senha( usuarios.getSenha() );
+        usuariosEntity.email( usuarios.getEmail() );
+        usuariosEntity.tipo( usuarios.getTipo() );
+        usuariosEntity.status( usuarios.getStatus() );
+        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
+        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
+
+        return usuariosEntity.build();
     }
 
     @Override
-    public Usuarios toDomain(UsuariosEntity alunoEntity) {
-        if ( alunoEntity == null ) {
+    public Usuarios toDomain(UsuariosEntity usuariosEntity) {
+        if ( usuariosEntity == null ) {
             return null;
         }
 
-        Usuarios usuarios = new Usuarios();
+        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
 
-        return usuarios;
+        usuarios.uuid( usuariosEntity.getUuid() );
+        usuarios.usuario( usuariosEntity.getUsuario() );
+        usuarios.senha( usuariosEntity.getSenha() );
+        usuarios.email( usuariosEntity.getEmail() );
+        usuarios.tipo( usuariosEntity.getTipo() );
+        usuarios.status( usuariosEntity.getStatus() );
+        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
+        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
+
+        return usuarios.build();
     }
 
     @Override
-    public List<Usuarios> toDomain(List<UsuariosEntity> UsuariosEntities) {
-        if ( UsuariosEntities == null ) {
+    public List<Usuarios> toDomain(List<UsuariosEntity> usuariosEntities) {
+        if ( usuariosEntities == null ) {
             return null;
         }
 
-        List<Usuarios> list = new ArrayList<Usuarios>( UsuariosEntities.size() );
-        for ( UsuariosEntity usuariosEntity : UsuariosEntities ) {
+        List<Usuarios> list = new ArrayList<Usuarios>( usuariosEntities.size() );
+        for ( UsuariosEntity usuariosEntity : usuariosEntities ) {
             list.add( toDomain( usuariosEntity ) );
         }
 
@@ -52,14 +70,14 @@ public class UsuariosMapperImpl implements UsuariosMapper {
     }
 
     @Override
-    public List<UsuariosEntity> toEntity(List<Usuarios> Usuarios) {
-        if ( Usuarios == null ) {
+    public List<UsuariosEntity> toEntity(List<Usuarios> usuarios) {
+        if ( usuarios == null ) {
             return null;
         }
 
-        List<UsuariosEntity> list = new ArrayList<UsuariosEntity>( Usuarios.size() );
-        for ( Usuarios usuarios : Usuarios ) {
-            list.add( toEntity( usuarios ) );
+        List<UsuariosEntity> list = new ArrayList<UsuariosEntity>( usuarios.size() );
+        for ( Usuarios usuarios1 : usuarios ) {
+            list.add( toEntity( usuarios1 ) );
         }
 
         return list;

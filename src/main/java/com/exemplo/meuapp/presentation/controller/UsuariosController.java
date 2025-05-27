@@ -1,16 +1,106 @@
 package com.exemplo.meuapp.presentation.controller;
 
+import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
+import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
+import com.exemplo.meuapp.common.mapper.UsuariosMapper;
+import com.exemplo.meuapp.domain.model.Usuarios;
+import com.exemplo.meuapp.infrastructure.config.security.JwtTokenProvider;
+import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
+import com.exemplo.meuapp.presentation.dto.AuthorizationDTO;
+import com.exemplo.meuapp.presentation.dto.LoginResponseDTO;
+import com.exemplo.meuapp.presentation.dto.TokenUpdateDTO;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 
-public class HelloController {
-    @GetMapping
-    String hello(@AuthenticationPrincipal OidcUser user) {
-        return "Hello, World! " + user.getFullName() + "!";
+import jakarta.servlet.http.HttpServletRequest;
+
+@RestController
+@RequestMapping("/api/user")
+public class UsuariosController {
+
+    private final CriarUsuariosUseCase criarUsuariosUseCase;
+    private final EncontrarUsuariosUseCase encontrarUsuariosUseCase;
+
+    private final UsuariosMapper usuariosMapper;
+    private final AuthenticationManager authenticationManager;
+
+    private JwtTokenProvider jwtTokenProvider;
+    //private CollectEmailForTokenService collectEmailForTokenService;
+
+    @Autowired
+    public UsuariosController(CriarUsuariosUseCase criarUsuariosUseCase,
+                              EncontrarUsuariosUseCase encontrarUsuariosUseCase,
+                              UsuariosMapper usuariosMapper,
+                              AuthenticationManager authenticationManager,
+                              JwtTokenProvider jwtTokenProvider) {
+        this.criarUsuariosUseCase = criarUsuariosUseCase;
+        this.encontrarUsuariosUseCase = encontrarUsuariosUseCase;
+        this.usuariosMapper = usuariosMapper;
+        this.authenticationManager = authenticationManager;
+        this.jwtTokenProvider = jwtTokenProvider;
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody AuthorizationDTO data) {
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(data.login(), data.senha())
+            );
+            return ResponseEntity.ok(
+                    jwtTokenProvider.generateTokens(
+                            usuariosMapper.toEntity(
+                                    encontrarUsuariosUseCase.buscarPorEmail(
+                                            data.login()
+                                    )
+                            )
+                    )
+            );
+
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body("Credenciais inválidas ou autenticação falhou.");
+        }
+    }
+
+    @GetMapping("/login/google")
+    public void loginGoogle(@AuthenticationPrincipal OidcUser user) {
+    }
+
+
+    @GetMapping("/online")
+    public ResponseEntity<?> online() {
+        return ResponseEntity.ok("Usuário online");
+    }
+
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<?> refreshToken(@RequestBody TokenUpdateDTO refreshTokenRequest) {
+
+        String login = jwtTokenProvider.validateRefreshToken(refreshTokenRequest.token());
+        if (login == null) {
+            return ResponseEntity.status(401).body("Refresh Token inválido ou expirado.");
+        }
+
+        Usuarios user = encontrarUsuariosUseCase.buscarPorEmail(login);
+
+        return ResponseEntity
+                .ok(new TokenUpdateDTO(jwtTokenProvider.generateAccessToken(usuariosMapper.toEntity(user))));
+    }
+
+
 }

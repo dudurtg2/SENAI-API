@@ -11,11 +11,11 @@ import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
 @Mapper(componentModel = "spring")
 public interface UsuariosMapper {
 
-    UsuariosEntity toEntity(Usuarios aluno);
+    UsuariosEntity toEntity(Usuarios usuarios);
 
-    Usuarios toDomain(UsuariosEntity alunoEntity);
+    Usuarios toDomain(UsuariosEntity usuariosEntity);
 
-    List<Usuarios> toDomain(List<UsuariosEntity> UsuariosEntities);
+    List<Usuarios> toDomain(List<UsuariosEntity> usuariosEntities);
 
-    List<UsuariosEntity> toEntity(List<Usuarios> Usuarios);
+    List<UsuariosEntity> toEntity(List<Usuarios> usuarios);
 }

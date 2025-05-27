@@ -1,7 +1,9 @@
 package com.exemplo.meuapp.common.mapper;
 
 import com.exemplo.meuapp.domain.model.Alunos;
+import com.exemplo.meuapp.domain.model.Endereco;
 import com.exemplo.meuapp.infrastructure.persistence.entity.AlunosEntity;
+import com.exemplo.meuapp.infrastructure.persistence.entity.EnderecoEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -9,8 +11,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-25T16:09:46-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (JetBrains s.r.o.)"
+    date = "2025-05-27T00:56:32-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
 )
 @Component
 public class AlunosMapperImpl implements AlunosMapper {
@@ -21,9 +23,20 @@ public class AlunosMapperImpl implements AlunosMapper {
             return null;
         }
 
-        AlunosEntity alunosEntity = new AlunosEntity();
+        AlunosEntity.AlunosEntityBuilder alunosEntity = AlunosEntity.builder();
 
-        return alunosEntity;
+        alunosEntity.uuid( alunos.getUuid() );
+        alunosEntity.matricula( alunos.getMatricula() );
+        alunosEntity.curso( alunos.getCurso() );
+        alunosEntity.telefonePessoal( alunos.getTelefonePessoal() );
+        alunosEntity.telefoneProfissional( alunos.getTelefoneProfissional() );
+        alunosEntity.linkedin( alunos.getLinkedin() );
+        alunosEntity.endereco( enderecoToEnderecoEntity( alunos.getEndereco() ) );
+        alunosEntity.status( alunos.getStatus() );
+        alunosEntity.criadoEm( alunos.getCriadoEm() );
+        alunosEntity.atualizadoEm( alunos.getAtualizadoEm() );
+
+        return alunosEntity.build();
     }
 
     @Override
@@ -32,9 +45,20 @@ public class AlunosMapperImpl implements AlunosMapper {
             return null;
         }
 
-        Alunos alunos = new Alunos();
+        Alunos.AlunosBuilder alunos = Alunos.builder();
 
-        return alunos;
+        alunos.uuid( alunosEntity.getUuid() );
+        alunos.matricula( alunosEntity.getMatricula() );
+        alunos.curso( alunosEntity.getCurso() );
+        alunos.telefonePessoal( alunosEntity.getTelefonePessoal() );
+        alunos.telefoneProfissional( alunosEntity.getTelefoneProfissional() );
+        alunos.linkedin( alunosEntity.getLinkedin() );
+        alunos.endereco( enderecoEntityToEndereco( alunosEntity.getEndereco() ) );
+        alunos.status( alunosEntity.getStatus() );
+        alunos.criadoEm( alunosEntity.getCriadoEm() );
+        alunos.atualizadoEm( alunosEntity.getAtualizadoEm() );
+
+        return alunos.build();
     }
 
     @Override
@@ -63,5 +87,45 @@ public class AlunosMapperImpl implements AlunosMapper {
         }
 
         return list;
+    }
+
+    protected EnderecoEntity enderecoToEnderecoEntity(Endereco endereco) {
+        if ( endereco == null ) {
+            return null;
+        }
+
+        EnderecoEntity.EnderecoEntityBuilder enderecoEntity = EnderecoEntity.builder();
+
+        enderecoEntity.uuid( endereco.getUuid() );
+        enderecoEntity.cep( endereco.getCep() );
+        enderecoEntity.logradouro( endereco.getLogradouro() );
+        enderecoEntity.numero( endereco.getNumero() );
+        enderecoEntity.complemento( endereco.getComplemento() );
+        enderecoEntity.bairro( endereco.getBairro() );
+        enderecoEntity.cidade( endereco.getCidade() );
+        enderecoEntity.estado( endereco.getEstado() );
+        enderecoEntity.pais( endereco.getPais() );
+
+        return enderecoEntity.build();
+    }
+
+    protected Endereco enderecoEntityToEndereco(EnderecoEntity enderecoEntity) {
+        if ( enderecoEntity == null ) {
+            return null;
+        }
+
+        Endereco.EnderecoBuilder endereco = Endereco.builder();
+
+        endereco.uuid( enderecoEntity.getUuid() );
+        endereco.cep( enderecoEntity.getCep() );
+        endereco.logradouro( enderecoEntity.getLogradouro() );
+        endereco.numero( enderecoEntity.getNumero() );
+        endereco.complemento( enderecoEntity.getComplemento() );
+        endereco.bairro( enderecoEntity.getBairro() );
+        endereco.cidade( enderecoEntity.getCidade() );
+        endereco.estado( enderecoEntity.getEstado() );
+        endereco.pais( enderecoEntity.getPais() );
+
+        return endereco.build();
     }
 }

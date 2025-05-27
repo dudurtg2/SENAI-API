@@ -28,7 +28,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AlunosEntity {
+public class AlunosEntity  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

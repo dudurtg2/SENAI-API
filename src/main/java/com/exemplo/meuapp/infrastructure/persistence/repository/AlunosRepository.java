@@ -36,6 +36,19 @@ public class AlunosRepository implements AlunosGateways {
     }
 
     @Override
+    public Alunos getAlunosByEmail(String email) {
+        var query = em.createQuery(
+          "SELECT a FROM AlunosEntity a WHERE a.email = :email",
+          AlunosEntity.class
+        );
+        query.setParameter("email", email);
+        return query.getResultStream()
+                    .findFirst()
+                    .map(mapper::toDomain)
+                    .orElse(null);
+    }
+
+    @Override
     public void delete(UUID alunosId) {
         AlunosEntity entity = em.find(AlunosEntity.class, alunosId);
         if (entity != null) {
