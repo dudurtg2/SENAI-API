@@ -1,9 +1,25 @@
 package com.exemplo.meuapp.infrastructure.persistence.entity;
 
-import com.exemplo.meuapp.domain.enums.EtapaStatus;
-import jakarta.persistence.*;
-import lombok.*;
 import java.time.LocalDateTime;
+import java.util.UUID;
+
+import com.exemplo.meuapp.domain.enums.EtapaStatus;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "etapas_projeto")
@@ -16,14 +32,14 @@ public class EtapasProjetoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(length = 36)
-    private String id;
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @ManyToOne
-    @JoinColumn(name = "projeto_id", nullable = false)
+    @JoinColumn(name = "projeto_uuid")
     private ProjetoEntity projeto;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100)
     private String nomeEtapa;
 
     @Column(length = 1000)
@@ -36,7 +52,7 @@ public class EtapasProjetoEntity {
     @Column(nullable = false, length = 20)
     private EtapaStatus status;
 
-    @Column(name = "criado_em", nullable = false)
+    @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
     @Column(name = "atualizado_em")

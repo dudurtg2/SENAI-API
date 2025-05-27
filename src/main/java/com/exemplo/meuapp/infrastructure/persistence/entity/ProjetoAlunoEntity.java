@@ -2,6 +2,7 @@ package com.exemplo.meuapp.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.UUID;
 
 @Entity
 @Table(name = "projeto_aluno")
@@ -11,16 +12,17 @@ import lombok.*;
 @AllArgsConstructor
 @Builder
 public class ProjetoAlunoEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(length = 36)
-    private String id;
+    @Column(name = "uuid")
+    private UUID uuid;
 
     @ManyToOne
-    @JoinColumn(name = "projeto_id", nullable = false)
+    @JoinColumn(name = "projeto_uuid")
     private ProjetoEntity projeto;
 
     @ManyToOne
-    @JoinColumn(name = "aluno_id", nullable = false)
+    @JoinColumn(name = "aluno_uuid")
     private AlunosEntity aluno;
 }
