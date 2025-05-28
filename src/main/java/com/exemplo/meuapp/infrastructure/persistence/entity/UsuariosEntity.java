@@ -62,7 +62,6 @@ public class UsuariosEntity implements UserDetails {
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
 
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.tipo == null) {
@@ -121,6 +120,7 @@ public class UsuariosEntity implements UserDetails {
     }
 
     public String getSenha() {
+
         return this.senha;
     }
 
@@ -168,4 +168,3 @@ public class UsuariosEntity implements UserDetails {
         this.atualizadoEm = atualizadoEm;
     }
 }
-
