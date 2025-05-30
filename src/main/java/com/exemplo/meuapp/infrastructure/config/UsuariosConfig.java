@@ -1,5 +1,6 @@
 package com.exemplo.meuapp.infrastructure.config;
 
+import com.exemplo.meuapp.application.port.in.usuarios.AtualizarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.out.UsuariosGateways;
@@ -15,5 +16,10 @@ public class UsuariosConfig {
     @Bean
     public EncontrarUsuariosUseCase encontrarUsuariosUseCase(UsuariosGateways usuariosGateways) {
         return new EncontrarUsuariosUseCase(usuariosGateways);
+    }
+
+    @Bean
+    public AtualizarUsuariosUseCase atualizarUsuariosUseCase(UsuariosGateways usuariosGateways) {
+        return new AtualizarUsuariosUseCase(usuariosGateways);
     }
 }
