@@ -6,6 +6,7 @@ import com.exemplo.meuapp.application.port.in.unidadeCurricular.EncontrarUnidade
 import com.exemplo.meuapp.common.mapper.UnidadeCurricularMapper;
 import com.exemplo.meuapp.infrastructure.persistence.entity.UnidadeCurricularEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/senai/unidadeCurricular")
 public class UnidadeCurricularController {
-
+    @Autowired
+    @Qualifier("unidadeCurricularMapperImpl")
     private UnidadeCurricularMapper mapper;
     private CriarUnidadeCurricularUseCase criarUnidadeCurricularUseCase;
     private EncontrarUnidadeCurricularUseCase encontrarUnidadeCurricularUseCase;
@@ -26,7 +28,8 @@ public class UnidadeCurricularController {
     private AtualizarUnidadeCurricularUseCase atualizarUnidadeCurricularUseCase;
 
     @Autowired
-    public UnidadeCurricularController(UnidadeCurricularMapper mapper,
+    public UnidadeCurricularController(
+            @Qualifier("unidadeCurricularMapperImpl")UnidadeCurricularMapper mapper,
             CriarUnidadeCurricularUseCase criarUnidadeCurricularUseCase,
             EncontrarUnidadeCurricularUseCase encontrarUnidadeCurricularUseCase,
             DeletarUnidadeCurricularUseCase deletarUnidadeCurricularUseCase,

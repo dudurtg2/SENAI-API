@@ -1,7 +1,6 @@
 package com.exemplo.meuapp.application.port.in.projetoAluno;
 
 import com.exemplo.meuapp.application.port.out.ProjetoAlunoGateways;
-
 import java.util.UUID;
 
 public class DeletarProjetoAlunoUseCase {

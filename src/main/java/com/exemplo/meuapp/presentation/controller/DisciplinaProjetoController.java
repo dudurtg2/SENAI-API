@@ -6,6 +6,7 @@ import com.exemplo.meuapp.application.port.in.disciplinaProjeto.EncontrarDiscipl
 import com.exemplo.meuapp.common.mapper.DisciplinaProjetoMapper;
 import com.exemplo.meuapp.infrastructure.persistence.entity.DisciplinaProjetoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/disciplinaProjeto")
 public class DisciplinaProjetoController {
 
+    @Autowired
+    @Qualifier("disciplinaProjetoMapperImpl")
     private DisciplinaProjetoMapper mapper;
     private CriarDisciplinaProjetoUseCase criarDisciplinaProjetoUseCase;
     private EncontrarDisciplinaProjetoUseCase encontrarDisciplinaProjetoUseCase;
@@ -26,7 +29,8 @@ public class DisciplinaProjetoController {
     private AtualizarDisciplinaProjetoUseCase atualizarDisciplinaProjetoUseCase;
 
     @Autowired
-    public DisciplinaProjetoController(DisciplinaProjetoMapper mapper,
+    public DisciplinaProjetoController(
+            @Qualifier("disciplinaProjetoMapperImpl") DisciplinaProjetoMapper mapper,
             CriarDisciplinaProjetoUseCase criarDisciplinaProjetoUseCase,
             EncontrarDisciplinaProjetoUseCase encontrarDisciplinaProjetoUseCase,
             DeletarDisciplinaProjetoUseCase deletarDisciplinaProjetoUseCase,

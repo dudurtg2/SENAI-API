@@ -6,6 +6,7 @@ import com.exemplo.meuapp.application.port.in.etapasProjeto.EncontrarEtapasProje
 import com.exemplo.meuapp.common.mapper.EtapasProjetoMapper;
 import com.exemplo.meuapp.infrastructure.persistence.entity.EtapasProjetoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/etapasProjeto")
 public class EtapasProjetoController {
 
+    @Autowired
+    @Qualifier("etapasProjetoMapperImpl")
     private EtapasProjetoMapper mapper;
     private CriarEtapasProjetoUseCase criarEtapasProjetoUseCase;
     private EncontrarEtapasProjetoUseCase encontrarEtapasProjetoUseCase;
@@ -27,7 +30,8 @@ public class EtapasProjetoController {
 
 
     @Autowired
-    public EtapasProjetoController(EtapasProjetoMapper mapper,
+    public EtapasProjetoController(
+            @Qualifier("etapasProjetoMapperImpl") EtapasProjetoMapper mapper,
                             CriarEtapasProjetoUseCase criarEtapasProjetoUseCase,
                             EncontrarEtapasProjetoUseCase encontrarEtapasProjetoUseCase,
                             DeletarEtapasProjetoUseCase deletarEtapasProjetoUseCase,
@@ -91,7 +95,7 @@ public class EtapasProjetoController {
         }
     }
     @GetMapping("/findByProjeto/{projeto}")
-    ResponseEntity<?> findByProjeto(@PathVariable("curso") String projeto) {
+    ResponseEntity<?> findByProjeto(@PathVariable("projeto") String projeto) {
         try {
             return new ResponseEntity<>(encontrarEtapasProjetoUseCase.buscarPorProjeto(UUID.fromString(projeto)), HttpStatus.OK);
         } catch (Exception e) {

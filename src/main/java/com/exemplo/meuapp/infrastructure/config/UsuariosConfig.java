@@ -2,6 +2,7 @@ package com.exemplo.meuapp.infrastructure.config;
 
 import com.exemplo.meuapp.application.port.in.usuarios.AtualizarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
+import com.exemplo.meuapp.application.port.in.usuarios.DeletarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.out.UsuariosGateways;
 import org.springframework.context.annotation.Bean;
@@ -21,5 +22,10 @@ public class UsuariosConfig {
     @Bean
     public AtualizarUsuariosUseCase atualizarUsuariosUseCase(UsuariosGateways usuariosGateways) {
         return new AtualizarUsuariosUseCase(usuariosGateways);
+    }
+
+    @Bean
+    public DeletarUsuariosUseCase deletarUsuariosUseCase(UsuariosGateways usuariosGateways) {
+        return new DeletarUsuariosUseCase(usuariosGateways);
     }
 }

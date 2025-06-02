@@ -6,6 +6,7 @@ import com.exemplo.meuapp.application.port.in.disciplina.EncontrarDisciplinaUseC
 import com.exemplo.meuapp.common.mapper.DisciplinaMapper;
 import com.exemplo.meuapp.infrastructure.persistence.entity.DisciplinaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/disciplina")
 public class DisciplinaController {
 
+    @Autowired
+    @Qualifier("disciplinaMapperImpl")
     private DisciplinaMapper mapper;
     private CriarDisciplinaUseCase criarDisciplinaUseCase;
     private EncontrarDisciplinaUseCase encontrarDisciplinaUseCase;
@@ -26,7 +29,8 @@ public class DisciplinaController {
     private AtualizarDisciplinaUseCase atualizarDisciplinaUseCase;
 
     @Autowired
-    public DisciplinaController(DisciplinaMapper mapper,
+    public DisciplinaController(
+            @Qualifier("disciplinaMapperImpl") DisciplinaMapper mapper,
             CriarDisciplinaUseCase criarDisciplinaUseCase,
             EncontrarDisciplinaUseCase encontrarDisciplinaUseCase,
             DeleteDisciplinaUseCase deleteDisciplinaUseCase,
@@ -38,7 +42,7 @@ public class DisciplinaController {
         this.atualizarDisciplinaUseCase = atualizarDisciplinaUseCase;
     }
 
-    @PostMapping("/create")
+    public @PostMapping("/create")
     ResponseEntity<?> create(@RequestBody Disciplina request) {
         try {
 
@@ -51,7 +55,7 @@ public class DisciplinaController {
         }
     }
 
-    @GetMapping("/findAll")
+    public @GetMapping("/findAll")
     ResponseEntity<?> findAll() {
         try {
             return new ResponseEntity<>(encontrarDisciplinaUseCase.buscarTodas(), HttpStatus.OK);
@@ -60,7 +64,7 @@ public class DisciplinaController {
         }
     }
 
-    @GetMapping("/findByUUID/{uuid}")
+    public @GetMapping("/findByUUID/{uuid}")
     ResponseEntity<?> findByUUID(@PathVariable("uuid") String uuid) {
         try {
             Disciplina disciplina = encontrarDisciplinaUseCase.buscarPorUuid(UUID.fromString(uuid));
@@ -71,7 +75,7 @@ public class DisciplinaController {
         }
     }
 
-    @PutMapping("/update/{uuid}")
+    public @PutMapping("/update/{uuid}")
     ResponseEntity<?> update(@PathVariable("uuid") String uuid, @RequestBody Disciplina request) {
         try {
             Disciplina disciplina = atualizarDisciplinaUseCase.atualizar(UUID.fromString(uuid), request);
@@ -82,7 +86,7 @@ public class DisciplinaController {
         }
     }
 
-    @DeleteMapping("/delete/{uuid}")
+    public @DeleteMapping("/delete/{uuid}")
     ResponseEntity<?> delete(@PathVariable("uuid") String uuid) {
         try {
             deleteDisciplinaUseCase.deletar(UUID.fromString(uuid));
@@ -92,7 +96,7 @@ public class DisciplinaController {
         }
     }
 
-    @GetMapping("/findByNome/{nome}")
+    public @GetMapping("/findByNome/{nome}")
     ResponseEntity<?> findByNome(@PathVariable("nome") String nome) {
         try {
             return new ResponseEntity<>(encontrarDisciplinaUseCase.buscarPorNome(nome), HttpStatus.OK);

@@ -7,6 +7,7 @@ import com.exemplo.meuapp.common.mapper.ProfessoresMapper;
 import com.exemplo.meuapp.domain.model.Professores;
 import com.exemplo.meuapp.infrastructure.persistence.entity.ProfessoresEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/professor")
 public class ProfessorController {
 
+    @Autowired
+    @Qualifier("professoresMapperImpl")
     private ProfessoresMapper mapper;
     private CriarProfessorUseCase criarProfessorUseCase;
     private EncontrarProfessorUseCase encontrarProfessorUseCase;
@@ -26,7 +29,8 @@ public class ProfessorController {
     private AtualizarProfessorUseCase atualizarProfessorUseCase;
 
     @Autowired
-    public ProfessorController(ProfessoresMapper mapper,
+    public ProfessorController(
+            @Qualifier("professoresMapperImpl")ProfessoresMapper mapper,
             CriarProfessorUseCase criarProfessorUseCase,
             EncontrarProfessorUseCase encontrarProfessorUseCase,
             DeletarProfessorUseCase deletarProfessorUseCase,

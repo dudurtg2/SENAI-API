@@ -5,6 +5,7 @@ import com.exemplo.meuapp.application.port.in.endereco.DeletarEnderecoUseCase;
 import com.exemplo.meuapp.application.port.in.endereco.EncontrarEnderecoUseCase;
 import com.exemplo.meuapp.common.mapper.EnderecoMapper;
 import com.exemplo.meuapp.infrastructure.persistence.entity.EnderecoEntity;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/senai/endereco")
 public class EnderecoController {
-
+    @Autowired
+    @Qualifier("enderecoMapperImpl")
     private EnderecoMapper mapper;
     private CriarEnderecoUseCase criarEnderecoUseCase;
     private EncontrarEnderecoUseCase encontrarEnderecoUseCase;
@@ -26,7 +28,8 @@ public class EnderecoController {
     private AtualizarEnderecoUseCase atualizarEnderecoUseCase;
 
     @Autowired
-    public EnderecoController(EnderecoMapper mapper,
+    public EnderecoController(
+            @Qualifier("enderecoMapperImpl") EnderecoMapper mapper,
             CriarEnderecoUseCase criarEnderecoUseCase,
             EncontrarEnderecoUseCase encontrarEnderecoUseCase,
             DeletarEnderecoUseCase deletarEnderecoUseCase,

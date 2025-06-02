@@ -1,7 +1,6 @@
 package com.exemplo.meuapp.application.port.in.unidadeCurricular;
 
 import com.exemplo.meuapp.application.port.out.UnidadeCurricularGateways;
-
 import java.util.UUID;
 
 public class DeletarUnidadeCurricularUseCase {

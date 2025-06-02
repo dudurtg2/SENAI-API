@@ -2,7 +2,7 @@ package com.exemplo.meuapp.infrastructure.config;
 
 import com.exemplo.meuapp.application.port.in.etapasProjeto.AtualizarEtapasProjetoUseCase;
 import com.exemplo.meuapp.application.port.in.etapasProjeto.CriarEtapasProjetoUseCase;
-import com.exemplo.meuapp.application.port.in.etapasProjeto.DeleteEtapasProjetoUseCase;
+import com.exemplo.meuapp.application.port.in.etapasProjeto.DeletarEtapasProjetoUseCase;
 import com.exemplo.meuapp.application.port.in.etapasProjeto.EncontrarEtapasProjetoUseCase;
 import com.exemplo.meuapp.application.port.out.EtapasProjetoGateways;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +22,8 @@ public class EtapasProjetoConfig {
     }
 
     @Bean
-    public DeleteEtapasProjetoUseCase deleteEtapasProjetoUseCase(EtapasProjetoGateways etapasProjetoGateways){
-        return new DeleteEtapasProjetoUseCase(etapasProjetoGateways);
+    public DeletarEtapasProjetoUseCase deleteEtapasProjetoUseCase(EtapasProjetoGateways etapasProjetoGateways){
+        return new DeletarEtapasProjetoUseCase(etapasProjetoGateways);
     }
 
     @Bean

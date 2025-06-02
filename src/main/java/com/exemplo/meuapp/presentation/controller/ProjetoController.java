@@ -6,6 +6,7 @@ import com.exemplo.meuapp.application.port.in.projeto.EncontrarProjetoUseCase;
 import com.exemplo.meuapp.common.mapper.ProjetoMapper;
 import com.exemplo.meuapp.infrastructure.persistence.entity.ProjetoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/senai/projeto")
 public class ProjetoController {
-
+    @Autowired
+    @Qualifier("projetoMapperImpl")
     private ProjetoMapper mapper;
     private CriarProjetoUseCase criarProjetoUseCase;
     private EncontrarProjetoUseCase encontrarProjetoUseCase;
@@ -26,7 +28,8 @@ public class ProjetoController {
     private AtualizarProjetoUseCase atualizarProjetoUseCase;
 
     @Autowired
-    public ProjetoController(ProjetoMapper mapper,
+    public ProjetoController(
+            @Qualifier("projetoMapperImpl")ProjetoMapper mapper,
             CriarProjetoUseCase criarProjetoUseCase,
             EncontrarProjetoUseCase encontrarProjetoUseCase,
             DeletarProjetoUseCase deletarProjetoUseCase,

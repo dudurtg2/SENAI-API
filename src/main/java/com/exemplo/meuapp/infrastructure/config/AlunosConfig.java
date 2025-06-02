@@ -1,5 +1,7 @@
 package com.exemplo.meuapp.infrastructure.config;
 
+import com.exemplo.meuapp.application.port.in.alunos.AtualizarAlunosUseCase;
+import com.exemplo.meuapp.application.port.in.alunos.DeletarAlunosUseCase;
 import com.exemplo.meuapp.application.port.in.alunos.EncontrarAlunosUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,5 +19,15 @@ public class AlunosConfig {
     @Bean
     public EncontrarAlunosUseCase encontrarAlunosUseCase(AlunosGateways alunosGateways) {
         return new EncontrarAlunosUseCase(alunosGateways);
+    }
+
+    @Bean
+    public DeletarAlunosUseCase deletarAlunosUseCase(AlunosGateways alunosGateways) {
+        return new DeletarAlunosUseCase(alunosGateways);
+    }
+
+    @Bean
+    public AtualizarAlunosUseCase atualizarAlunosUseCase(AlunosGateways alunosGateways) {
+        return new AtualizarAlunosUseCase(alunosGateways);
     }
 }

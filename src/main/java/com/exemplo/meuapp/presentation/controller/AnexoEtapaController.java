@@ -7,6 +7,7 @@ import com.exemplo.meuapp.application.port.in.anexoEtapa.EncontrarAnexoEtapaUseC
 import com.exemplo.meuapp.common.mapper.AnexoEtapaMapper;
 import com.exemplo.meuapp.infrastructure.persistence.entity.AnexoEtapaEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/AnexoEtapa")
 public class AnexoEtapaController {
 
+    @Autowired
+    @Qualifier("anexoEtapaMapperImpl")
     private AnexoEtapaMapper mapper;
     private CriarAnexoEtapaUseCase criarAnexoEtapaUseCase;
     private EncontrarAnexoEtapaUseCase encontrarAnexoEtapaUseCase;
@@ -26,7 +29,8 @@ public class AnexoEtapaController {
     private AtualizarAnexoEtapaUseCase atualizarAnexoEtapaUseCase;
 
     @Autowired
-    public AnexoEtapaController(AnexoEtapaMapper mapper,
+    public AnexoEtapaController(
+            @Qualifier("anexoEtapaMapperImpl") AnexoEtapaMapper mapper,
             CriarAnexoEtapaUseCase criarAnexoEtapaUseCase,
             EncontrarAnexoEtapaUseCase encontrarAnexoEtapaUseCase,
             DeletarAnexoEtapaUseCase deletarAnexoEtapaUseCase,
@@ -38,7 +42,7 @@ public class AnexoEtapaController {
         this.atualizarAnexoEtapaUseCase = atualizarAnexoEtapaUseCase;
     }
 
-    @PostMapping("/create")
+    public @PostMapping("/create")
     ResponseEntity<?> create(@RequestBody AnexoEtapa request) {
         try {
 
@@ -51,7 +55,7 @@ public class AnexoEtapaController {
         }
     }
 
-    @GetMapping("/findAll")
+    public @GetMapping("/findAll")
     ResponseEntity<?> findAll() {
         try {
             return new ResponseEntity<>(encontrarAnexoEtapaUseCase.buscarTodos(), HttpStatus.OK);
@@ -60,7 +64,7 @@ public class AnexoEtapaController {
         }
     }
 
-    @GetMapping("/findByUUID/{uuid}")
+    public @GetMapping("/findByUUID/{uuid}")
     ResponseEntity<?> findByUUID(@PathVariable("uuid") String uuid) {
         try {
             AnexoEtapa AnexoEtapa = encontrarAnexoEtapaUseCase.buscarPorUuid(UUID.fromString(uuid));
@@ -71,7 +75,7 @@ public class AnexoEtapaController {
         }
     }
 
-    @PutMapping("/update/{uuid}")
+    public @PutMapping("/update/{uuid}")
     ResponseEntity<?> update(@PathVariable("uuid") String uuid, @RequestBody AnexoEtapa request) {
         try {
             AnexoEtapa AnexoEtapa = atualizarAnexoEtapaUseCase.atualizar(UUID.fromString(uuid), request);
@@ -82,7 +86,7 @@ public class AnexoEtapaController {
         }
     }
 
-    @DeleteMapping("/delete/{uuid}")
+    public @DeleteMapping("/delete/{uuid}")
     ResponseEntity<?> delete(@PathVariable("uuid") String uuid) {
         try {
             deletarAnexoEtapaUseCase.deletar(UUID.fromString(uuid));
@@ -92,7 +96,7 @@ public class AnexoEtapaController {
         }
     }
 
-    @GetMapping("/findByEtapa/{etapa_uuid}")
+    public @GetMapping("/findByEtapa/{etapa_uuid}")
     ResponseEntity<?> findByEtapa(@PathVariable("etapa_uuid") String etapa_uuid) {
         try {
             return new ResponseEntity<>(encontrarAnexoEtapaUseCase.buscarPorEtapaId(UUID.fromString(etapa_uuid)), HttpStatus.OK);
@@ -101,7 +105,7 @@ public class AnexoEtapaController {
         }
     }
 
-    @GetMapping("/findByEtapaETipo/{etapa_uuid}/{tipo}")
+    public @GetMapping("/findByEtapaETipo/{etapa_uuid}/{tipo}")
     ResponseEntity<?> findByEtapaETipo(@PathVariable("etapa_uuid") String etapa_uuid, @PathVariable("tipo") String tipo) {
         try {
             return new ResponseEntity<>(encontrarAnexoEtapaUseCase.buscarPorEtapaIdETipo(UUID.fromString(etapa_uuid), tipo), HttpStatus.OK);

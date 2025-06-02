@@ -2,7 +2,7 @@ package com.exemplo.meuapp.infrastructure.config;
 
 import com.exemplo.meuapp.application.port.in.endereco.AtualizarEnderecoUseCase;
 import com.exemplo.meuapp.application.port.in.endereco.CriarEnderecoUseCase;
-import com.exemplo.meuapp.application.port.in.endereco.DeleteEnderecoUseCase;
+import com.exemplo.meuapp.application.port.in.endereco.DeletarEnderecoUseCase;
 import com.exemplo.meuapp.application.port.in.endereco.EncontrarEnderecoUseCase;
 import com.exemplo.meuapp.application.port.out.EnderecoGateways;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +22,8 @@ public class EnderecoConfig {
     }
 
     @Bean
-    public DeleteEnderecoUseCase deleteEnderecoUseCase (EnderecoGateways enderecoGateways) {
-        return new DeleteEnderecoUseCase(enderecoGateways);
+    public DeletarEnderecoUseCase deleteEnderecoUseCase (EnderecoGateways enderecoGateways) {
+        return new DeletarEnderecoUseCase(enderecoGateways);
     }
 
     @Bean

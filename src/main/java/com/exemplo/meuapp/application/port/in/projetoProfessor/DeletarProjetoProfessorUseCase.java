@@ -1,7 +1,6 @@
 package com.exemplo.meuapp.application.port.in.projetoProfessor;
 
 import com.exemplo.meuapp.application.port.out.ProjetoProfessorGateways;
-
 import java.util.UUID;
 
 public class DeletarProjetoProfessorUseCase {
