@@ -13,7 +13,7 @@ public class CriarUsuariosUseCase {
     }
 
     public Usuarios criar(Usuarios usuarios) {
-        usuarios.setSenha(new BCryptPasswordEncoder().encode(usuarios.getSenha()));
+      
         return usuariosGateways.save(usuarios);
     }
 }

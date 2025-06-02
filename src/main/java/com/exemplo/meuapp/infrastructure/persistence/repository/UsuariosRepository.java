@@ -10,6 +10,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -29,6 +30,7 @@ public class UsuariosRepository implements UsuariosGateways {
 
     @Override
     public Usuarios save(Usuarios usuarios) {
+        usuarios.setSenha(new BCryptPasswordEncoder().encode(usuarios.getSenha()));
         UsuariosEntity entity = mapper.toEntity(usuarios);
 
         entity.setCriadoEm(LocalDateTime.now());
@@ -60,6 +62,7 @@ public class UsuariosRepository implements UsuariosGateways {
 
     @Override
     public Usuarios update(Usuarios usuarios) {
+        usuarios.setSenha(new BCryptPasswordEncoder().encode(usuarios.getSenha()));
         UsuariosEntity entity = mapper.toEntity(usuarios);
         entity.setAtualizadoEm(LocalDateTime.now());
         UsuariosEntity merged = em.merge(entity);

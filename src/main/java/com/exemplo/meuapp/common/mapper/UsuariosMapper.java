@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.exemplo.meuapp.domain.model.Usuarios;
 
+import com.exemplo.meuapp.presentation.dto.NovoPerfil;
 import org.mapstruct.Mapper;
 
 import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
@@ -12,6 +13,8 @@ import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
 public interface UsuariosMapper {
 
     UsuariosEntity toEntity(Usuarios usuarios);
+
+    Usuarios toDomain(NovoPerfil novoPerfil);
 
     Usuarios toDomain(UsuariosEntity usuariosEntity);
 
