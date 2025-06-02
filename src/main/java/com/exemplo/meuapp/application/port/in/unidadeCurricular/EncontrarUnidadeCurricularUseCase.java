@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.UUID;
 
 public class EncontrarUnidadeCurricularUseCase {
+
     private final UnidadeCurricularGateways unidadeCurricularGateways;
 
     public EncontrarUnidadeCurricularUseCase(UnidadeCurricularGateways unidadeCurricularGateways) {
         this.unidadeCurricularGateways = unidadeCurricularGateways;
     }
 
-    public UnidadeCurricular buscarPorId(UUID unidadeCurricularId) {
+    public UnidadeCurricular buscarPorUUID(UUID unidadeCurricularId) {
         return unidadeCurricularGateways.getUnidadeCurricular(unidadeCurricularId);
     }
 

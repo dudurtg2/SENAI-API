@@ -4,10 +4,10 @@ import com.exemplo.meuapp.application.port.out.UnidadeCurricularGateways;
 
 import java.util.UUID;
 
-public class DeleteUnidadeCurricularUseCase {
+public class DeletarUnidadeCurricularUseCase {
     private UnidadeCurricularGateways unidadeCurricularGateways;
 
-    public DeleteUnidadeCurricularUseCase(UnidadeCurricularGateways unidadeCurricularGateways) {
+    public DeletarUnidadeCurricularUseCase(UnidadeCurricularGateways unidadeCurricularGateways) {
         this.unidadeCurricularGateways = unidadeCurricularGateways;
     }
 

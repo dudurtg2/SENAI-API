@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.UUID;
 
 public class EncontrarProjetoUseCase {
+
     private final ProjetoGateways projetoGateways;
 
     public EncontrarProjetoUseCase(ProjetoGateways projetoGateways) {
         this.projetoGateways = projetoGateways;
     }
 
-    public Projeto buscarPorId(UUID projetoId) {
+    public Projeto buscarPorUUID(UUID projetoId) {
         return projetoGateways.getProjetoById(projetoId);
     }
 

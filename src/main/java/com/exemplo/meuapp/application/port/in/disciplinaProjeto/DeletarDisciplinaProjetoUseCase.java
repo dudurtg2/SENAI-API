@@ -4,10 +4,10 @@ import com.exemplo.meuapp.application.port.out.DisciplinaProjetoGateways;
 
 import java.util.UUID;
 
-public class DeleteDisciplinaProjetoUseCase {
+public class DeletarDisciplinaProjetoUseCase {
     private DisciplinaProjetoGateways disciplinaProjetoGateways;
 
-    public DeleteDisciplinaProjetoUseCase(DisciplinaProjetoGateways disciplinaProjetoGateways) {
+    public DeletarDisciplinaProjetoUseCase(DisciplinaProjetoGateways disciplinaProjetoGateways) {
         this.disciplinaProjetoGateways = disciplinaProjetoGateways;
     }
 

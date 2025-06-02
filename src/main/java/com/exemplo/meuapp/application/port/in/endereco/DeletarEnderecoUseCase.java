@@ -4,10 +4,10 @@ import com.exemplo.meuapp.application.port.out.EnderecoGateways;
 
 import java.util.UUID;
 
-public class DeleteEnderecoUseCase {
+public class DeletarEnderecoUseCase {
     private EnderecoGateways enderecoGateways;
 
-    public DeleteEnderecoUseCase(EnderecoGateways enderecoGateways) {
+    public DeletarEnderecoUseCase(EnderecoGateways enderecoGateways) {
         this.enderecoGateways = enderecoGateways;
     }
 

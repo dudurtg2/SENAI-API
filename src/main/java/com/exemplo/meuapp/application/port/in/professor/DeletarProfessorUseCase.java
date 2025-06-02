@@ -4,10 +4,10 @@ import com.exemplo.meuapp.application.port.out.ProfessoresGateways;
 
 import java.util.UUID;
 
-public class DeleteProfessorUseCase {
+public class DeletarProfessorUseCase {
     private ProfessoresGateways professoresGateways;
 
-    public DeleteProfessorUseCase(ProfessoresGateways professoresGateways) {
+    public DeletarProfessorUseCase(ProfessoresGateways professoresGateways) {
         this.professoresGateways = professoresGateways;
     }
 

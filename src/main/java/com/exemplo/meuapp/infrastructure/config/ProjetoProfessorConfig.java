@@ -2,7 +2,7 @@ package com.exemplo.meuapp.infrastructure.config;
 
 import com.exemplo.meuapp.application.port.in.projetoProfessor.AtualizarProjetoProfessorUseCase;
 import com.exemplo.meuapp.application.port.in.projetoProfessor.CriarProjetoProfessorUseCase;
-import com.exemplo.meuapp.application.port.in.projetoProfessor.DeleteProjetoProfessorUseCase;
+import com.exemplo.meuapp.application.port.in.projetoProfessor.DeletarProjetoProfessorUseCase;
 import com.exemplo.meuapp.application.port.in.projetoProfessor.EncontrarProjetoProfessorUseCase;
 import com.exemplo.meuapp.application.port.out.ProjetoProfessorGateways;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +22,8 @@ public class ProjetoProfessorConfig {
     }
 
     @Bean
-    public DeleteProjetoProfessorUseCase deleteProjetoProfessorUseCase(ProjetoProfessorGateways projetoProfessorGateways) {
-        return new DeleteProjetoProfessorUseCase(projetoProfessorGateways);
+    public DeletarProjetoProfessorUseCase deleteProjetoProfessorUseCase(ProjetoProfessorGateways projetoProfessorGateways) {
+        return new DeletarProjetoProfessorUseCase(projetoProfessorGateways);
     }
 
     @Bean

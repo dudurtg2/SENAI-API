@@ -1,14 +1,13 @@
 package com.exemplo.meuapp.application.port.in.projeto;
 
 import com.exemplo.meuapp.application.port.out.ProjetoGateways;
-import com.exemplo.meuapp.domain.model.Projeto;
 
 import java.util.UUID;
 
-public class DeleteProjetoUseCase {
+public class DeletarProjetoUseCase {
     private ProjetoGateways projetoGateways;
 
-    public DeleteProjetoUseCase(ProjetoGateways projetoGateways) {
+    public DeletarProjetoUseCase(ProjetoGateways projetoGateways) {
         this.projetoGateways = projetoGateways;
     }
 

@@ -2,7 +2,7 @@ package com.exemplo.meuapp.infrastructure.config;
 
 import com.exemplo.meuapp.application.port.in.professor.AtualizarProfessorUseCase;
 import com.exemplo.meuapp.application.port.in.professor.CriarProfessorUseCase;
-import com.exemplo.meuapp.application.port.in.professor.DeleteProfessorUseCase;
+import com.exemplo.meuapp.application.port.in.professor.DeletarProfessorUseCase;
 import com.exemplo.meuapp.application.port.in.professor.EncontrarProfessorUseCase;
 import com.exemplo.meuapp.application.port.out.ProfessoresGateways;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +22,8 @@ public class ProfessorConfig {
     }
 
     @Bean
-    public DeleteProfessorUseCase deleteProfessorUseCase (ProfessoresGateways professoresGateways){
-        return new DeleteProfessorUseCase(professoresGateways);
+    public DeletarProfessorUseCase deleteProfessorUseCase (ProfessoresGateways professoresGateways){
+        return new DeletarProfessorUseCase(professoresGateways);
     }
 
     @Bean

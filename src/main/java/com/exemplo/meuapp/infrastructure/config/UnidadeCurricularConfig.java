@@ -2,7 +2,7 @@ package com.exemplo.meuapp.infrastructure.config;
 
 import com.exemplo.meuapp.application.port.in.unidadeCurricular.AtualizarUnidadeCurricularUseCase;
 import com.exemplo.meuapp.application.port.in.unidadeCurricular.CriarUnidadeCurricularUseCase;
-import com.exemplo.meuapp.application.port.in.unidadeCurricular.DeleteUnidadeCurricularUseCase;
+import com.exemplo.meuapp.application.port.in.unidadeCurricular.DeletarUnidadeCurricularUseCase;
 import com.exemplo.meuapp.application.port.in.unidadeCurricular.EncontrarUnidadeCurricularUseCase;
 import com.exemplo.meuapp.application.port.out.UnidadeCurricularGateways;
 import org.springframework.context.annotation.Bean;
@@ -22,8 +22,8 @@ public class UnidadeCurricularConfig {
     }
 
     @Bean
-    public DeleteUnidadeCurricularUseCase deleteUnidadeCurricularUseCase(UnidadeCurricularGateways unidadeCurricularGateways) {
-        return new DeleteUnidadeCurricularUseCase(unidadeCurricularGateways);
+    public DeletarUnidadeCurricularUseCase deleteUnidadeCurricularUseCase(UnidadeCurricularGateways unidadeCurricularGateways) {
+        return new DeletarUnidadeCurricularUseCase(unidadeCurricularGateways);
     }
 
     @Bean

@@ -2,7 +2,7 @@ package com.exemplo.meuapp.infrastructure.config;
 
 import com.exemplo.meuapp.application.port.in.disciplinaProjeto.AtualizarDisciplinaProjetoUseCase;
 import com.exemplo.meuapp.application.port.in.disciplinaProjeto.CriarDisciplinaProjetoUseCase;
-import com.exemplo.meuapp.application.port.in.disciplinaProjeto.DeleteDisciplinaProjetoUseCase;
+import com.exemplo.meuapp.application.port.in.disciplinaProjeto.DeletarDisciplinaProjetoUseCase;
 import com.exemplo.meuapp.application.port.in.disciplinaProjeto.EncontrarDisciplinaProjetoUseCase;
 import com.exemplo.meuapp.application.port.out.DisciplinaProjetoGateways;
 import org.springframework.context.annotation.Bean;
@@ -27,7 +27,7 @@ public class DisciplinaProjetoConfig {
     }
 
     @Bean
-    public DeleteDisciplinaProjetoUseCase deletarDisciplinaProjetoUseCase(DisciplinaProjetoGateways disciplinaProjetoGateways) {
-        return new DeleteDisciplinaProjetoUseCase(disciplinaProjetoGateways);
+    public DeletarDisciplinaProjetoUseCase deletarDisciplinaProjetoUseCase(DisciplinaProjetoGateways disciplinaProjetoGateways) {
+        return new DeletarDisciplinaProjetoUseCase(disciplinaProjetoGateways);
     }
 }

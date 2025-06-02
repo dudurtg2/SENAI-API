@@ -7,13 +7,14 @@ import java.util.List;
 import java.util.UUID;
 
 public class EncontrarProfessorUseCase {
+
     private final ProfessoresGateways professoresGateways;
 
     public EncontrarProfessorUseCase(ProfessoresGateways professoresGateways) {
         this.professoresGateways = professoresGateways;
     }
 
-    public Professores buscarPorId(UUID professorId) {
+    public Professores buscarPorUUID(UUID professorId) {
         return professoresGateways.getProfessoresById(professorId);
     }
 
@@ -21,8 +22,8 @@ public class EncontrarProfessorUseCase {
         return professoresGateways.getAllProfessores();
     }
 
-    public Professores buscarPorUsuarioId(UUID usuarioId) {
-        return professoresGateways.getProfessoresByUsuarioId(usuarioId);
+    public Professores buscarPorUsuario(UUID usuario) {
+        return professoresGateways.getProfessoresByUsuarioId(usuario);
     }
 
     public List<Professores> buscarPorDepartamento(String departamento) {

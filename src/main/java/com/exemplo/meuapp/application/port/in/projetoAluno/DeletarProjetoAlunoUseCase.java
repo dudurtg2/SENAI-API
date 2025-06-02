@@ -4,10 +4,10 @@ import com.exemplo.meuapp.application.port.out.ProjetoAlunoGateways;
 
 import java.util.UUID;
 
-public class DeleteProjetoAlunoUseCase {
+public class DeletarProjetoAlunoUseCase {
     private ProjetoAlunoGateways projetoAlunoGateways;
 
-    public DeleteProjetoAlunoUseCase(ProjetoAlunoGateways projetoAlunoGateways) {
+    public DeletarProjetoAlunoUseCase(ProjetoAlunoGateways projetoAlunoGateways) {
         this.projetoAlunoGateways = projetoAlunoGateways;
     }
 
