@@ -6,6 +6,8 @@ import java.time.ZoneOffset;
 import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
+
+import com.exemplo.meuapp.presentation.dto.PerfilUsuario;
 import com.exemplo.meuapp.presentation.dto.TokensDTO;
 
 import com.auth0.jwt.JWT;
@@ -22,15 +24,15 @@ public class JwtTokenProvider  {
 
 
 
-    public String generateAccessToken(UsuariosEntity usuariosEntity) {
+    public String generateAccessToken(PerfilUsuario usuariosEntity) {
         return generateToken(usuariosEntity, genAccessTokenExpiry());
     }
 
-    public String generateRefreshToken(UsuariosEntity usuariosEntity) {
+    public String generateRefreshToken(PerfilUsuario usuariosEntity) {
         return generateToken(usuariosEntity, genRefreshTokenExpiry());
     }
 
-    public TokensDTO generateTokens(UsuariosEntity usuariosEntity) {
+    public TokensDTO generateTokens(PerfilUsuario usuariosEntity) {
         String accessToken = generateAccessToken(usuariosEntity);
         String refreshToken = generateRefreshToken(usuariosEntity);
         return new TokensDTO(accessToken, refreshToken, usuariosEntity);
@@ -57,12 +59,12 @@ public class JwtTokenProvider  {
         }
     }
 
-    private String generateToken(UsuariosEntity usuariosEntity , Instant expiry) {
+    private String generateToken(PerfilUsuario usuariosEntity , Instant expiry) {
         try {
             Algorithm algorithms = Algorithm.HMAC256(secret);
             return JWT.create()
                     .withIssuer("auth-api")
-                    .withSubject(usuariosEntity.getEmail())
+                    .withSubject(usuariosEntity.email())
                     .withExpiresAt(expiry)
                     .sign(algorithms);
         } catch (JWTCreationException e) {

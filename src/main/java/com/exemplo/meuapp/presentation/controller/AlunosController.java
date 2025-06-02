@@ -3,8 +3,13 @@ package com.exemplo.meuapp.presentation.controller;
 import com.exemplo.meuapp.application.port.in.alunos.AtualizarAlunosUseCase;
 import com.exemplo.meuapp.application.port.in.alunos.DeletarAlunosUseCase;
 import com.exemplo.meuapp.application.port.in.alunos.EncontrarAlunosUseCase;
+import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
 import com.exemplo.meuapp.common.mapper.AlunosMapper;
 import com.exemplo.meuapp.infrastructure.persistence.entity.AlunosEntity;
+import com.exemplo.meuapp.infrastructure.webclient.CollectEmailForTokenService;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -27,6 +32,8 @@ public class AlunosController {
     private EncontrarAlunosUseCase encontrarAlunosUseCase;
     private DeletarAlunosUseCase deletarAlunosUseCase;
     private AtualizarAlunosUseCase atualizarAlunosUseCase;
+    private EncontrarUsuariosUseCase encontrarUsuariosUseCase;
+    private CollectEmailForTokenService collectEmailForTokenService;
 
     @Autowired
     public AlunosController(
@@ -34,19 +41,25 @@ public class AlunosController {
             CriarAlunosUseCase criarAlunosUseCase,
             EncontrarAlunosUseCase encontrarAlunosUseCase,
             DeletarAlunosUseCase deletarAlunosUseCase,
-            AtualizarAlunosUseCase atualizarAlunosUseCase) {
+            AtualizarAlunosUseCase atualizarAlunosUseCase,
+            EncontrarUsuariosUseCase encontrarUsuariosUseCase,
+            CollectEmailForTokenService collectEmailForTokenService) {
         this.mapper = mapper;
         this.criarAlunosUseCase = criarAlunosUseCase;
         this.encontrarAlunosUseCase = encontrarAlunosUseCase;
         this.deletarAlunosUseCase = deletarAlunosUseCase;
+        this.encontrarUsuariosUseCase = encontrarUsuariosUseCase;
+        this.collectEmailForTokenService = collectEmailForTokenService;
         this.atualizarAlunosUseCase = atualizarAlunosUseCase;
     }
 
     public @PostMapping("/create")
-    ResponseEntity<?> create(@RequestBody Alunos request) {
+    ResponseEntity<?> create(@RequestBody Alunos request, HttpServletRequest httpServletRequest) {
         try {
-
+            request.setUsuarios(encontrarUsuariosUseCase.buscarPorEmailUser(
+                    collectEmailForTokenService.execute(httpServletRequest)));
             Alunos alunos = criarAlunosUseCase.criar(request);
+           
             AlunosEntity response = mapper.toEntity(alunos);
 
             return new ResponseEntity<AlunosEntity>(response, HttpStatus.CREATED);

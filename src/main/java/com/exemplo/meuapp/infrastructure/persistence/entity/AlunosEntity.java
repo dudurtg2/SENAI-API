@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import com.exemplo.meuapp.domain.enums.UsuariosStatus;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -54,7 +55,7 @@ public class AlunosEntity  {
     @Column(length = 255)
     private String linkedin;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "endereco_uuid")
     private EnderecoEntity endereco;
 

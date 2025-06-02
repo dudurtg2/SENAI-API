@@ -48,18 +48,18 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         String email = oauthUser.getAttribute("email");
         String nome = oauthUser.getAttribute("given_name");
-        if (encontrarUsuariosUseCase.buscarPorEmail(email) == null) {
+        if (encontrarUsuariosUseCase.buscarPorEmailUser(email) == null) {
 
             criarUsuariosUseCase.criar(Usuarios.builder()
                     .email(email)
                     .usuario(nome)
-                    .tipo(UsuarioTipo.ALUNO)
+                    .tipo(UsuarioTipo.VISITANTE)
                     .status(UsuariosStatus.ATIVO)
                     .senha(nome.replaceAll("\\s", "") + "@Senai")
                     .build());
         }
         TokensDTO tokens = jwtProvider.generateTokens(
-                usuariosMapper.toEntity(encontrarUsuariosUseCase.buscarPorEmail(email))
+                encontrarUsuariosUseCase.buscarPorEmail(email)
         );
 
         String json = objectMapper.writeValueAsString(tokens);

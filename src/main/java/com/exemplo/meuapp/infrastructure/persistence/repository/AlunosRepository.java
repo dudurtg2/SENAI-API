@@ -104,4 +104,17 @@ public class AlunosRepository implements AlunosGateways {
                    .map(mapper::toDomain)
                    .toList();
     }
+
+    @Override
+    public Alunos getAlunosByUsuarioId(UUID usuarioId) {
+        var query = em.createQuery(
+          "SELECT a FROM AlunosEntity a WHERE a.usuarios.uuid = :uid",
+          AlunosEntity.class
+        );
+        query.setParameter("uid", usuarioId);
+        return query.getResultStream()
+                    .findFirst()
+                    .map(mapper::toDomain)
+                    .orElse(null);
+    }
 }

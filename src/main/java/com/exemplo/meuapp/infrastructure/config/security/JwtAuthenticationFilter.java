@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter  extends OncePerRequestFilter {
 
         if (token != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             var subject = jwtTokenProvider.validateToken(token, "access");
-            UserDetails userDetails = usuariosMapper.toEntity(encontrarUsuariosUseCase.buscarPorEmail(subject));
+            UserDetails userDetails = usuariosMapper.toEntity(encontrarUsuariosUseCase.buscarPorEmailUser(subject));
 
             if (userDetails != null) {
                 var auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());

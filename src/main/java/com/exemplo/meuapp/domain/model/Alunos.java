@@ -21,9 +21,11 @@ import lombok.Setter;
 public class Alunos {
 
     private UUID uuid;
-    private Usuarios usariosId;
+    private Usuarios usuarios;
+
     private String matricula;
     private String curso;
+    
     private String telefonePessoal;
     private String telefoneProfissional;
     private String linkedin;
@@ -33,7 +35,7 @@ public class Alunos {
     private LocalDateTime atualizadoEm;
 
     public Alunos correct() {
-        if (usariosId == null) {
+        if (usuarios == null) {
             throw new IllegalArgumentException("Usuário não pode ser nulo");
         }
         if (matricula == null || matricula.isBlank()) {

@@ -16,8 +16,10 @@ public class Professores {
 
     private UUID uuid;
     private Usuarios usuariosId;
+    
     private String especialidade;
     private String departamento;
+
     private String telefonePessoal;
     private String telefoneProfissional;
     private String linkedin;
