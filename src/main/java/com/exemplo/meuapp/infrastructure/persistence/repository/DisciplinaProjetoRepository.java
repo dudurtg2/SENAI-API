@@ -95,4 +95,14 @@ public class DisciplinaProjetoRepository implements DisciplinaProjetoGateways {
                 .map(disciplinaProjetoMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean existsByDisciplinaAndProjeto(UUID uuid, UUID uuid1) {
+        var query = em.createQuery(
+            "SELECT COUNT(d) > 0 FROM DisciplinaProjetoEntity d WHERE d.disciplina.id = :disciplinaId AND d.projeto.id = :projetoId", Boolean.class
+        );
+        query.setParameter("disciplinaId", uuid);
+        query.setParameter("projetoId", uuid1);
+        return query.getSingleResult();
+    }
 }

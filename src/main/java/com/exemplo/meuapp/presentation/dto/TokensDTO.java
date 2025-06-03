@@ -5,9 +5,9 @@ import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
 public class TokensDTO {
     private final String accessToken;
     private final String refreshToken;
-    private final UsuariosEntity usuariosEntity;
+    private final PerfilUsuario usuariosEntity;
 
-    public TokensDTO(String accessToken, String refreshToken, UsuariosEntity usuariosEntity) {
+    public TokensDTO(String accessToken, String refreshToken, PerfilUsuario usuariosEntity) {
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
         this.usuariosEntity = usuariosEntity;
@@ -21,7 +21,7 @@ public class TokensDTO {
         return refreshToken;
     }
 
-    public UsuariosEntity getUsuariosEntity() {
+    public PerfilUsuario getUsuariosEntity() {
         return usuariosEntity;
     }
 }

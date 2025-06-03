@@ -19,4 +19,6 @@ public interface AnexoEtapaGateways {
     List<AnexoEtapa> getAnexosByEtapaId(UUID etapaId);
 
     List<AnexoEtapa> getAnexosByEtapaIdAndTipo(UUID etapaId, String tipo);
+
+    boolean existsByEtapaAndNomeArquivo(UUID uuid, String nomeArquivo);
 }

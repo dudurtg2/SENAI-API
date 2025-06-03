@@ -83,4 +83,15 @@ public class AnexoEtapaRepository implements AnexoEtapaGateways {
                 .map(anexoEtapaMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean existsByEtapaAndNomeArquivo(UUID uuid, String nomeArquivo) {
+        var query = em.createQuery(
+                "SELECT COUNT(a) > 0 FROM AnexoEtapaEntity a WHERE a.etapa.id = :etapaId AND a.nomeArquivo = :nomeArquivo",
+                Boolean.class
+        );
+        query.setParameter("etapaId", uuid);
+        query.setParameter("nomeArquivo", nomeArquivo);
+        return query.getSingleResult();
+    }
 }

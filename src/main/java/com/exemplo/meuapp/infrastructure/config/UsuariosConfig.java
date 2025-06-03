@@ -4,6 +4,8 @@ import com.exemplo.meuapp.application.port.in.usuarios.AtualizarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.DeletarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
+import com.exemplo.meuapp.application.port.out.AlunosGateways;
+import com.exemplo.meuapp.application.port.out.ProfessoresGateways;
 import com.exemplo.meuapp.application.port.out.UsuariosGateways;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +17,10 @@ public class UsuariosConfig {
         return new CriarUsuariosUseCase(usuariosGateways);
     }
     @Bean
-    public EncontrarUsuariosUseCase encontrarUsuariosUseCase(UsuariosGateways usuariosGateways) {
-        return new EncontrarUsuariosUseCase(usuariosGateways);
+    public EncontrarUsuariosUseCase encontrarUsuariosUseCase(UsuariosGateways usuariosGateways, 
+                                                             AlunosGateways alunosGateways,
+                                                             ProfessoresGateways professoresGateways) {
+        return new EncontrarUsuariosUseCase(usuariosGateways, alunosGateways, professoresGateways);
     }
 
     @Bean

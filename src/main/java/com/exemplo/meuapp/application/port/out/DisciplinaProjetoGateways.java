@@ -17,4 +17,6 @@ public interface DisciplinaProjetoGateways {
     List<DisciplinaProjeto> getByProjeto(UUID projetoId);
 
     List<DisciplinaProjeto> getByDisciplinaAndProjeto(UUID disciplinaId, UUID projetoId);
+
+    boolean existsByDisciplinaAndProjeto(UUID uuid, UUID uuid1);
 }

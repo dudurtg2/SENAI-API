@@ -126,4 +126,20 @@ public class ProjetoRepository implements ProjetoGateways {
                 .map(projetoMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean existsByCodigo(String codigo) {
+        Long count = em.createQuery(
+                "SELECT COUNT(p) FROM ProjetoEntity p WHERE p.codigo = :codigo", Long.class
+        ).setParameter("codigo", codigo).getSingleResult();
+        return count > 0;
+    }
+
+    @Override
+    public boolean existsByTitulo(String titulo) {
+        Long count = em.createQuery(
+                "SELECT COUNT(p) FROM ProjetoEntity p WHERE LOWER(p.titulo) = LOWER(:titulo)", Long.class
+        ).setParameter("titulo", titulo).getSingleResult();
+        return count > 0;
+    }
 }

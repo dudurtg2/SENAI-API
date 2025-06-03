@@ -64,10 +64,21 @@ public class ProfessoresRepository implements ProfessoresGateways {
     @Override
     public Professores getProfessoresByUsuarioId(UUID usuarioId) {
         var list = em.createQuery(
-                        "SELECT p FROM ProfessoresEntity p WHERE p.usuarios.id = :usuarioId", ProfessoresEntity.class
-                ).setParameter("usuarioId", usuarioId)
-                .getResultList();
+                "SELECT p FROM ProfessoresEntity p WHERE p.usuarios.uuid = :usuarioId", ProfessoresEntity.class
+        ).setParameter("usuarioId", usuarioId)
+         .getResultList();
         return list.isEmpty() ? null : professoresMapper.toDomain(list.get(0));
+    }
+
+    @Override
+    public boolean existsByUsuariosId(UUID uuid) {
+        var query = em.createQuery(
+                "SELECT COUNT(p) FROM ProfessoresEntity p WHERE p.usuarios.uuid = :usuarioId",
+                Long.class
+        );
+        query.setParameter("usuarioId", uuid);
+        Long count = query.getSingleResult();
+        return count != null && count > 0;
     }
 
     @Override

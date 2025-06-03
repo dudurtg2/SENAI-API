@@ -11,6 +11,7 @@ import com.exemplo.meuapp.infrastructure.webclient.CollectEmailForTokenService;
 import com.exemplo.meuapp.presentation.dto.AuthorizationDTO;
 import com.exemplo.meuapp.presentation.dto.LoginResponseDTO;
 import com.exemplo.meuapp.presentation.dto.NovoPerfil;
+import com.exemplo.meuapp.presentation.dto.PerfilUsuario;
 import com.exemplo.meuapp.presentation.dto.TokenUpdateDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,11 +75,11 @@ public class UsuariosController {
             );
             return ResponseEntity.ok(
                     jwtTokenProvider.generateTokens(
-                            usuariosMapper.toEntity(
+                    
                                     encontrarUsuariosUseCase.buscarPorEmail(
                                             data.login()
                                     )
-                            )
+                            
                     )
             );
 
@@ -106,16 +107,16 @@ public class UsuariosController {
             return ResponseEntity.status(401).body("Refresh Token inválido ou expirado.");
         }
 
-        Usuarios user = encontrarUsuariosUseCase.buscarPorEmail(login);
+        PerfilUsuario user = encontrarUsuariosUseCase.buscarPorEmail(login);
 
         return ResponseEntity
-                .ok(new TokenUpdateDTO(jwtTokenProvider.generateAccessToken(usuariosMapper.toEntity(user))));
+                .ok(new TokenUpdateDTO(jwtTokenProvider.generateAccessToken(user)));
     }
 
     @PutMapping("/update")
     public ResponseEntity<?> update(@RequestBody NovoPerfil user, HttpServletRequest request) {
         try {
-            UUID uuid = encontrarUsuariosUseCase.buscarPorEmail(collectEmailForTokenService.execute(request)).getUuid();
+            UUID uuid = encontrarUsuariosUseCase.buscarPorEmailUser(collectEmailForTokenService.execute(request)).getUuid();
             Usuarios updatedUser = atualizarUsuariosUseCase.atualizar(uuid, usuariosMapper.toDomain(user));
             return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {

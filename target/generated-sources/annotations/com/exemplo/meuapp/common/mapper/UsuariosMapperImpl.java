@@ -2,6 +2,7 @@ package com.exemplo.meuapp.common.mapper;
 
 import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
+import com.exemplo.meuapp.presentation.dto.NovoPerfil;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -9,8 +10,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-27T00:56:33-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
+    date = "2025-06-02T20:18:50-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
 public class UsuariosMapperImpl implements UsuariosMapper {
@@ -33,6 +34,22 @@ public class UsuariosMapperImpl implements UsuariosMapper {
         usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
 
         return usuariosEntity.build();
+    }
+
+    @Override
+    public Usuarios toDomain(NovoPerfil novoPerfil) {
+        if ( novoPerfil == null ) {
+            return null;
+        }
+
+        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
+
+        usuarios.usuario( novoPerfil.usuario() );
+        usuarios.senha( novoPerfil.senha() );
+        usuarios.email( novoPerfil.email() );
+        usuarios.status( novoPerfil.status() );
+
+        return usuarios.build();
     }
 
     @Override

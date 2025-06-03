@@ -2,6 +2,7 @@ package com.exemplo.meuapp.domain.model;
 
 import com.exemplo.meuapp.domain.enums.ProjetoStatus;
 import com.exemplo.meuapp.domain.enums.Visibilidade;
+import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 import java.util.UUID;
 
@@ -35,25 +36,43 @@ public class Projeto {
 
     public Projeto correct() {
         if (titulo == null || titulo.isBlank()) {
-            throw new IllegalArgumentException("Título não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Título não pode ser nulo ou vazio");
         }
         if (descricao == null || descricao.isBlank()) {
-            throw new IllegalArgumentException("Descrição não pode ser nula ou vazia");
+            throw new DadosInvalidosException("Descrição não pode ser nula ou vazia");
         }
         if (curso == null || curso.isBlank()) {
-            throw new IllegalArgumentException("Curso não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Curso não pode ser nulo ou vazio");
         }
         if (turma == null || turma.isBlank()) {
-            throw new IllegalArgumentException("Turma não pode ser nula ou vazia");
+            throw new DadosInvalidosException("Turma não pode ser nula ou vazia");
         }
         if (unidadeCurricular == null) {
-            throw new IllegalArgumentException("Unidade Curricular não pode ser nula");
+            throw new DadosInvalidosException("Unidade Curricular não pode ser nula");
         }
         if (liderProjeto == null) {
-            throw new IllegalArgumentException("Líder do projeto não pode ser nulo");
+            throw new DadosInvalidosException("Líder do projeto não pode ser nulo");
         }
         if (status == null) {
-            throw new IllegalArgumentException("Status não pode ser nulo");
+            throw new DadosInvalidosException("Status não pode ser nulo");
+        }
+        if (getTitulo().length() > 200) {
+            throw new DadosInvalidosException("Título excede o tamanho máximo permitido.");
+        }
+        if (getDescricao().length() > 2000) {
+            throw new DadosInvalidosException("Descrição excede o tamanho máximo permitido.");
+        }
+        if (getCurso().length() > 100) {
+            throw new DadosInvalidosException("Curso excede o tamanho máximo permitido.");
+        }
+        if (getTurma().length() > 50) {
+            throw new DadosInvalidosException("Turma excede o tamanho máximo permitido.");
+        }
+        if (getBannerUrl() != null && getBannerUrl().length() > 300) {
+            throw new DadosInvalidosException("URL do banner excede o tamanho máximo permitido.");
+        }
+        if (getCodigo() != null && getCodigo().length() > 50) {
+            throw new DadosInvalidosException("Código excede o tamanho máximo permitido.");
         }
         return this;
     }

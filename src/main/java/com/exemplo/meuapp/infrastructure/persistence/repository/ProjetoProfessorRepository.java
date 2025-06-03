@@ -82,4 +82,23 @@ public class ProjetoProfessorRepository implements ProjetoProfessorGateways {
                 .map(projetoProfessorMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean existsByProjetoAndProfessor(UUID uuid, UUID uuid1) {
+        return em.createQuery(
+                "SELECT COUNT(pp) > 0 FROM ProjetoProfessorEntity pp WHERE pp.projeto.uuid = :projetoId AND pp.professor.uuid = :professorId", Boolean.class
+        )
+        .setParameter("projetoId", uuid)
+        .setParameter("professorId", uuid1)
+        .getSingleResult();
+    }
+
+    @Override
+    public boolean existsOrientadorByProjeto(UUID uuid) {
+        return em.createQuery(
+                "SELECT COUNT(pp) > 0 FROM ProjetoProfessorEntity pp WHERE pp.projeto.uuid = :projetoId AND pp.isOrientador = true", Boolean.class
+        )
+        .setParameter("projetoId", uuid)
+        .getSingleResult();
+    }
 }

@@ -2,8 +2,10 @@ package com.exemplo.meuapp.common.mapper;
 
 import com.exemplo.meuapp.domain.model.Alunos;
 import com.exemplo.meuapp.domain.model.Endereco;
+import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.persistence.entity.AlunosEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.EnderecoEntity;
+import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -11,8 +13,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-05-27T00:56:32-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
+    date = "2025-06-02T20:18:50-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
 public class AlunosMapperImpl implements AlunosMapper {
@@ -26,6 +28,7 @@ public class AlunosMapperImpl implements AlunosMapper {
         AlunosEntity.AlunosEntityBuilder alunosEntity = AlunosEntity.builder();
 
         alunosEntity.uuid( alunos.getUuid() );
+        alunosEntity.usuarios( usuariosToUsuariosEntity( alunos.getUsuarios() ) );
         alunosEntity.matricula( alunos.getMatricula() );
         alunosEntity.curso( alunos.getCurso() );
         alunosEntity.telefonePessoal( alunos.getTelefonePessoal() );
@@ -48,6 +51,7 @@ public class AlunosMapperImpl implements AlunosMapper {
         Alunos.AlunosBuilder alunos = Alunos.builder();
 
         alunos.uuid( alunosEntity.getUuid() );
+        alunos.usuarios( usuariosEntityToUsuarios( alunosEntity.getUsuarios() ) );
         alunos.matricula( alunosEntity.getMatricula() );
         alunos.curso( alunosEntity.getCurso() );
         alunos.telefonePessoal( alunosEntity.getTelefonePessoal() );
@@ -89,6 +93,25 @@ public class AlunosMapperImpl implements AlunosMapper {
         return list;
     }
 
+    protected UsuariosEntity usuariosToUsuariosEntity(Usuarios usuarios) {
+        if ( usuarios == null ) {
+            return null;
+        }
+
+        UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
+
+        usuariosEntity.uuid( usuarios.getUuid() );
+        usuariosEntity.usuario( usuarios.getUsuario() );
+        usuariosEntity.senha( usuarios.getSenha() );
+        usuariosEntity.email( usuarios.getEmail() );
+        usuariosEntity.tipo( usuarios.getTipo() );
+        usuariosEntity.status( usuarios.getStatus() );
+        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
+        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
+
+        return usuariosEntity.build();
+    }
+
     protected EnderecoEntity enderecoToEnderecoEntity(Endereco endereco) {
         if ( endereco == null ) {
             return null;
@@ -107,6 +130,25 @@ public class AlunosMapperImpl implements AlunosMapper {
         enderecoEntity.pais( endereco.getPais() );
 
         return enderecoEntity.build();
+    }
+
+    protected Usuarios usuariosEntityToUsuarios(UsuariosEntity usuariosEntity) {
+        if ( usuariosEntity == null ) {
+            return null;
+        }
+
+        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
+
+        usuarios.uuid( usuariosEntity.getUuid() );
+        usuarios.usuario( usuariosEntity.getUsuario() );
+        usuarios.senha( usuariosEntity.getSenha() );
+        usuarios.email( usuariosEntity.getEmail() );
+        usuarios.tipo( usuariosEntity.getTipo() );
+        usuarios.status( usuariosEntity.getStatus() );
+        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
+        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
+
+        return usuarios.build();
     }
 
     protected Endereco enderecoEntityToEndereco(EnderecoEntity enderecoEntity) {

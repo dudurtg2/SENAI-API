@@ -1,5 +1,6 @@
 package com.exemplo.meuapp.domain.model;
 
+import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 import java.util.UUID;
 import java.util.UUID;
@@ -24,10 +25,10 @@ public class Disciplina {
 
     public Disciplina correct() {
         if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Nome não pode ser nulo ou vazio");
         }
         if (professor == null) {
-            throw new IllegalArgumentException("Professor não pode ser nulo");
+            throw new DadosInvalidosException("Professor não pode ser nulo");
         }
         return this;
     }

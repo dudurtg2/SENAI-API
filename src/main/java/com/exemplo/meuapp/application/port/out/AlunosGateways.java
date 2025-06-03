@@ -22,7 +22,11 @@ public interface AlunosGateways {
     List<Alunos> getAlunosByStatus(UsuariosStatus status);
 
     List<Alunos> getAllAlunos();
-    
-    
 
+    Alunos getAlunosByUsuarioId(UUID usuarioId);
+
+
+    boolean existsByEmail(String email);
+
+    boolean existsByMatricula(String matricula);
 }
