@@ -81,4 +81,13 @@ public class UnidadeCurricularRepository implements UnidadeCurricularGateways {
                 .map(unidadeCurricularMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean existsByNome(String nome) {
+        var count = em.createQuery(
+                "SELECT COUNT(u) FROM UnidadeCurricularEntity u WHERE LOWER(u.nome) = LOWER(:nome)", Long.class
+        ).setParameter("nome", nome)
+         .getSingleResult();
+        return count > 0;
+    }
 }

@@ -2,6 +2,7 @@ package com.exemplo.meuapp.domain.model;
 import java.util.UUID;
 
 import com.exemplo.meuapp.domain.enums.TipoAnexo;
+import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -22,19 +23,19 @@ public class AnexoEtapa {
 
     public AnexoEtapa correct() {
         if (etapa == null) {
-            throw new IllegalArgumentException("O campo etapa deve ser preenchido");
+            throw new DadosInvalidosException("O campo etapa deve ser preenchido");
         }
         if (nomeArquivo == null || nomeArquivo.isBlank()) {
-            throw new IllegalArgumentException("O campo nomeArquivo deve ser preenchido");
+            throw new DadosInvalidosException("O campo nomeArquivo deve ser preenchido");
         }
         if (url == null || url.isBlank()) {
-            throw new IllegalArgumentException("O campo url deve ser preenchido");
+            throw new DadosInvalidosException("O campo url deve ser preenchido");
         }
         if (tipo == null) {
-            throw new IllegalArgumentException("O campo tipo deve ser preenchido");
+            throw new DadosInvalidosException("O campo tipo deve ser preenchido");
         }
         if (dataUpload == null) {
-            throw new IllegalArgumentException("O campo dataUpload deve ser preenchido");
+            throw new DadosInvalidosException("O campo dataUpload deve ser preenchido");
         }
         return this;
     }

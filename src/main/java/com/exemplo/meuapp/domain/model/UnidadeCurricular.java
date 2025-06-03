@@ -1,5 +1,6 @@
 package com.exemplo.meuapp.domain.model;
 
+import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 import java.util.UUID;
 
@@ -22,13 +23,23 @@ public class UnidadeCurricular {
 
     public UnidadeCurricular correct() {
         if (nome == null || nome.isBlank()) {
-            throw new IllegalArgumentException("Nome não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Nome não pode ser nulo ou vazio");
         }
         if (descricao == null || descricao.isBlank()) {
-            throw new IllegalArgumentException("Descrição não pode ser nula ou vazia");
+            throw new DadosInvalidosException("Descrição não pode ser nula ou vazia");
         }
         if (cargaHoraria == null || cargaHoraria.isBlank()) {
-            throw new IllegalArgumentException("Carga horária não pode ser nula ou vazia");
+            throw new DadosInvalidosException("Carga horária não pode ser nula ou vazia");
+        }
+
+        if (nome.length() > 200) {
+            throw new DadosInvalidosException("Nome excede o tamanho máximo permitido.");
+        }
+        if (descricao.length() > 1000) {
+            throw new DadosInvalidosException("Descrição excede o tamanho máximo permitido.");
+        }
+        if (cargaHoraria.length() > 20) {
+            throw new DadosInvalidosException("Carga horária excede o tamanho máximo permitido.");
         }
         return this;
     }

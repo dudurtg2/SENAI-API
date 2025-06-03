@@ -82,4 +82,26 @@ public class EtapasProjetoRepository implements EtapasProjetoGateways {
                 .map(etapasProjetoMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean existsByProjetoAndNomeEtapa(UUID uuid, String nomeEtapa) {
+        var query = em.createQuery(
+                "SELECT COUNT(e) > 0 FROM EtapasProjetoEntity e WHERE e.projeto.id = :projetoId AND e.nomeEtapa = :nomeEtapa",
+                Boolean.class
+        );
+        query.setParameter("projetoId", uuid);
+        query.setParameter("nomeEtapa", nomeEtapa);
+        return query.getSingleResult();
+    }
+
+    @Override
+    public boolean existsByProjetoAndOrdem(UUID uuid, int ordem) {
+        var query = em.createQuery(
+                "SELECT COUNT(e) > 0 FROM EtapasProjetoEntity e WHERE e.projeto.id = :projetoId AND e.ordem = :ordem",
+                Boolean.class
+        );
+        query.setParameter("projetoId", uuid);
+        query.setParameter("ordem", ordem);
+        return query.getSingleResult();
+    }
 }

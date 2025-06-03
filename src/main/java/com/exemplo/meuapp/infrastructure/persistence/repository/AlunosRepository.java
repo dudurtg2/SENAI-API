@@ -5,12 +5,11 @@ import com.exemplo.meuapp.common.mapper.AlunosMapper;
 import com.exemplo.meuapp.domain.enums.UsuariosStatus;
 import com.exemplo.meuapp.domain.model.Alunos;
 
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -38,14 +37,14 @@ public class AlunosRepository implements AlunosGateways {
     @Override
     public Alunos getAlunosByEmail(String email) {
         var query = em.createQuery(
-          "SELECT a FROM AlunosEntity a WHERE a.email = :email",
-          AlunosEntity.class
+                "SELECT a FROM AlunosEntity a WHERE a.usuarios.email = :email",
+                AlunosEntity.class
         );
         query.setParameter("email", email);
         return query.getResultStream()
-                    .findFirst()
-                    .map(mapper::toDomain)
-                    .orElse(null);
+                .findFirst()
+                .map(mapper::toDomain)
+                .orElse(null);
     }
 
     @Override
@@ -72,49 +71,72 @@ public class AlunosRepository implements AlunosGateways {
     @Override
     public Alunos getAlunosByMatricula(String matricula) {
         var query = em.createQuery(
-          "SELECT a FROM AlunosEntity a WHERE a.matricula = :mat",
-          AlunosEntity.class
+                "SELECT a FROM AlunosEntity a WHERE a.matricula = :mat",
+                AlunosEntity.class
         );
         query.setParameter("mat", matricula);
         return query.getResultStream()
-                    .findFirst()
-                    .map(mapper::toDomain)
-                    .orElse(null);
+                .findFirst()
+                .map(mapper::toDomain)
+                .orElse(null);
     }
 
     @Override
     public List<Alunos> getAlunosByStatus(UsuariosStatus status) {
         var query = em.createQuery(
-          "SELECT a FROM AlunosEntity a WHERE a.status = :st",
-          AlunosEntity.class
+                "SELECT a FROM AlunosEntity a WHERE a.status = :st",
+                AlunosEntity.class
         );
         query.setParameter("st", status);
         return query.getResultList()
-                    .stream()
-                    .map(mapper::toDomain)
-                    .toList();
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
     }
 
     @Override
     public List<Alunos> getAllAlunos() {
         var list = em.createQuery(
-          "SELECT a FROM AlunosEntity a", AlunosEntity.class
+                "SELECT a FROM AlunosEntity a", AlunosEntity.class
         ).getResultList();
         return list.stream()
-                   .map(mapper::toDomain)
-                   .toList();
+                .map(mapper::toDomain)
+                .toList();
     }
 
     @Override
     public Alunos getAlunosByUsuarioId(UUID usuarioId) {
         var query = em.createQuery(
-          "SELECT a FROM AlunosEntity a WHERE a.usuarios.uuid = :uid",
-          AlunosEntity.class
+                "SELECT a FROM AlunosEntity a WHERE a.usuarios.uuid = :uid",
+                AlunosEntity.class
         );
         query.setParameter("uid", usuarioId);
         return query.getResultStream()
-                    .findFirst()
-                    .map(mapper::toDomain)
-                    .orElse(null);
+                .findFirst()
+                .map(mapper::toDomain)
+                .orElse(null);
     }
+
+    @Override
+    public boolean existsByEmail(String email) {
+        var query = em.createQuery(
+                "SELECT COUNT(a) FROM AlunosEntity a WHERE a.usuarios.email = :email",
+                Long.class
+        );
+        query.setParameter("email", email);
+        Long count = query.getSingleResult();
+        return count != null && count > 0;
+    }
+
+    @Override
+    public boolean existsByMatricula(String matricula) {
+        var query = em.createQuery(
+                "SELECT COUNT(a) FROM AlunosEntity a WHERE a.matricula = :matricula",
+                Long.class
+        );
+        query.setParameter("matricula", matricula);
+        Long count = query.getSingleResult();
+        return count != null && count > 0;
+    }
+
 }

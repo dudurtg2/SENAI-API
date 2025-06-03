@@ -81,4 +81,18 @@ public class ProjetoAlunoRepository implements ProjetoAlunoGateways {
                 .map(projetoAlunoMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    public boolean existsByProjetoAndAluno(UUID uuid, UUID uuid1) {
+        Long count = em.createQuery(
+                "SELECT COUNT(pa) FROM ProjetoAlunoEntity pa WHERE pa.projeto.id = :projetoId AND pa.aluno.id = :alunoId", Long.class
+        )
+        .setParameter("projetoId", uuid)
+        .setParameter("alunoId", uuid1)
+        .getSingleResult();
+
+        return count > 0;
+    }
+
+
 }

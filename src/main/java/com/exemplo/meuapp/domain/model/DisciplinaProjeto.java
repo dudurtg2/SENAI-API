@@ -1,5 +1,6 @@
 package com.exemplo.meuapp.domain.model;
 
+import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 import java.util.UUID;
 
@@ -17,10 +18,10 @@ public class DisciplinaProjeto {
 
     public DisciplinaProjeto correct() {
         if (disciplina == null) {
-            throw new IllegalArgumentException("Disciplina não pode ser nula");
+            throw new DadosInvalidosException("Disciplina não pode ser nula");
         }
         if (projeto == null) {
-            throw new IllegalArgumentException("Projeto não pode ser nulo");
+            throw new DadosInvalidosException("Projeto não pode ser nulo");
         }
         return this;
     }

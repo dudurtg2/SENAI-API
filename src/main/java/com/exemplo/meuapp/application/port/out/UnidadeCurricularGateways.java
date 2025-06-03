@@ -13,4 +13,6 @@ public interface UnidadeCurricularGateways {
      List<UnidadeCurricular> getAllUnidadesCurriculares();
      List<UnidadeCurricular> getUnidadeCurricularByNome(String nome);
      List<UnidadeCurricular> getUnidadeCurricularByCargaHoraria(String cargaHoraria);
+
+     boolean existsByNome(String nome);
 }

@@ -13,4 +13,6 @@ public interface ProjetoAlunoGateways {
      List<ProjetoAluno> getAllProjetosAlunos();
      List<ProjetoAluno> getProjetosAlunosByProjeto(UUID projetoId);
      List<ProjetoAluno> getProjetosAlunosByAluno(UUID alunoId);
+
+    boolean existsByProjetoAndAluno(UUID uuid, UUID uuid1);
 }

@@ -1,6 +1,7 @@
 package com.exemplo.meuapp.domain.model;
 
 import com.exemplo.meuapp.domain.enums.UsuariosStatus;
+import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 import java.util.UUID;
 
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 public class Professores {
 
     private UUID uuid;
-    private Usuarios usuariosId;
+    private Usuarios usuarios;
     
     private String especialidade;
     private String departamento;
@@ -29,24 +30,34 @@ public class Professores {
     private LocalDateTime atualizadoEm;
 
     public Professores correct() {
-        if (usuariosId == null) {
-            throw new IllegalArgumentException("Usuário não pode ser nulo");
+        if (usuarios == null) {
+            throw new DadosInvalidosException("Usuário não pode ser nulo");
         }
         if (especialidade == null || especialidade.isBlank()) {
-            throw new IllegalArgumentException("Especialidade não pode ser nula ou vazia");
+            throw new DadosInvalidosException("Especialidade não pode ser nula ou vazia");
         }
         if (departamento == null || departamento.isBlank()) {
-            throw new IllegalArgumentException("Departamento não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Departamento não pode ser nulo ou vazio");
         }
         if (telefoneProfissional == null || telefoneProfissional.isBlank()) {
-            throw new IllegalArgumentException("Telefone profissional não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Telefone profissional não pode ser nulo ou vazio");
         }
         if (endereco == null) {
-            throw new IllegalArgumentException("Endereço não pode ser nulo");
+            throw new DadosInvalidosException("Endereço não pode ser nulo");
         }
         if (status == null) {
-            throw new IllegalArgumentException("Status não pode ser nulo");
+            throw new DadosInvalidosException("Status não pode ser nulo");
         }
+        if (especialidade.length() > 100) {
+            throw new DadosInvalidosException("Especialidade excede o tamanho máximo permitido.");
+        }
+        if (departamento.length() > 100) {
+            throw new DadosInvalidosException("Departamento excede o tamanho máximo permitido.");
+        }
+        if (linkedin != null && linkedin.length() > 200) {
+            throw new DadosInvalidosException("Linkedin excede o tamanho máximo permitido.");
+        }
+
         return this;
     }
 }

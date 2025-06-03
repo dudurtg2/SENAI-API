@@ -83,4 +83,14 @@ public class DisciplinaRepository implements DisciplinaGateways {
                 .toList();
     }
 
+    @Override
+    public boolean existsByNome(String nome) {
+        var query = em.createQuery(
+                "SELECT COUNT(d) FROM DisciplinaEntity d WHERE LOWER(d.nome) = LOWER(:nome)", Long.class
+        );
+        query.setParameter("nome", nome);
+        Long count = query.getSingleResult();
+        return count > 0;
+    }
+
 }

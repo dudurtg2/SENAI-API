@@ -14,4 +14,6 @@ public interface ProfessoresGateways {
      Professores getProfessoresByUsuarioId(UUID usuarioId);
      List<Professores> getProfessoresByDepartamento(String departamento);
      List<Professores> getProfessoresByStatus(String status);
+
+    boolean existsByUsuariosId(UUID uuid);
 }

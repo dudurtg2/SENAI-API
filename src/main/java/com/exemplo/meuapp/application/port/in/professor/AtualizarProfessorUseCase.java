@@ -1,13 +1,14 @@
 package com.exemplo.meuapp.application.port.in.professor;
 
 import com.exemplo.meuapp.application.port.out.ProfessoresGateways;
+import com.exemplo.meuapp.domain.exception.RegraDeNegocioException;
 import com.exemplo.meuapp.domain.model.Professores;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class AtualizarProfessorUseCase {
-    private ProfessoresGateways professoresGateways;
+    private final ProfessoresGateways professoresGateways;
 
     public AtualizarProfessorUseCase(ProfessoresGateways professoresGateways) {
         this.professoresGateways = professoresGateways;
@@ -15,8 +16,18 @@ public class AtualizarProfessorUseCase {
 
     public Professores atualizar(UUID uuid, Professores professor) {
         Professores professorInDb = professoresGateways.getProfessoresById(uuid);
+        if (professorInDb == null) {
+            throw new RegraDeNegocioException("Professor não encontrado.");
+        }
 
-        professorInDb.setUsuariosId(professor.getUsuariosId());
+        professor.correct();
+
+        if (!professorInDb.getUsuarios().equals(professor.getUsuarios()) &&
+                professoresGateways.existsByUsuariosId(professor.getUsuarios().getUuid())) {
+            throw new RegraDeNegocioException("Já existe um professor vinculado a este usuário.");
+        }
+
+        professorInDb.setUsuarios(professor.getUsuarios());
         professorInDb.setEspecialidade(professor.getEspecialidade());
         professorInDb.setDepartamento(professor.getDepartamento());
         professorInDb.setTelefonePessoal(professor.getTelefonePessoal());

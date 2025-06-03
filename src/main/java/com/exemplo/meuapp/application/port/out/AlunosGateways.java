@@ -24,7 +24,9 @@ public interface AlunosGateways {
     List<Alunos> getAllAlunos();
 
     Alunos getAlunosByUsuarioId(UUID usuarioId);
-    
-    
 
+
+    boolean existsByEmail(String email);
+
+    boolean existsByMatricula(String matricula);
 }

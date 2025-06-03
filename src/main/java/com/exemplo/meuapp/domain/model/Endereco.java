@@ -1,5 +1,6 @@
 package com.exemplo.meuapp.domain.model;
 
+import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 import java.util.UUID;
 
@@ -23,25 +24,25 @@ public class Endereco {
 
     public Endereco correct() {
         if (cep == null || cep.isBlank()) {
-            throw new IllegalArgumentException("CEP não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("CEP não pode ser nulo ou vazio");
         }
         if (logradouro == null || logradouro.isBlank()) {
-            throw new IllegalArgumentException("Logradouro não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Logradouro não pode ser nulo ou vazio");
         }
         if (numero <= 0) {
-            throw new IllegalArgumentException("Número deve ser maior que zero");
+            throw new DadosInvalidosException("Número deve ser maior que zero");
         }
         if (bairro == null || bairro.isBlank()) {
-            throw new IllegalArgumentException("Bairro não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Bairro não pode ser nulo ou vazio");
         }
         if (cidade == null || cidade.isBlank()) {
-            throw new IllegalArgumentException("Cidade não pode ser nula ou vazia");
+            throw new DadosInvalidosException("Cidade não pode ser nula ou vazia");
         }
         if (estado == null || estado.isBlank()) {
-            throw new IllegalArgumentException("Estado não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("Estado não pode ser nulo ou vazio");
         }
         if (pais == null || pais.isBlank()) {
-            throw new IllegalArgumentException("País não pode ser nulo ou vazio");
+            throw new DadosInvalidosException("País não pode ser nulo ou vazio");
         }
         return this;
     }

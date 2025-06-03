@@ -1,5 +1,6 @@
 package com.exemplo.meuapp.domain.model;
 
+import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 import java.util.UUID;
 
@@ -17,10 +18,10 @@ public class ProjetoAluno {
 
     public ProjetoAluno correct() {
         if (projeto == null) {
-            throw new IllegalArgumentException("Projeto não pode ser nulo");
+            throw new DadosInvalidosException("Projeto não pode ser nulo");
         }
         if (aluno == null) {
-            throw new IllegalArgumentException("Aluno não pode ser nulo");
+            throw new DadosInvalidosException("Aluno não pode ser nulo");
         }
         return this;
     }

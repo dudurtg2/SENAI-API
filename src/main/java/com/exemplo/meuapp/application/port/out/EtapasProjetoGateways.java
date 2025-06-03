@@ -14,4 +14,7 @@ public interface EtapasProjetoGateways {
      List<EtapasProjeto> getEtapasByProjetoId(UUID projetoId);
      List<EtapasProjeto> getEtapasByStatus(String status);
 
+    boolean existsByProjetoAndNomeEtapa(UUID uuid, String nomeEtapa);
+
+     boolean existsByProjetoAndOrdem(UUID uuid, int ordem);
 }

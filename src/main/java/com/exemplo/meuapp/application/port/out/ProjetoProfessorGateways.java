@@ -13,4 +13,8 @@ public interface ProjetoProfessorGateways {
      List<ProjetoProfessor> getAllProjetosProfessores();
      List<ProjetoProfessor> getByProjeto(UUID projetoId);
      List<ProjetoProfessor> getByProfessor(UUID professorId);
+
+    boolean existsByProjetoAndProfessor(UUID uuid, UUID uuid1);
+
+     boolean existsOrientadorByProjeto(UUID uuid);
 }

@@ -27,4 +27,8 @@ public interface ProjetoGateways {
     List<Projeto> getProjetosByLider(UUID liderProjetoId);
 
     List<Projeto> getProjetosByUnidadeCurricular(UUID unidadeCurricularId);
+
+    boolean existsByCodigo(String codigo);
+
+    boolean existsByTitulo(String titulo);
 }
