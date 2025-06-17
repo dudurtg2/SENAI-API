@@ -2,20 +2,20 @@ package com.exemplo.meuapp.common.mapper;
 
 import java.util.List;
 
-import com.exemplo.meuapp.domain.model.AnexoEtapa;
+import com.exemplo.meuapp.domain.model.Anexo;
 
 import org.mapstruct.Mapper;
 
-import com.exemplo.meuapp.infrastructure.persistence.entity.AnexoEtapaEntity;
+import com.exemplo.meuapp.infrastructure.persistence.entity.AnexoEntity;
 
 @Mapper(componentModel = "spring")
 public interface AnexoEtapaMapper {
 
-    AnexoEtapaEntity toEntity(AnexoEtapa aluno);
+    AnexoEntity toEntity(Anexo aluno);
 
-    AnexoEtapa toDomain(AnexoEtapaEntity alunoEntity);
+    Anexo toDomain(AnexoEntity alunoEntity);
 
-    List<AnexoEtapa> toDomain(List<AnexoEtapaEntity> AnexoEtapaEntities);
+    List<Anexo> toDomain(List<AnexoEntity> AnexoEtapaEntities);
 
-    List<AnexoEtapaEntity> toEntity(List<AnexoEtapa> AnexoEtapa);
+    List<AnexoEntity> toEntity(List<Anexo> Anexo);
 }

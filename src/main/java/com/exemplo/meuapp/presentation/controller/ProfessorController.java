@@ -3,9 +3,13 @@ package com.exemplo.meuapp.presentation.controller;
 import com.exemplo.meuapp.application.port.in.professor.AtualizarProfessorUseCase;
 import com.exemplo.meuapp.application.port.in.professor.DeletarProfessorUseCase;
 import com.exemplo.meuapp.application.port.in.professor.EncontrarProfessorUseCase;
+import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
 import com.exemplo.meuapp.common.mapper.ProfessoresMapper;
 import com.exemplo.meuapp.domain.model.Professores;
+import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.persistence.entity.ProfessoresEntity;
+import com.exemplo.meuapp.infrastructure.webclient.CollectEmailForTokenService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -27,25 +31,32 @@ public class ProfessorController {
     private EncontrarProfessorUseCase encontrarProfessorUseCase;
     private DeletarProfessorUseCase deletarProfessorUseCase;
     private AtualizarProfessorUseCase atualizarProfessorUseCase;
+    private EncontrarUsuariosUseCase encontrarUsuariosUseCase;
+    private CollectEmailForTokenService collectEmailForTokenService;
 
     @Autowired
     public ProfessorController(
             @Qualifier("professoresMapperImpl")ProfessoresMapper mapper,
             CriarProfessorUseCase criarProfessorUseCase,
+            EncontrarUsuariosUseCase encontrarUsuariosUseCase,
+            CollectEmailForTokenService collectEmailForTokenService,
             EncontrarProfessorUseCase encontrarProfessorUseCase,
             DeletarProfessorUseCase deletarProfessorUseCase,
             AtualizarProfessorUseCase atualizarProfessorUseCase) {
         this.mapper = mapper;
+        this.collectEmailForTokenService = collectEmailForTokenService;
         this.criarProfessorUseCase = criarProfessorUseCase;
+        this.encontrarUsuariosUseCase = encontrarUsuariosUseCase;
         this.encontrarProfessorUseCase = encontrarProfessorUseCase;
         this.deletarProfessorUseCase = deletarProfessorUseCase;
         this.atualizarProfessorUseCase = atualizarProfessorUseCase;
     }
 
     @PostMapping("/create")
-    ResponseEntity<?> create(@RequestBody Professores request) {
+    ResponseEntity<?> create(@RequestBody Professores request, HttpServletRequest httpServletRequest) {
         try {
-
+            request.setUsuarios(encontrarUsuariosUseCase.buscarPorEmailUser(
+                    collectEmailForTokenService.execute(httpServletRequest)));
             Professores professor = criarProfessorUseCase.criar(request);
             ProfessoresEntity response = mapper.toEntity(professor);
 

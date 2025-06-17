@@ -2,8 +2,10 @@ package com.exemplo.meuapp.common.mapper;
 
 import com.exemplo.meuapp.domain.model.Endereco;
 import com.exemplo.meuapp.domain.model.Professores;
+import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.persistence.entity.EnderecoEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.ProfessoresEntity;
+import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -11,64 +13,66 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-02T20:18:50-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
+    date = "2025-06-17T00:16:17-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
 )
 @Component
 public class ProfessoresMapperImpl implements ProfessoresMapper {
 
     @Override
-    public ProfessoresEntity toEntity(Professores aluno) {
-        if ( aluno == null ) {
+    public ProfessoresEntity toEntity(Professores professores) {
+        if ( professores == null ) {
             return null;
         }
 
         ProfessoresEntity.ProfessoresEntityBuilder professoresEntity = ProfessoresEntity.builder();
 
-        professoresEntity.uuid( aluno.getUuid() );
-        professoresEntity.especialidade( aluno.getEspecialidade() );
-        professoresEntity.departamento( aluno.getDepartamento() );
-        professoresEntity.telefonePessoal( aluno.getTelefonePessoal() );
-        professoresEntity.telefoneProfissional( aluno.getTelefoneProfissional() );
-        professoresEntity.linkedin( aluno.getLinkedin() );
-        professoresEntity.endereco( enderecoToEnderecoEntity( aluno.getEndereco() ) );
-        professoresEntity.status( aluno.getStatus() );
-        professoresEntity.criadoEm( aluno.getCriadoEm() );
-        professoresEntity.atualizadoEm( aluno.getAtualizadoEm() );
+        professoresEntity.uuid( professores.getUuid() );
+        professoresEntity.usuarios( usuariosToUsuariosEntity( professores.getUsuarios() ) );
+        professoresEntity.especialidade( professores.getEspecialidade() );
+        professoresEntity.departamento( professores.getDepartamento() );
+        professoresEntity.telefonePessoal( professores.getTelefonePessoal() );
+        professoresEntity.telefoneProfissional( professores.getTelefoneProfissional() );
+        professoresEntity.linkedin( professores.getLinkedin() );
+        professoresEntity.endereco( enderecoToEnderecoEntity( professores.getEndereco() ) );
+        professoresEntity.status( professores.getStatus() );
+        professoresEntity.criadoEm( professores.getCriadoEm() );
+        professoresEntity.atualizadoEm( professores.getAtualizadoEm() );
 
         return professoresEntity.build();
     }
 
     @Override
-    public Professores toDomain(ProfessoresEntity alunoEntity) {
-        if ( alunoEntity == null ) {
+    public Professores toDomain(ProfessoresEntity professoresEntity) {
+        if ( professoresEntity == null ) {
             return null;
         }
 
         Professores.ProfessoresBuilder professores = Professores.builder();
 
-        professores.uuid( alunoEntity.getUuid() );
-        professores.especialidade( alunoEntity.getEspecialidade() );
-        professores.departamento( alunoEntity.getDepartamento() );
-        professores.telefonePessoal( alunoEntity.getTelefonePessoal() );
-        professores.telefoneProfissional( alunoEntity.getTelefoneProfissional() );
-        professores.linkedin( alunoEntity.getLinkedin() );
-        professores.endereco( enderecoEntityToEndereco( alunoEntity.getEndereco() ) );
-        professores.status( alunoEntity.getStatus() );
-        professores.criadoEm( alunoEntity.getCriadoEm() );
-        professores.atualizadoEm( alunoEntity.getAtualizadoEm() );
+        professores.uuid( professoresEntity.getUuid() );
+        professores.usuarios( usuariosEntityToUsuarios( professoresEntity.getUsuarios() ) );
+        professores.especialidade( professoresEntity.getEspecialidade() );
+        professores.departamento( professoresEntity.getDepartamento() );
+        professores.telefonePessoal( professoresEntity.getTelefonePessoal() );
+        professores.telefoneProfissional( professoresEntity.getTelefoneProfissional() );
+        professores.linkedin( professoresEntity.getLinkedin() );
+        professores.endereco( enderecoEntityToEndereco( professoresEntity.getEndereco() ) );
+        professores.status( professoresEntity.getStatus() );
+        professores.criadoEm( professoresEntity.getCriadoEm() );
+        professores.atualizadoEm( professoresEntity.getAtualizadoEm() );
 
         return professores.build();
     }
 
     @Override
-    public List<Professores> toDomain(List<ProfessoresEntity> ProfessoresEntities) {
-        if ( ProfessoresEntities == null ) {
+    public List<Professores> toDomain(List<ProfessoresEntity> professoresEntityList) {
+        if ( professoresEntityList == null ) {
             return null;
         }
 
-        List<Professores> list = new ArrayList<Professores>( ProfessoresEntities.size() );
-        for ( ProfessoresEntity professoresEntity : ProfessoresEntities ) {
+        List<Professores> list = new ArrayList<Professores>( professoresEntityList.size() );
+        for ( ProfessoresEntity professoresEntity : professoresEntityList ) {
             list.add( toDomain( professoresEntity ) );
         }
 
@@ -76,17 +80,36 @@ public class ProfessoresMapperImpl implements ProfessoresMapper {
     }
 
     @Override
-    public List<ProfessoresEntity> toEntity(List<Professores> Professores) {
-        if ( Professores == null ) {
+    public List<ProfessoresEntity> toEntity(List<Professores> professoresList) {
+        if ( professoresList == null ) {
             return null;
         }
 
-        List<ProfessoresEntity> list = new ArrayList<ProfessoresEntity>( Professores.size() );
-        for ( Professores professores : Professores ) {
+        List<ProfessoresEntity> list = new ArrayList<ProfessoresEntity>( professoresList.size() );
+        for ( Professores professores : professoresList ) {
             list.add( toEntity( professores ) );
         }
 
         return list;
+    }
+
+    protected UsuariosEntity usuariosToUsuariosEntity(Usuarios usuarios) {
+        if ( usuarios == null ) {
+            return null;
+        }
+
+        UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
+
+        usuariosEntity.uuid( usuarios.getUuid() );
+        usuariosEntity.usuario( usuarios.getUsuario() );
+        usuariosEntity.senha( usuarios.getSenha() );
+        usuariosEntity.email( usuarios.getEmail() );
+        usuariosEntity.tipo( usuarios.getTipo() );
+        usuariosEntity.status( usuarios.getStatus() );
+        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
+        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
+
+        return usuariosEntity.build();
     }
 
     protected EnderecoEntity enderecoToEnderecoEntity(Endereco endereco) {
@@ -107,6 +130,25 @@ public class ProfessoresMapperImpl implements ProfessoresMapper {
         enderecoEntity.pais( endereco.getPais() );
 
         return enderecoEntity.build();
+    }
+
+    protected Usuarios usuariosEntityToUsuarios(UsuariosEntity usuariosEntity) {
+        if ( usuariosEntity == null ) {
+            return null;
+        }
+
+        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
+
+        usuarios.uuid( usuariosEntity.getUuid() );
+        usuarios.usuario( usuariosEntity.getUsuario() );
+        usuarios.senha( usuariosEntity.getSenha() );
+        usuarios.email( usuariosEntity.getEmail() );
+        usuarios.tipo( usuariosEntity.getTipo() );
+        usuarios.status( usuariosEntity.getStatus() );
+        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
+        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
+
+        return usuarios.build();
     }
 
     protected Endereco enderecoEntityToEndereco(EnderecoEntity enderecoEntity) {

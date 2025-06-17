@@ -3,7 +3,7 @@ package com.exemplo.meuapp.application.port.in.anexoEtapa;
     import com.exemplo.meuapp.application.port.out.AnexoEtapaGateways;
     import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
     import com.exemplo.meuapp.domain.exception.RegraDeNegocioException;
-    import com.exemplo.meuapp.domain.model.AnexoEtapa;
+    import com.exemplo.meuapp.domain.model.Anexo;
 
     import java.time.LocalDateTime;
     import java.util.UUID;
@@ -15,33 +15,33 @@ package com.exemplo.meuapp.application.port.in.anexoEtapa;
             this.anexoEtapaGateways = anexoEtapaGateways;
         }
 
-        public AnexoEtapa atualizar(UUID uuid, AnexoEtapa anexoEtapa) {
-            AnexoEtapa anexoEtapaInDb = anexoEtapaGateways.getAnexoEtapa(uuid);
-            if (anexoEtapaInDb == null) {
+        public Anexo atualizar(UUID uuid, Anexo anexo) {
+            Anexo anexoInDb = anexoEtapaGateways.getAnexoEtapa(uuid);
+            if (anexoInDb == null) {
                 throw new RegraDeNegocioException("Anexo não encontrado.");
             }
 
-            anexoEtapa.correct();
+            anexo.correct();
 
-            if (!anexoEtapaInDb.getNomeArquivo().equals(anexoEtapa.getNomeArquivo()) &&
-                    anexoEtapaGateways.existsByEtapaAndNomeArquivo(anexoEtapa.getEtapa().getUuid(),anexoEtapa.getNomeArquivo())) {
+            if (!anexoInDb.getNomeArquivo().equals(anexo.getNomeArquivo()) &&
+                    anexoEtapaGateways.existsByEtapaAndNomeArquivo(anexo.getEtapa().getUuid(), anexo.getNomeArquivo())) {
                 throw new RegraDeNegocioException("Já existe um anexo com este nome para a etapa.");
             }
 
-            if (anexoEtapa.getUrl() == null || !anexoEtapa.getUrl().startsWith("https://")) {
+            if (anexo.getUrl() == null || !anexo.getUrl().startsWith("https://")) {
                 throw new DadosInvalidosException("URL do anexo deve começar com https://");
             }
 
-            if (anexoEtapa.getDataUpload() != null && anexoEtapa.getDataUpload().isAfter(LocalDateTime.now())) {
+            if (anexo.getDataUpload() != null && anexo.getDataUpload().isAfter(LocalDateTime.now())) {
                 throw new RegraDeNegocioException("Data de upload não pode ser futura.");
             }
 
-            anexoEtapaInDb.setEtapa(anexoEtapa.getEtapa());
-            anexoEtapaInDb.setNomeArquivo(anexoEtapa.getNomeArquivo());
-            anexoEtapaInDb.setUrl(anexoEtapa.getUrl());
-            anexoEtapaInDb.setTipo(anexoEtapa.getTipo());
-            anexoEtapaInDb.setDataUpload(LocalDateTime.now());
+            anexoInDb.setEtapa(anexo.getEtapa());
+            anexoInDb.setNomeArquivo(anexo.getNomeArquivo());
+            anexoInDb.setUrl(anexo.getUrl());
+            anexoInDb.setTipo(anexo.getTipo());
+            anexoInDb.setDataUpload(LocalDateTime.now());
 
-            return anexoEtapaGateways.update(anexoEtapaInDb);
+            return anexoEtapaGateways.update(anexoInDb);
         }
     }

@@ -29,6 +29,9 @@ public class EncontrarProfessorUseCase {
     public List<Professores> buscarPorDepartamento(String departamento) {
         return professoresGateways.getProfessoresByDepartamento(departamento);
     }
+    public Professores buscarPorEmail(String email) {
+        return professoresGateways.getProfessorByEmail(email);
+    }
 
     public List<Professores> buscarPorStatus(String status) {
         return professoresGateways.getProfessoresByStatus(status);

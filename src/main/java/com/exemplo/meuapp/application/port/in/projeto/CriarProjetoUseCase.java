@@ -30,8 +30,8 @@ package com.exemplo.meuapp.application.port.in.projeto;
                 }
             }
 
-            if (projeto.getLiderProjeto() != null && projeto.getLiderProjeto().getStatus() != null
-                    && !projeto.getLiderProjeto().getStatus().name().equals("ATIVO")) {
+            if (projeto.getLider() != null && projeto.getLider().getStatus() != null
+                    && !projeto.getLider().getStatus().name().equals("ATIVO")) {
                 throw new RegraDeNegocioException("Líder do projeto está inativo.");
             }
 

@@ -36,19 +36,16 @@ public class AtualizarProjetoUseCase {
 
         projetoInDb.setTitulo(projeto.getTitulo());
         projetoInDb.setDescricao(projeto.getDescricao());
-        projetoInDb.setCurso(projeto.getCurso());
         projetoInDb.setTurma(projeto.getTurma());
         projetoInDb.setLabMaker(projeto.isLabMaker());
         projetoInDb.setParticipouSaga(projeto.isParticipouSaga());
         projetoInDb.setItinerario(projeto.isItinerario());
-        projetoInDb.setUnidadeCurricular(projeto.getUnidadeCurricular());
-        projetoInDb.setLiderProjeto(projeto.getLiderProjeto());
+        projetoInDb.setLider(projeto.getLider());
         projetoInDb.setBannerUrl(projeto.getBannerUrl());
         projetoInDb.setCodigo(projeto.getCodigo());
-        projetoInDb.setVisibilidadeCodigo(projeto.getVisibilidadeCodigo());
-        projetoInDb.setVisibilidadeAnexos(projeto.getVisibilidadeAnexos());
         projetoInDb.setStatus(projeto.getStatus());
         projetoInDb.setAtualizadoEm(LocalDateTime.now());
+        projetoInDb.setDisciplina(projeto.getDisciplina());
         return projetoGateways.update(projetoInDb);
     }
 }

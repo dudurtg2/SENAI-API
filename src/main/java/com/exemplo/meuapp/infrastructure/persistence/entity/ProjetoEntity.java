@@ -1,21 +1,14 @@
 package com.exemplo.meuapp.infrastructure.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import com.exemplo.meuapp.domain.enums.ProjetoStatus;
 import com.exemplo.meuapp.domain.enums.Visibilidade;
+import com.exemplo.meuapp.domain.model.Disciplina;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,7 +23,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class ProjetoEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "uuid")
@@ -41,9 +33,6 @@ public class ProjetoEntity {
 
     @Column(length = 1000)
     private String descricao;
-
-    @Column(length = 100)
-    private String curso;
 
     @Column(length = 20)
     private String turma;
@@ -58,12 +47,20 @@ public class ProjetoEntity {
     private boolean itinerario;
 
     @ManyToOne
-    @JoinColumn(name = "unidade_curricular_uuid")
-    private UnidadeCurricularEntity unidadeCurricular;
+    @JoinColumn(name = "disciplina_uuid")
+    private DisciplinaEntity disciplina;
+
+    @ManyToMany
+    @JoinTable(
+            name = "projeto_anexos",
+            joinColumns = @JoinColumn(name = "projeto_uuid"),
+            inverseJoinColumns = @JoinColumn(name = "anexos_uuid")
+    )
+    private List<AnexoEntity> anexos;
 
     @ManyToOne
-    @JoinColumn(name = "lider_projeto_uuid")
-    private AlunosEntity liderProjeto;
+    @JoinColumn(name = "lider_uuid")
+    private AlunosEntity lider;
 
     @Column(length = 255)
     private String bannerUrl;
@@ -73,11 +70,7 @@ public class ProjetoEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private Visibilidade visibilidadeCodigo;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, length = 20)
-    private Visibilidade visibilidadeAnexos;
+    private Visibilidade visibilidade;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)

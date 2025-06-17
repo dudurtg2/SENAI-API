@@ -2,8 +2,8 @@ package com.exemplo.meuapp.infrastructure.persistence.repository;
 
 import com.exemplo.meuapp.application.port.out.AnexoEtapaGateways;
 import com.exemplo.meuapp.common.mapper.AnexoEtapaMapper;
-import com.exemplo.meuapp.domain.model.AnexoEtapa;
-import com.exemplo.meuapp.infrastructure.persistence.entity.AnexoEtapaEntity;
+import com.exemplo.meuapp.domain.model.Anexo;
+import com.exemplo.meuapp.infrastructure.persistence.entity.AnexoEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.transaction.Transactional;
@@ -24,37 +24,37 @@ public class AnexoEtapaRepository implements AnexoEtapaGateways {
     private AnexoEtapaMapper anexoEtapaMapper;
 
     @Override
-    public AnexoEtapa save(AnexoEtapa anexoEtapa) {
-        AnexoEtapaEntity entity = anexoEtapaMapper.toEntity(anexoEtapa);
+    public Anexo save(Anexo anexo) {
+        AnexoEntity entity = anexoEtapaMapper.toEntity(anexo);
         em.persist(entity);
         return anexoEtapaMapper.toDomain(entity);
     }
 
     @Override
-    public AnexoEtapa getAnexoEtapa(UUID anexoEtapaId) {
-        AnexoEtapaEntity entity = em.find(AnexoEtapaEntity.class, anexoEtapaId);
+    public Anexo getAnexoEtapa(UUID anexoEtapaId) {
+        AnexoEntity entity = em.find(AnexoEntity.class, anexoEtapaId);
         return entity != null ? anexoEtapaMapper.toDomain(entity) : null;
     }
 
     @Override
     public void delete(UUID anexoEtapaId) {
-        AnexoEtapaEntity entity = em.find(AnexoEtapaEntity.class, anexoEtapaId);
+        AnexoEntity entity = em.find(AnexoEntity.class, anexoEtapaId);
         if (entity != null) {
             em.remove(entity);
         }
     }
 
     @Override
-    public AnexoEtapa update(AnexoEtapa anexoEtapa) {
-        AnexoEtapaEntity entity = anexoEtapaMapper.toEntity(anexoEtapa);
-        AnexoEtapaEntity merged = em.merge(entity);
+    public Anexo update(Anexo anexo) {
+        AnexoEntity entity = anexoEtapaMapper.toEntity(anexo);
+        AnexoEntity merged = em.merge(entity);
         return anexoEtapaMapper.toDomain(merged);
     }
 
     @Override
-    public List<AnexoEtapa> getAllAnexosEtapa() {
+    public List<Anexo> getAllAnexosEtapa() {
         var list = em.createQuery(
-                "SELECT a FROM AnexoEtapaEntity a", AnexoEtapaEntity.class
+                "SELECT a FROM AnexoEtapaEntity a", AnexoEntity.class
         ).getResultList();
         return list.stream()
                 .map(anexoEtapaMapper::toDomain)
@@ -62,9 +62,9 @@ public class AnexoEtapaRepository implements AnexoEtapaGateways {
     }
 
     @Override
-    public List<AnexoEtapa> getAnexosByEtapaId(UUID etapaId) {
+    public List<Anexo> getAnexosByEtapaId(UUID etapaId) {
         var query = em.createQuery(
-                "SELECT a FROM AnexoEtapaEntity a WHERE a.etapa.id = :etapaId", AnexoEtapaEntity.class
+                "SELECT a FROM AnexoEtapaEntity a WHERE a.etapa.id = :etapaId", AnexoEntity.class
         );
         query.setParameter("etapaId", etapaId);
         return query.getResultList().stream()
@@ -73,9 +73,9 @@ public class AnexoEtapaRepository implements AnexoEtapaGateways {
     }
 
     @Override
-    public List<AnexoEtapa> getAnexosByEtapaIdAndTipo(UUID etapaId, String tipo) {
+    public List<Anexo> getAnexosByEtapaIdAndTipo(UUID etapaId, String tipo) {
         var query = em.createQuery(
-                "SELECT a FROM AnexoEtapaEntity a WHERE a.etapa.id = :etapaId AND a.tipo = :tipo", AnexoEtapaEntity.class
+                "SELECT a FROM AnexoEtapaEntity a WHERE a.etapa.id = :etapaId AND a.tipo = :tipo", AnexoEntity.class
         );
         query.setParameter("etapaId", etapaId);
         query.setParameter("tipo", tipo);

@@ -75,11 +75,9 @@ public class UsuariosController {
             );
             return ResponseEntity.ok(
                     jwtTokenProvider.generateTokens(
-                    
                                     encontrarUsuariosUseCase.buscarPorEmail(
                                             data.login()
                                     )
-                            
                     )
             );
 

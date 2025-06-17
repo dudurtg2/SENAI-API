@@ -1,16 +1,11 @@
 package com.exemplo.meuapp.infrastructure.persistence.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import com.exemplo.meuapp.domain.model.Anexo;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,9 +33,17 @@ public class DisciplinaEntity {
     @JoinColumn(name = "professor_uuid")
     private ProfessoresEntity professor;
 
+
+
     @Column(name = "criado_em")
     private LocalDateTime criadoEm;
 
     @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
+
+    @Column(name="descricao")
+    private String descricao;
+
+    @Column(name="carga_horaria")
+    private String cargaHoraria;
 }

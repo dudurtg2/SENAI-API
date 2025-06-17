@@ -2,7 +2,9 @@ package com.exemplo.meuapp.infrastructure.persistence.repository;
 
 import com.exemplo.meuapp.application.port.out.ProfessoresGateways;
 import com.exemplo.meuapp.common.mapper.ProfessoresMapper;
+import com.exemplo.meuapp.domain.model.Alunos;
 import com.exemplo.meuapp.domain.model.Professores;
+import com.exemplo.meuapp.infrastructure.persistence.entity.AlunosEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.ProfessoresEntity;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -22,7 +24,18 @@ public class ProfessoresRepository implements ProfessoresGateways {
 
     @Autowired
     private ProfessoresMapper professoresMapper;
-
+    @Override
+    public Professores getProfessorByEmail(String email) {
+        var query = em.createQuery(
+                "SELECT p FROM ProfessoresEntity p WHERE p.usuarios.email = :email",
+                ProfessoresEntity.class
+        );
+        query.setParameter("email", email);
+        return query.getResultStream()
+                .findFirst()
+                .map(professoresMapper::toDomain)
+                .orElse(null);
+    }
     @Override
     public Professores save(Professores professor) {
         ProfessoresEntity entity = professoresMapper.toEntity(professor);

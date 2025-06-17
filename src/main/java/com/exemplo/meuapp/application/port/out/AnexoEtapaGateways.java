@@ -1,24 +1,24 @@
 package com.exemplo.meuapp.application.port.out;
 
-import com.exemplo.meuapp.domain.model.AnexoEtapa;
+import com.exemplo.meuapp.domain.model.Anexo;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface AnexoEtapaGateways {
-    AnexoEtapa save(AnexoEtapa anexoEtapa);
+    Anexo save(Anexo anexo);
 
-    AnexoEtapa getAnexoEtapa(UUID anexoEtapaId);
+    Anexo getAnexoEtapa(UUID anexoEtapaId);
 
     void delete(UUID anexoEtapaId);
 
-    AnexoEtapa update(AnexoEtapa anexoEtapa);
+    Anexo update(Anexo anexo);
 
-    List<AnexoEtapa> getAllAnexosEtapa();
+    List<Anexo> getAllAnexosEtapa();
 
-    List<AnexoEtapa> getAnexosByEtapaId(UUID etapaId);
+    List<Anexo> getAnexosByEtapaId(UUID etapaId);
 
-    List<AnexoEtapa> getAnexosByEtapaIdAndTipo(UUID etapaId, String tipo);
+    List<Anexo> getAnexosByEtapaIdAndTipo(UUID etapaId, String tipo);
 
     boolean existsByEtapaAndNomeArquivo(UUID uuid, String nomeArquivo);
 }

@@ -77,7 +77,7 @@ public class JwtTokenProvider  {
     }
 
     private Instant genRefreshTokenExpiry() {
-        return LocalDateTime.now().plusDays(15).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusDays(1).toInstant(ZoneOffset.of("-03:00"));
     }
 
 }

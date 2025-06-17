@@ -3,9 +3,11 @@ package com.exemplo.meuapp.common.mapper;
 import com.exemplo.meuapp.domain.model.Disciplina;
 import com.exemplo.meuapp.domain.model.Endereco;
 import com.exemplo.meuapp.domain.model.Professores;
+import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.persistence.entity.DisciplinaEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.EnderecoEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.ProfessoresEntity;
+import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
@@ -13,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-02T20:18:50-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
+    date = "2025-06-17T00:16:17-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
 )
 @Component
 public class DisciplinaMapperImpl implements DisciplinaMapper {
@@ -32,6 +34,8 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
         disciplinaEntity.professor( professoresToProfessoresEntity( aluno.getProfessor() ) );
         disciplinaEntity.criadoEm( aluno.getCriadoEm() );
         disciplinaEntity.atualizadoEm( aluno.getAtualizadoEm() );
+        disciplinaEntity.descricao( aluno.getDescricao() );
+        disciplinaEntity.cargaHoraria( aluno.getCargaHoraria() );
 
         return disciplinaEntity.build();
     }
@@ -49,6 +53,8 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
         disciplina.professor( professoresEntityToProfessores( alunoEntity.getProfessor() ) );
         disciplina.criadoEm( alunoEntity.getCriadoEm() );
         disciplina.atualizadoEm( alunoEntity.getAtualizadoEm() );
+        disciplina.descricao( alunoEntity.getDescricao() );
+        disciplina.cargaHoraria( alunoEntity.getCargaHoraria() );
 
         return disciplina.build();
     }
@@ -81,6 +87,25 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
         return list;
     }
 
+    protected UsuariosEntity usuariosToUsuariosEntity(Usuarios usuarios) {
+        if ( usuarios == null ) {
+            return null;
+        }
+
+        UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
+
+        usuariosEntity.uuid( usuarios.getUuid() );
+        usuariosEntity.usuario( usuarios.getUsuario() );
+        usuariosEntity.senha( usuarios.getSenha() );
+        usuariosEntity.email( usuarios.getEmail() );
+        usuariosEntity.tipo( usuarios.getTipo() );
+        usuariosEntity.status( usuarios.getStatus() );
+        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
+        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
+
+        return usuariosEntity.build();
+    }
+
     protected EnderecoEntity enderecoToEnderecoEntity(Endereco endereco) {
         if ( endereco == null ) {
             return null;
@@ -109,6 +134,7 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
         ProfessoresEntity.ProfessoresEntityBuilder professoresEntity = ProfessoresEntity.builder();
 
         professoresEntity.uuid( professores.getUuid() );
+        professoresEntity.usuarios( usuariosToUsuariosEntity( professores.getUsuarios() ) );
         professoresEntity.especialidade( professores.getEspecialidade() );
         professoresEntity.departamento( professores.getDepartamento() );
         professoresEntity.telefonePessoal( professores.getTelefonePessoal() );
@@ -120,6 +146,25 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
         professoresEntity.atualizadoEm( professores.getAtualizadoEm() );
 
         return professoresEntity.build();
+    }
+
+    protected Usuarios usuariosEntityToUsuarios(UsuariosEntity usuariosEntity) {
+        if ( usuariosEntity == null ) {
+            return null;
+        }
+
+        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
+
+        usuarios.uuid( usuariosEntity.getUuid() );
+        usuarios.usuario( usuariosEntity.getUsuario() );
+        usuarios.senha( usuariosEntity.getSenha() );
+        usuarios.email( usuariosEntity.getEmail() );
+        usuarios.tipo( usuariosEntity.getTipo() );
+        usuarios.status( usuariosEntity.getStatus() );
+        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
+        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
+
+        return usuarios.build();
     }
 
     protected Endereco enderecoEntityToEndereco(EnderecoEntity enderecoEntity) {
@@ -150,6 +195,7 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
         Professores.ProfessoresBuilder professores = Professores.builder();
 
         professores.uuid( professoresEntity.getUuid() );
+        professores.usuarios( usuariosEntityToUsuarios( professoresEntity.getUsuarios() ) );
         professores.especialidade( professoresEntity.getEspecialidade() );
         professores.departamento( professoresEntity.getDepartamento() );
         professores.telefonePessoal( professoresEntity.getTelefonePessoal() );

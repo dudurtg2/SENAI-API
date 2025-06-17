@@ -5,14 +5,14 @@ import com.exemplo.meuapp.application.port.in.anexoEtapa.CriarAnexoEtapaUseCase;
 import com.exemplo.meuapp.application.port.in.anexoEtapa.DeletarAnexoEtapaUseCase;
 import com.exemplo.meuapp.application.port.in.anexoEtapa.EncontrarAnexoEtapaUseCase;
 import com.exemplo.meuapp.common.mapper.AnexoEtapaMapper;
-import com.exemplo.meuapp.infrastructure.persistence.entity.AnexoEtapaEntity;
+import com.exemplo.meuapp.infrastructure.persistence.entity.AnexoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.exemplo.meuapp.domain.model.AnexoEtapa;
+import com.exemplo.meuapp.domain.model.Anexo;
 
 import java.util.UUID;
 
@@ -43,13 +43,13 @@ public class AnexoEtapaController {
     }
 
     public @PostMapping("/create")
-    ResponseEntity<?> create(@RequestBody AnexoEtapa request) {
+    ResponseEntity<?> create(@RequestBody Anexo request) {
         try {
 
-            AnexoEtapa AnexoEtapa = criarAnexoEtapaUseCase.criar(request);
-            AnexoEtapaEntity response = mapper.toEntity(AnexoEtapa);
+            Anexo Anexo = criarAnexoEtapaUseCase.criar(request);
+            AnexoEntity response = mapper.toEntity(Anexo);
 
-            return new ResponseEntity<AnexoEtapaEntity>(response, HttpStatus.CREATED);
+            return new ResponseEntity<AnexoEntity>(response, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<Exception>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -67,20 +67,20 @@ public class AnexoEtapaController {
     public @GetMapping("/findByUUID/{uuid}")
     ResponseEntity<?> findByUUID(@PathVariable("uuid") String uuid) {
         try {
-            AnexoEtapa AnexoEtapa = encontrarAnexoEtapaUseCase.buscarPorUuid(UUID.fromString(uuid));
-            AnexoEtapaEntity response = mapper.toEntity(AnexoEtapa);
-            return new ResponseEntity<AnexoEtapaEntity>(response, HttpStatus.OK);
+            Anexo Anexo = encontrarAnexoEtapaUseCase.buscarPorUuid(UUID.fromString(uuid));
+            AnexoEntity response = mapper.toEntity(Anexo);
+            return new ResponseEntity<AnexoEntity>(response, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<Exception>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     public @PutMapping("/update/{uuid}")
-    ResponseEntity<?> update(@PathVariable("uuid") String uuid, @RequestBody AnexoEtapa request) {
+    ResponseEntity<?> update(@PathVariable("uuid") String uuid, @RequestBody Anexo request) {
         try {
-            AnexoEtapa AnexoEtapa = atualizarAnexoEtapaUseCase.atualizar(UUID.fromString(uuid), request);
-            AnexoEtapaEntity response = mapper.toEntity(AnexoEtapa);
-            return new ResponseEntity<AnexoEtapaEntity>(response, HttpStatus.OK);
+            Anexo Anexo = atualizarAnexoEtapaUseCase.atualizar(UUID.fromString(uuid), request);
+            AnexoEntity response = mapper.toEntity(Anexo);
+            return new ResponseEntity<AnexoEntity>(response, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<Exception>(e, HttpStatus.INTERNAL_SERVER_ERROR);
         }
