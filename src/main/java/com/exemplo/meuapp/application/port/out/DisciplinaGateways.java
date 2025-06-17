@@ -20,5 +20,7 @@ public interface DisciplinaGateways {
 
     List<Disciplina> getDisciplinaByProfessor(UUID professorId);
 
+    List<Disciplina> getDisciplinaByCurso(UUID CursoId);
+
     boolean existsByNome(String nome);
 }

@@ -13,6 +13,7 @@ D:\SENAI-API\src\main\java\com\exemplo\meuapp\common\mapper\UsuariosMapper.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\domain\model\Endereco.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\AnexoConfig.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\presentation\controller\ProjetoController.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\out\CursoGateways.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\domain\model\Anexo.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\endereco\AtualizarEnderecoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\out\UsuariosGateways.java
@@ -39,12 +40,14 @@ D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\reposit
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\projeto\AtualizarProjetoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\repository\ProfessoresRepository.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\out\ProfessoresGateways.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\repository\CursoRepository.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\DisciplinaConfig.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\domain\exception\RegraDeNegocioException.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\AlunosConfig.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\etapasProjeto\EncontrarEtapasProjetoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\repository\EtapasProjetoRepository.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\repository\EnderecoRepository.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\curso\EncontrarCursoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\entity\UsuariosEntity.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\disciplina\CriarDisciplinaUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\domain\model\Disciplina.java
@@ -55,6 +58,7 @@ D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\disciplina\Enc
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\disciplina\AtualizarDisciplinaUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\presentation\dto\TokenUpdateDTO.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\professor\AtualizarProfessorUseCase.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\common\mapper\CursoMapper.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\repository\DisciplinaRepository.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\presentation\controller\UsuariosController.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\ProjetoConfig.java
@@ -78,6 +82,7 @@ D:\SENAI-API\src\main\java\com\exemplo\meuapp\common\mapper\EnderecoMapper.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\presentation\dto\PerfilUsuario.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\common\mapper\AlunosMapper.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\projeto\CriarProjetoUseCase.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\CursoConfig.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\domain\exception\DadosInvalidosException.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\domain\model\Usuarios.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\domain\enums\EtapaStatus.java
@@ -88,6 +93,7 @@ D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\disciplina\Del
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\EtapasProjetoConfig.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\usuarios\DeletarUsuariosUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\security\JwtTokenProvider.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\curso\DeletarCursoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\entity\ProjetoEntity.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\UsuariosConfig.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\presentation\dto\NovoPerfil.java
@@ -99,12 +105,14 @@ D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\reposit
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\repository\AlunosRepository.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\out\EtapasProjetoGateways.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\Main.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\curso\AtualizarCursoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\out\DisciplinaGateways.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\professor\CriarProfessorUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\professor\DeletarProfessorUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\anexo\EncontrarAnexoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\presentation\controller\AnexoEtapaController.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\webclient\CollectEmailForTokenService.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\curso\CriarCursoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\common\mapper\DisciplinaMapper.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\anexo\DeletarAnexoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\persistence\entity\AnexoEntity.java

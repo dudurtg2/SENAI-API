@@ -84,6 +84,18 @@ public class DisciplinaRepository implements DisciplinaGateways {
     }
 
     @Override
+    public List<Disciplina> getDisciplinaByCurso(UUID cursoId) {
+        var list = em.createQuery(
+                "SELECT d FROM DisciplinaEntity d WHERE d.curso.uuid = :cursoId", DisciplinaEntity.class
+        ).setParameter("cursoId", cursoId)
+         .getResultList();
+        return list.stream()
+                .map(disciplinaMapper::toDomain)
+                .toList();
+    }
+
+
+    @Override
     public boolean existsByNome(String nome) {
         var query = em.createQuery(
                 "SELECT COUNT(d) FROM DisciplinaEntity d WHERE LOWER(d.nome) = LOWER(:nome)", Long.class

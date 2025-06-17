@@ -32,6 +32,16 @@ public class Disciplina {
         if (professor == null) {
             throw new DadosInvalidosException("Professor não pode ser nulo");
         }
+        if (descricao == null || descricao.isBlank()) {
+            throw new DadosInvalidosException("Descrição nao pode ser nula ou vazia");
+        }
+        if (cargaHoraria == null || cargaHoraria.isBlank()) {
+            throw new DadosInvalidosException("Carga horaria nao pode ser nula ou vazia");
+        }
+        if (curso == null) {
+            throw new DadosInvalidosException("Curso nao pode ser nulo");
+        }
+        
         return this;
     }
 }

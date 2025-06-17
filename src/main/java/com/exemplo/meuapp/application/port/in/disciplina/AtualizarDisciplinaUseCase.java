@@ -21,17 +21,19 @@ public class AtualizarDisciplinaUseCase {
             throw new RegraDeNegocioException("Disciplina não encontrada.");
         }
 
-        disciplina.correct();
-
         if (!disciplinaInDb.getNome().equalsIgnoreCase(disciplina.getNome()) &&
                 disciplinaGateways.existsByNome(disciplina.getNome())) {
             throw new RegraDeNegocioException("Já existe uma disciplina com este nome.");
         }
 
-        if (disciplina.getProfessor() == null) {
-            throw new DadosInvalidosException("Professor não pode ser nulo.");
+        if (disciplina.getProfessor() != null && disciplina.getProfessor().getStatus() != null) {
+            if (!disciplina.getProfessor().getStatus().name().equals("ATIVO")) {
+                throw new RegraDeNegocioException("Professor associado está inativo.");
+            }
         }
-
+        disciplinaInDb.setDescricao(disciplina.getDescricao());
+        disciplinaInDb.setCargaHoraria(disciplina.getCargaHoraria());
+    
         disciplinaInDb.setNome(disciplina.getNome());
         disciplinaInDb.setProfessor(disciplina.getProfessor());
         disciplinaInDb.setAtualizadoEm(LocalDateTime.now());

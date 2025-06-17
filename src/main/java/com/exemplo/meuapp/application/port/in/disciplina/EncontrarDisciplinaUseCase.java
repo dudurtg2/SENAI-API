@@ -28,4 +28,8 @@ public class EncontrarDisciplinaUseCase {
     public List<Disciplina> buscarPorProfessor(UUID professorId) {
         return disciplinaGateways.getDisciplinaByProfessor(professorId);
     }
+
+    public List<Disciplina> buscarPorCurso(UUID curUuid) {
+        return disciplinaGateways.getDisciplinaByCurso(curUuid);
+    }
 }
