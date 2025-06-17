@@ -18,8 +18,7 @@ public class AtualizarCursoUseCase {
             throw new RegraDeNegocioException("Curso não encontrado.");
         }
 
-        curso.correct();
-
+       
       
         CursoInDb.setCargaHoraria(curso.getCargaHoraria());
         CursoInDb.setDescricao(curso.getDescricao());

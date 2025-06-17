@@ -22,8 +22,7 @@ public class AtualizarAlunosUseCase {
             throw new RegraDeNegocioException("Aluno não encontrado.");
         }
 
-        alunos.correct();
-
+    
         if (alunos.getStatus() == UsuariosStatus.INATIVO) {
             throw new RegraDeNegocioException("Não é permitido atualizar aluno INATIVO.");
         }

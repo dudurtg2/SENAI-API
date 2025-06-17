@@ -20,8 +20,6 @@ public class AtualizarEnderecoUseCase {
             throw new RegraDeNegocioException("Endereço não encontrado.");
         }
 
-        endereco.correct();
-
         enderecoInDb.setCep(endereco.getCep());
         enderecoInDb.setLogradouro(endereco.getLogradouro());
         enderecoInDb.setNumero(endereco.getNumero());

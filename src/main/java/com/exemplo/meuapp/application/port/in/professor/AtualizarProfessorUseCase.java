@@ -20,7 +20,6 @@ public class AtualizarProfessorUseCase {
             throw new RegraDeNegocioException("Professor não encontrado.");
         }
 
-        professor.correct();
 
         if (!professorInDb.getUsuarios().equals(professor.getUsuarios()) &&
                 professoresGateways.existsByUsuariosId(professor.getUsuarios().getUuid())) {

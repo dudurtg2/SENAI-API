@@ -21,7 +21,6 @@ package com.exemplo.meuapp.application.port.in.anexo;
                 throw new RegraDeNegocioException("Anexo não encontrado.");
             }
 
-            anexo.correct();
 
             if (!anexoInDb.getNomeArquivo().equals(anexo.getNomeArquivo()) &&
                     anexoGateways.existsByEtapaAndNomeArquivo(anexo.getEtapa().getUuid(), anexo.getNomeArquivo())) {

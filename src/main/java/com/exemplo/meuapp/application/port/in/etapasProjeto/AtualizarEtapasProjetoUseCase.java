@@ -20,8 +20,6 @@ public class AtualizarEtapasProjetoUseCase {
             throw new RegraDeNegocioException("Etapa não encontrada.");
         }
 
-        etapasProjeto.correct();
-
         if ((!etapasProjetoInDb.getNomeEtapa().equalsIgnoreCase(etapasProjeto.getNomeEtapa()) ||
              !etapasProjetoInDb.getProjeto().getUuid().equals(etapasProjeto.getProjeto().getUuid())) &&
             etapasProjetoGateways.existsByProjetoAndNomeEtapa(

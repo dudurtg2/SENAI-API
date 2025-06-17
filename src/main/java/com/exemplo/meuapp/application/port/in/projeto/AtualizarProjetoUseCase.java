@@ -20,32 +20,30 @@ public class AtualizarProjetoUseCase {
             throw new RegraDeNegocioException("Projeto não encontrado.");
         }
 
-        projeto.correct();
 
         if (!projetoInDb.getTitulo().equalsIgnoreCase(projeto.getTitulo()) &&
                 projetoGateways.existsByTitulo(projeto.getTitulo())) {
             throw new RegraDeNegocioException("Já existe um projeto com este título.");
         }
 
-        if (projeto.getCodigo() != null &&
-                !projeto.getCodigo().isBlank() &&
-                !projetoInDb.getCodigo().equalsIgnoreCase(projeto.getCodigo()) &&
-                projetoGateways.existsByCodigo(projeto.getCodigo())) {
-            throw new RegraDeNegocioException("Já existe um projeto com este código.");
-        }
-
+      
         projetoInDb.setTitulo(projeto.getTitulo());
         projetoInDb.setDescricao(projeto.getDescricao());
         projetoInDb.setTurma(projeto.getTurma());
+        projetoInDb.setBannerUrl(projeto.getBannerUrl());
+
+        projetoInDb.setAnexos(projeto.getAnexos());
+        projetoInDb.setDisciplina(projeto.getDisciplina());
+        projetoInDb.setLider(projeto.getLider());
+
         projetoInDb.setLabMaker(projeto.isLabMaker());
         projetoInDb.setParticipouSaga(projeto.isParticipouSaga());
         projetoInDb.setItinerario(projeto.isItinerario());
-        projetoInDb.setLider(projeto.getLider());
-        projetoInDb.setBannerUrl(projeto.getBannerUrl());
-        projetoInDb.setCodigo(projeto.getCodigo());
+        
+        projetoInDb.setVisibilidade(projeto.getVisibilidade());
         projetoInDb.setStatus(projeto.getStatus());
+
         projetoInDb.setAtualizadoEm(LocalDateTime.now());
-        projetoInDb.setDisciplina(projeto.getDisciplina());
         return projetoGateways.update(projetoInDb);
     }
 }

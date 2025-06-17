@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-17T19:16:50-0300",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-17T19:55:07-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
 )
 @Component
 public class CursoMapperImpl implements CursoMapper {
@@ -23,10 +23,10 @@ public class CursoMapperImpl implements CursoMapper {
 
         CursoEntity.CursoEntityBuilder cursoEntity = CursoEntity.builder();
 
-        cursoEntity.cargaHoraria( curso.getCargaHoraria() );
-        cursoEntity.descricao( curso.getDescricao() );
-        cursoEntity.nome( curso.getNome() );
         cursoEntity.uuid( curso.getUuid() );
+        cursoEntity.nome( curso.getNome() );
+        cursoEntity.descricao( curso.getDescricao() );
+        cursoEntity.cargaHoraria( curso.getCargaHoraria() );
 
         return cursoEntity.build();
     }
@@ -39,10 +39,10 @@ public class CursoMapperImpl implements CursoMapper {
 
         Curso.CursoBuilder curso = Curso.builder();
 
-        curso.cargaHoraria( cursoEntity.getCargaHoraria() );
-        curso.descricao( cursoEntity.getDescricao() );
-        curso.nome( cursoEntity.getNome() );
         curso.uuid( cursoEntity.getUuid() );
+        curso.nome( cursoEntity.getNome() );
+        curso.descricao( cursoEntity.getDescricao() );
+        curso.cargaHoraria( cursoEntity.getCargaHoraria() );
 
         return curso.build();
     }
