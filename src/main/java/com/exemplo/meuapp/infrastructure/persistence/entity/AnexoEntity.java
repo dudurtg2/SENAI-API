@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "anexo_etapa")
+@Table(name = "anexo")
 @Getter
 @Setter
 @NoArgsConstructor

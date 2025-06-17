@@ -1,10 +1,10 @@
 package com.exemplo.meuapp.infrastructure.config;
 
-import com.exemplo.meuapp.application.port.in.anexoEtapa.AtualizarAnexoEtapaUseCase;
-import com.exemplo.meuapp.application.port.in.anexoEtapa.CriarAnexoEtapaUseCase;
-import com.exemplo.meuapp.application.port.in.anexoEtapa.DeletarAnexoEtapaUseCase;
-import com.exemplo.meuapp.application.port.in.anexoEtapa.EncontrarAnexoEtapaUseCase;
-import com.exemplo.meuapp.application.port.out.AnexoEtapaGateways;
+import com.exemplo.meuapp.application.port.in.anexo.AtualizarAnexoUseCase;
+import com.exemplo.meuapp.application.port.in.anexo.CriarAnexoUseCase;
+import com.exemplo.meuapp.application.port.in.anexo.DeletarAnexoUseCase;
+import com.exemplo.meuapp.application.port.in.anexo.EncontrarAnexoUseCase;
+import com.exemplo.meuapp.application.port.out.AnexoGateways;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,22 +12,22 @@ import org.springframework.context.annotation.Configuration;
 public class AnexoConfig {
 
     @Bean
-    public CriarAnexoEtapaUseCase criarAnexoEtapaUseCase(AnexoEtapaGateways anexoEtapaGateways) {
-        return new CriarAnexoEtapaUseCase(anexoEtapaGateways);
+    public CriarAnexoUseCase criarAnexoEtapaUseCase(AnexoGateways anexoGateways) {
+        return new CriarAnexoUseCase(anexoGateways);
     }
 
     @Bean
-    public EncontrarAnexoEtapaUseCase encontrarAnexoEtapaUseCase(AnexoEtapaGateways anexoEtapaGateways) {
-        return new EncontrarAnexoEtapaUseCase(anexoEtapaGateways);
+    public EncontrarAnexoUseCase encontrarAnexoEtapaUseCase(AnexoGateways anexoGateways) {
+        return new EncontrarAnexoUseCase(anexoGateways);
     }
 
     @Bean
-    public AtualizarAnexoEtapaUseCase atualizarAnexoEtapaUseCase(AnexoEtapaGateways anexoEtapaGateways) {
-        return new AtualizarAnexoEtapaUseCase(anexoEtapaGateways);
+    public AtualizarAnexoUseCase atualizarAnexoEtapaUseCase(AnexoGateways anexoGateways) {
+        return new AtualizarAnexoUseCase(anexoGateways);
     }
 
     @Bean
-    public DeletarAnexoEtapaUseCase deletarAnexoEtapaUseCase (AnexoEtapaGateways anexoEtapaGateways) {
-        return new DeletarAnexoEtapaUseCase(anexoEtapaGateways);
+    public DeletarAnexoUseCase deletarAnexoEtapaUseCase (AnexoGateways anexoGateways) {
+        return new DeletarAnexoUseCase(anexoGateways);
     }
 }
