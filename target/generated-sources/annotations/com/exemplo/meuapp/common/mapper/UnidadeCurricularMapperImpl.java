@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-02T20:18:50-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
+    date = "2025-06-18T13:44:09-0300",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class UnidadeCurricularMapperImpl implements UnidadeCurricularMapper {
@@ -23,12 +23,12 @@ public class UnidadeCurricularMapperImpl implements UnidadeCurricularMapper {
 
         UnidadeCurricularEntity.UnidadeCurricularEntityBuilder unidadeCurricularEntity = UnidadeCurricularEntity.builder();
 
-        unidadeCurricularEntity.uuid( aluno.getUuid() );
-        unidadeCurricularEntity.nome( aluno.getNome() );
-        unidadeCurricularEntity.descricao( aluno.getDescricao() );
+        unidadeCurricularEntity.atualizadoEm( aluno.getAtualizadoEm() );
         unidadeCurricularEntity.cargaHoraria( aluno.getCargaHoraria() );
         unidadeCurricularEntity.criadoEm( aluno.getCriadoEm() );
-        unidadeCurricularEntity.atualizadoEm( aluno.getAtualizadoEm() );
+        unidadeCurricularEntity.descricao( aluno.getDescricao() );
+        unidadeCurricularEntity.nome( aluno.getNome() );
+        unidadeCurricularEntity.uuid( aluno.getUuid() );
 
         return unidadeCurricularEntity.build();
     }
@@ -41,12 +41,12 @@ public class UnidadeCurricularMapperImpl implements UnidadeCurricularMapper {
 
         UnidadeCurricular.UnidadeCurricularBuilder unidadeCurricular = UnidadeCurricular.builder();
 
-        unidadeCurricular.uuid( alunoEntity.getUuid() );
-        unidadeCurricular.nome( alunoEntity.getNome() );
-        unidadeCurricular.descricao( alunoEntity.getDescricao() );
+        unidadeCurricular.atualizadoEm( alunoEntity.getAtualizadoEm() );
         unidadeCurricular.cargaHoraria( alunoEntity.getCargaHoraria() );
         unidadeCurricular.criadoEm( alunoEntity.getCriadoEm() );
-        unidadeCurricular.atualizadoEm( alunoEntity.getAtualizadoEm() );
+        unidadeCurricular.descricao( alunoEntity.getDescricao() );
+        unidadeCurricular.nome( alunoEntity.getNome() );
+        unidadeCurricular.uuid( alunoEntity.getUuid() );
 
         return unidadeCurricular.build();
     }

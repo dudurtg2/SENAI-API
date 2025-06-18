@@ -23,8 +23,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-02T20:18:50-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
+    date = "2025-06-18T13:44:08-0300",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
@@ -37,9 +37,9 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         DisciplinaProjetoEntity.DisciplinaProjetoEntityBuilder disciplinaProjetoEntity = DisciplinaProjetoEntity.builder();
 
-        disciplinaProjetoEntity.uuid( aluno.getUuid() );
         disciplinaProjetoEntity.disciplina( disciplinaToDisciplinaEntity( aluno.getDisciplina() ) );
         disciplinaProjetoEntity.projeto( projetoToProjetoEntity( aluno.getProjeto() ) );
+        disciplinaProjetoEntity.uuid( aluno.getUuid() );
 
         return disciplinaProjetoEntity.build();
     }
@@ -52,9 +52,9 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         DisciplinaProjeto.DisciplinaProjetoBuilder disciplinaProjeto = DisciplinaProjeto.builder();
 
-        disciplinaProjeto.uuid( alunoEntity.getUuid() );
         disciplinaProjeto.disciplina( disciplinaEntityToDisciplina( alunoEntity.getDisciplina() ) );
         disciplinaProjeto.projeto( projetoEntityToProjeto( alunoEntity.getProjeto() ) );
+        disciplinaProjeto.uuid( alunoEntity.getUuid() );
 
         return disciplinaProjeto.build();
     }
@@ -94,17 +94,36 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         EnderecoEntity.EnderecoEntityBuilder enderecoEntity = EnderecoEntity.builder();
 
-        enderecoEntity.uuid( endereco.getUuid() );
+        enderecoEntity.bairro( endereco.getBairro() );
         enderecoEntity.cep( endereco.getCep() );
+        enderecoEntity.cidade( endereco.getCidade() );
+        enderecoEntity.complemento( endereco.getComplemento() );
+        enderecoEntity.estado( endereco.getEstado() );
         enderecoEntity.logradouro( endereco.getLogradouro() );
         enderecoEntity.numero( endereco.getNumero() );
-        enderecoEntity.complemento( endereco.getComplemento() );
-        enderecoEntity.bairro( endereco.getBairro() );
-        enderecoEntity.cidade( endereco.getCidade() );
-        enderecoEntity.estado( endereco.getEstado() );
         enderecoEntity.pais( endereco.getPais() );
+        enderecoEntity.uuid( endereco.getUuid() );
 
         return enderecoEntity.build();
+    }
+
+    protected UsuariosEntity usuariosToUsuariosEntity(Usuarios usuarios) {
+        if ( usuarios == null ) {
+            return null;
+        }
+
+        UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
+
+        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
+        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
+        usuariosEntity.email( usuarios.getEmail() );
+        usuariosEntity.senha( usuarios.getSenha() );
+        usuariosEntity.status( usuarios.getStatus() );
+        usuariosEntity.tipo( usuarios.getTipo() );
+        usuariosEntity.usuario( usuarios.getUsuario() );
+        usuariosEntity.uuid( usuarios.getUuid() );
+
+        return usuariosEntity.build();
     }
 
     protected ProfessoresEntity professoresToProfessoresEntity(Professores professores) {
@@ -114,16 +133,17 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         ProfessoresEntity.ProfessoresEntityBuilder professoresEntity = ProfessoresEntity.builder();
 
-        professoresEntity.uuid( professores.getUuid() );
-        professoresEntity.especialidade( professores.getEspecialidade() );
+        professoresEntity.atualizadoEm( professores.getAtualizadoEm() );
+        professoresEntity.criadoEm( professores.getCriadoEm() );
         professoresEntity.departamento( professores.getDepartamento() );
+        professoresEntity.endereco( enderecoToEnderecoEntity( professores.getEndereco() ) );
+        professoresEntity.especialidade( professores.getEspecialidade() );
+        professoresEntity.linkedin( professores.getLinkedin() );
+        professoresEntity.status( professores.getStatus() );
         professoresEntity.telefonePessoal( professores.getTelefonePessoal() );
         professoresEntity.telefoneProfissional( professores.getTelefoneProfissional() );
-        professoresEntity.linkedin( professores.getLinkedin() );
-        professoresEntity.endereco( enderecoToEnderecoEntity( professores.getEndereco() ) );
-        professoresEntity.status( professores.getStatus() );
-        professoresEntity.criadoEm( professores.getCriadoEm() );
-        professoresEntity.atualizadoEm( professores.getAtualizadoEm() );
+        professoresEntity.usuarios( usuariosToUsuariosEntity( professores.getUsuarios() ) );
+        professoresEntity.uuid( professores.getUuid() );
 
         return professoresEntity.build();
     }
@@ -135,49 +155,13 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         DisciplinaEntity.DisciplinaEntityBuilder disciplinaEntity = DisciplinaEntity.builder();
 
-        disciplinaEntity.uuid( disciplina.getUuid() );
+        disciplinaEntity.atualizadoEm( disciplina.getAtualizadoEm() );
+        disciplinaEntity.criadoEm( disciplina.getCriadoEm() );
         disciplinaEntity.nome( disciplina.getNome() );
         disciplinaEntity.professor( professoresToProfessoresEntity( disciplina.getProfessor() ) );
-        disciplinaEntity.criadoEm( disciplina.getCriadoEm() );
-        disciplinaEntity.atualizadoEm( disciplina.getAtualizadoEm() );
+        disciplinaEntity.uuid( disciplina.getUuid() );
 
         return disciplinaEntity.build();
-    }
-
-    protected UnidadeCurricularEntity unidadeCurricularToUnidadeCurricularEntity(UnidadeCurricular unidadeCurricular) {
-        if ( unidadeCurricular == null ) {
-            return null;
-        }
-
-        UnidadeCurricularEntity.UnidadeCurricularEntityBuilder unidadeCurricularEntity = UnidadeCurricularEntity.builder();
-
-        unidadeCurricularEntity.uuid( unidadeCurricular.getUuid() );
-        unidadeCurricularEntity.nome( unidadeCurricular.getNome() );
-        unidadeCurricularEntity.descricao( unidadeCurricular.getDescricao() );
-        unidadeCurricularEntity.cargaHoraria( unidadeCurricular.getCargaHoraria() );
-        unidadeCurricularEntity.criadoEm( unidadeCurricular.getCriadoEm() );
-        unidadeCurricularEntity.atualizadoEm( unidadeCurricular.getAtualizadoEm() );
-
-        return unidadeCurricularEntity.build();
-    }
-
-    protected UsuariosEntity usuariosToUsuariosEntity(Usuarios usuarios) {
-        if ( usuarios == null ) {
-            return null;
-        }
-
-        UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
-
-        usuariosEntity.uuid( usuarios.getUuid() );
-        usuariosEntity.usuario( usuarios.getUsuario() );
-        usuariosEntity.senha( usuarios.getSenha() );
-        usuariosEntity.email( usuarios.getEmail() );
-        usuariosEntity.tipo( usuarios.getTipo() );
-        usuariosEntity.status( usuarios.getStatus() );
-        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
-        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
-
-        return usuariosEntity.build();
     }
 
     protected AlunosEntity alunosToAlunosEntity(Alunos alunos) {
@@ -187,19 +171,36 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         AlunosEntity.AlunosEntityBuilder alunosEntity = AlunosEntity.builder();
 
-        alunosEntity.uuid( alunos.getUuid() );
-        alunosEntity.usuarios( usuariosToUsuariosEntity( alunos.getUsuarios() ) );
-        alunosEntity.matricula( alunos.getMatricula() );
+        alunosEntity.atualizadoEm( alunos.getAtualizadoEm() );
+        alunosEntity.criadoEm( alunos.getCriadoEm() );
         alunosEntity.curso( alunos.getCurso() );
+        alunosEntity.endereco( enderecoToEnderecoEntity( alunos.getEndereco() ) );
+        alunosEntity.linkedin( alunos.getLinkedin() );
+        alunosEntity.matricula( alunos.getMatricula() );
+        alunosEntity.status( alunos.getStatus() );
         alunosEntity.telefonePessoal( alunos.getTelefonePessoal() );
         alunosEntity.telefoneProfissional( alunos.getTelefoneProfissional() );
-        alunosEntity.linkedin( alunos.getLinkedin() );
-        alunosEntity.endereco( enderecoToEnderecoEntity( alunos.getEndereco() ) );
-        alunosEntity.status( alunos.getStatus() );
-        alunosEntity.criadoEm( alunos.getCriadoEm() );
-        alunosEntity.atualizadoEm( alunos.getAtualizadoEm() );
+        alunosEntity.usuarios( usuariosToUsuariosEntity( alunos.getUsuarios() ) );
+        alunosEntity.uuid( alunos.getUuid() );
 
         return alunosEntity.build();
+    }
+
+    protected UnidadeCurricularEntity unidadeCurricularToUnidadeCurricularEntity(UnidadeCurricular unidadeCurricular) {
+        if ( unidadeCurricular == null ) {
+            return null;
+        }
+
+        UnidadeCurricularEntity.UnidadeCurricularEntityBuilder unidadeCurricularEntity = UnidadeCurricularEntity.builder();
+
+        unidadeCurricularEntity.atualizadoEm( unidadeCurricular.getAtualizadoEm() );
+        unidadeCurricularEntity.cargaHoraria( unidadeCurricular.getCargaHoraria() );
+        unidadeCurricularEntity.criadoEm( unidadeCurricular.getCriadoEm() );
+        unidadeCurricularEntity.descricao( unidadeCurricular.getDescricao() );
+        unidadeCurricularEntity.nome( unidadeCurricular.getNome() );
+        unidadeCurricularEntity.uuid( unidadeCurricular.getUuid() );
+
+        return unidadeCurricularEntity.build();
     }
 
     protected ProjetoEntity projetoToProjetoEntity(Projeto projeto) {
@@ -209,23 +210,23 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         ProjetoEntity.ProjetoEntityBuilder projetoEntity = ProjetoEntity.builder();
 
-        projetoEntity.uuid( projeto.getUuid() );
-        projetoEntity.titulo( projeto.getTitulo() );
-        projetoEntity.descricao( projeto.getDescricao() );
-        projetoEntity.curso( projeto.getCurso() );
-        projetoEntity.turma( projeto.getTurma() );
-        projetoEntity.labMaker( projeto.isLabMaker() );
-        projetoEntity.participouSaga( projeto.isParticipouSaga() );
-        projetoEntity.itinerario( projeto.isItinerario() );
-        projetoEntity.unidadeCurricular( unidadeCurricularToUnidadeCurricularEntity( projeto.getUnidadeCurricular() ) );
-        projetoEntity.liderProjeto( alunosToAlunosEntity( projeto.getLiderProjeto() ) );
+        projetoEntity.atualizadoEm( projeto.getAtualizadoEm() );
         projetoEntity.bannerUrl( projeto.getBannerUrl() );
         projetoEntity.codigo( projeto.getCodigo() );
-        projetoEntity.visibilidadeCodigo( projeto.getVisibilidadeCodigo() );
-        projetoEntity.visibilidadeAnexos( projeto.getVisibilidadeAnexos() );
-        projetoEntity.status( projeto.getStatus() );
         projetoEntity.criadoEm( projeto.getCriadoEm() );
-        projetoEntity.atualizadoEm( projeto.getAtualizadoEm() );
+        projetoEntity.curso( projeto.getCurso() );
+        projetoEntity.descricao( projeto.getDescricao() );
+        projetoEntity.itinerario( projeto.isItinerario() );
+        projetoEntity.labMaker( projeto.isLabMaker() );
+        projetoEntity.liderProjeto( alunosToAlunosEntity( projeto.getLiderProjeto() ) );
+        projetoEntity.participouSaga( projeto.isParticipouSaga() );
+        projetoEntity.status( projeto.getStatus() );
+        projetoEntity.titulo( projeto.getTitulo() );
+        projetoEntity.turma( projeto.getTurma() );
+        projetoEntity.unidadeCurricular( unidadeCurricularToUnidadeCurricularEntity( projeto.getUnidadeCurricular() ) );
+        projetoEntity.uuid( projeto.getUuid() );
+        projetoEntity.visibilidadeAnexos( projeto.getVisibilidadeAnexos() );
+        projetoEntity.visibilidadeCodigo( projeto.getVisibilidadeCodigo() );
 
         return projetoEntity.build();
     }
@@ -237,17 +238,36 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         Endereco.EnderecoBuilder endereco = Endereco.builder();
 
-        endereco.uuid( enderecoEntity.getUuid() );
+        endereco.bairro( enderecoEntity.getBairro() );
         endereco.cep( enderecoEntity.getCep() );
+        endereco.cidade( enderecoEntity.getCidade() );
+        endereco.complemento( enderecoEntity.getComplemento() );
+        endereco.estado( enderecoEntity.getEstado() );
         endereco.logradouro( enderecoEntity.getLogradouro() );
         endereco.numero( enderecoEntity.getNumero() );
-        endereco.complemento( enderecoEntity.getComplemento() );
-        endereco.bairro( enderecoEntity.getBairro() );
-        endereco.cidade( enderecoEntity.getCidade() );
-        endereco.estado( enderecoEntity.getEstado() );
         endereco.pais( enderecoEntity.getPais() );
+        endereco.uuid( enderecoEntity.getUuid() );
 
         return endereco.build();
+    }
+
+    protected Usuarios usuariosEntityToUsuarios(UsuariosEntity usuariosEntity) {
+        if ( usuariosEntity == null ) {
+            return null;
+        }
+
+        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
+
+        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
+        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
+        usuarios.email( usuariosEntity.getEmail() );
+        usuarios.senha( usuariosEntity.getSenha() );
+        usuarios.status( usuariosEntity.getStatus() );
+        usuarios.tipo( usuariosEntity.getTipo() );
+        usuarios.usuario( usuariosEntity.getUsuario() );
+        usuarios.uuid( usuariosEntity.getUuid() );
+
+        return usuarios.build();
     }
 
     protected Professores professoresEntityToProfessores(ProfessoresEntity professoresEntity) {
@@ -257,16 +277,17 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         Professores.ProfessoresBuilder professores = Professores.builder();
 
-        professores.uuid( professoresEntity.getUuid() );
-        professores.especialidade( professoresEntity.getEspecialidade() );
+        professores.atualizadoEm( professoresEntity.getAtualizadoEm() );
+        professores.criadoEm( professoresEntity.getCriadoEm() );
         professores.departamento( professoresEntity.getDepartamento() );
+        professores.endereco( enderecoEntityToEndereco( professoresEntity.getEndereco() ) );
+        professores.especialidade( professoresEntity.getEspecialidade() );
+        professores.linkedin( professoresEntity.getLinkedin() );
+        professores.status( professoresEntity.getStatus() );
         professores.telefonePessoal( professoresEntity.getTelefonePessoal() );
         professores.telefoneProfissional( professoresEntity.getTelefoneProfissional() );
-        professores.linkedin( professoresEntity.getLinkedin() );
-        professores.endereco( enderecoEntityToEndereco( professoresEntity.getEndereco() ) );
-        professores.status( professoresEntity.getStatus() );
-        professores.criadoEm( professoresEntity.getCriadoEm() );
-        professores.atualizadoEm( professoresEntity.getAtualizadoEm() );
+        professores.usuarios( usuariosEntityToUsuarios( professoresEntity.getUsuarios() ) );
+        professores.uuid( professoresEntity.getUuid() );
 
         return professores.build();
     }
@@ -278,49 +299,13 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         Disciplina.DisciplinaBuilder disciplina = Disciplina.builder();
 
-        disciplina.uuid( disciplinaEntity.getUuid() );
+        disciplina.atualizadoEm( disciplinaEntity.getAtualizadoEm() );
+        disciplina.criadoEm( disciplinaEntity.getCriadoEm() );
         disciplina.nome( disciplinaEntity.getNome() );
         disciplina.professor( professoresEntityToProfessores( disciplinaEntity.getProfessor() ) );
-        disciplina.criadoEm( disciplinaEntity.getCriadoEm() );
-        disciplina.atualizadoEm( disciplinaEntity.getAtualizadoEm() );
+        disciplina.uuid( disciplinaEntity.getUuid() );
 
         return disciplina.build();
-    }
-
-    protected UnidadeCurricular unidadeCurricularEntityToUnidadeCurricular(UnidadeCurricularEntity unidadeCurricularEntity) {
-        if ( unidadeCurricularEntity == null ) {
-            return null;
-        }
-
-        UnidadeCurricular.UnidadeCurricularBuilder unidadeCurricular = UnidadeCurricular.builder();
-
-        unidadeCurricular.uuid( unidadeCurricularEntity.getUuid() );
-        unidadeCurricular.nome( unidadeCurricularEntity.getNome() );
-        unidadeCurricular.descricao( unidadeCurricularEntity.getDescricao() );
-        unidadeCurricular.cargaHoraria( unidadeCurricularEntity.getCargaHoraria() );
-        unidadeCurricular.criadoEm( unidadeCurricularEntity.getCriadoEm() );
-        unidadeCurricular.atualizadoEm( unidadeCurricularEntity.getAtualizadoEm() );
-
-        return unidadeCurricular.build();
-    }
-
-    protected Usuarios usuariosEntityToUsuarios(UsuariosEntity usuariosEntity) {
-        if ( usuariosEntity == null ) {
-            return null;
-        }
-
-        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
-
-        usuarios.uuid( usuariosEntity.getUuid() );
-        usuarios.usuario( usuariosEntity.getUsuario() );
-        usuarios.senha( usuariosEntity.getSenha() );
-        usuarios.email( usuariosEntity.getEmail() );
-        usuarios.tipo( usuariosEntity.getTipo() );
-        usuarios.status( usuariosEntity.getStatus() );
-        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
-        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
-
-        return usuarios.build();
     }
 
     protected Alunos alunosEntityToAlunos(AlunosEntity alunosEntity) {
@@ -330,19 +315,36 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         Alunos.AlunosBuilder alunos = Alunos.builder();
 
-        alunos.uuid( alunosEntity.getUuid() );
-        alunos.usuarios( usuariosEntityToUsuarios( alunosEntity.getUsuarios() ) );
-        alunos.matricula( alunosEntity.getMatricula() );
+        alunos.atualizadoEm( alunosEntity.getAtualizadoEm() );
+        alunos.criadoEm( alunosEntity.getCriadoEm() );
         alunos.curso( alunosEntity.getCurso() );
+        alunos.endereco( enderecoEntityToEndereco( alunosEntity.getEndereco() ) );
+        alunos.linkedin( alunosEntity.getLinkedin() );
+        alunos.matricula( alunosEntity.getMatricula() );
+        alunos.status( alunosEntity.getStatus() );
         alunos.telefonePessoal( alunosEntity.getTelefonePessoal() );
         alunos.telefoneProfissional( alunosEntity.getTelefoneProfissional() );
-        alunos.linkedin( alunosEntity.getLinkedin() );
-        alunos.endereco( enderecoEntityToEndereco( alunosEntity.getEndereco() ) );
-        alunos.status( alunosEntity.getStatus() );
-        alunos.criadoEm( alunosEntity.getCriadoEm() );
-        alunos.atualizadoEm( alunosEntity.getAtualizadoEm() );
+        alunos.usuarios( usuariosEntityToUsuarios( alunosEntity.getUsuarios() ) );
+        alunos.uuid( alunosEntity.getUuid() );
 
         return alunos.build();
+    }
+
+    protected UnidadeCurricular unidadeCurricularEntityToUnidadeCurricular(UnidadeCurricularEntity unidadeCurricularEntity) {
+        if ( unidadeCurricularEntity == null ) {
+            return null;
+        }
+
+        UnidadeCurricular.UnidadeCurricularBuilder unidadeCurricular = UnidadeCurricular.builder();
+
+        unidadeCurricular.atualizadoEm( unidadeCurricularEntity.getAtualizadoEm() );
+        unidadeCurricular.cargaHoraria( unidadeCurricularEntity.getCargaHoraria() );
+        unidadeCurricular.criadoEm( unidadeCurricularEntity.getCriadoEm() );
+        unidadeCurricular.descricao( unidadeCurricularEntity.getDescricao() );
+        unidadeCurricular.nome( unidadeCurricularEntity.getNome() );
+        unidadeCurricular.uuid( unidadeCurricularEntity.getUuid() );
+
+        return unidadeCurricular.build();
     }
 
     protected Projeto projetoEntityToProjeto(ProjetoEntity projetoEntity) {
@@ -352,23 +354,23 @@ public class DisciplinaProjetoMapperImpl implements DisciplinaProjetoMapper {
 
         Projeto.ProjetoBuilder projeto = Projeto.builder();
 
-        projeto.uuid( projetoEntity.getUuid() );
-        projeto.titulo( projetoEntity.getTitulo() );
-        projeto.descricao( projetoEntity.getDescricao() );
-        projeto.curso( projetoEntity.getCurso() );
-        projeto.turma( projetoEntity.getTurma() );
-        projeto.labMaker( projetoEntity.isLabMaker() );
-        projeto.participouSaga( projetoEntity.isParticipouSaga() );
-        projeto.itinerario( projetoEntity.isItinerario() );
-        projeto.unidadeCurricular( unidadeCurricularEntityToUnidadeCurricular( projetoEntity.getUnidadeCurricular() ) );
-        projeto.liderProjeto( alunosEntityToAlunos( projetoEntity.getLiderProjeto() ) );
+        projeto.atualizadoEm( projetoEntity.getAtualizadoEm() );
         projeto.bannerUrl( projetoEntity.getBannerUrl() );
         projeto.codigo( projetoEntity.getCodigo() );
-        projeto.visibilidadeCodigo( projetoEntity.getVisibilidadeCodigo() );
-        projeto.visibilidadeAnexos( projetoEntity.getVisibilidadeAnexos() );
-        projeto.status( projetoEntity.getStatus() );
         projeto.criadoEm( projetoEntity.getCriadoEm() );
-        projeto.atualizadoEm( projetoEntity.getAtualizadoEm() );
+        projeto.curso( projetoEntity.getCurso() );
+        projeto.descricao( projetoEntity.getDescricao() );
+        projeto.itinerario( projetoEntity.isItinerario() );
+        projeto.labMaker( projetoEntity.isLabMaker() );
+        projeto.liderProjeto( alunosEntityToAlunos( projetoEntity.getLiderProjeto() ) );
+        projeto.participouSaga( projetoEntity.isParticipouSaga() );
+        projeto.status( projetoEntity.getStatus() );
+        projeto.titulo( projetoEntity.getTitulo() );
+        projeto.turma( projetoEntity.getTurma() );
+        projeto.unidadeCurricular( unidadeCurricularEntityToUnidadeCurricular( projetoEntity.getUnidadeCurricular() ) );
+        projeto.uuid( projetoEntity.getUuid() );
+        projeto.visibilidadeAnexos( projetoEntity.getVisibilidadeAnexos() );
+        projeto.visibilidadeCodigo( projetoEntity.getVisibilidadeCodigo() );
 
         return projeto.build();
     }
