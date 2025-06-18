@@ -63,6 +63,12 @@ public class UsuariosController {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
     }
+    @GetMapping("/test")
+    public ResponseEntity<?> test() {
+        System.out.println("Endpoint de teste chamado com sucesso!");
+        return ResponseEntity.ok("Test endpoint working!");
+    }
+
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody NovoPerfil data) {
 
@@ -76,22 +82,65 @@ public class UsuariosController {
                 )
         );
 
-    }
-    @PostMapping("/login")
+    }    @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthorizationDTO data) {
+        System.out.println("=== INÍCIO DO LOGIN ===");
+        System.out.println("Email recebido: " + data.login());
+        System.out.println("Senha recebida: " + data.senha());
+        
         try {
+            // Verificar se o usuário existe no banco
+            var usuario = encontrarUsuariosUseCase.buscarPorEmailUser(data.login());
+            if (usuario == null) {
+                System.out.println("❌ Usuário não encontrado no banco de dados");
+                return ResponseEntity.status(401).body("Usuário não encontrado.");
+            }
+            
+            System.out.println("✅ Usuário encontrado:");
+            System.out.println("   UUID: " + usuario.getUuid());
+            System.out.println("   Email: " + usuario.getEmail());
+            System.out.println("   Tipo: " + usuario.getTipo());
+            System.out.println("   Status: " + usuario.getStatus());
+            System.out.println("   Senha completa no banco: " + usuario.getSenha());
+            System.out.println("   Senha é BCrypt? " + (usuario.getSenha().startsWith("$2a$") ? "SIM" : "NÃO"));
+            
+            // Testar se a senha BCrypt funciona manualmente
+            org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder encoder = 
+                new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder();
+            boolean senhaCorreta = encoder.matches(data.senha(), usuario.getSenha());
+            System.out.println("🔐 Teste manual BCrypt: " + (senhaCorreta ? "✅ SENHA CORRETA" : "❌ SENHA INCORRETA"));
+            
+            System.out.println("🔐 Tentando autenticar com AuthenticationManager...");
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(data.login(), data.senha())
             );
-            return ResponseEntity.ok(
-                    jwtTokenProvider.generateTokens(
-                                    encontrarUsuariosUseCase.buscarPorEmail(
-                                            data.login()
-                                    )
-                    )
+            
+            System.out.println("✅ Autenticação bem-sucedida, gerando tokens...");
+            var tokens = jwtTokenProvider.generateTokens(
+                    encontrarUsuariosUseCase.buscarPorEmail(data.login())
             );
+            
+            System.out.println("✅ Tokens gerados com sucesso");
+            return ResponseEntity.ok(tokens);
 
         } catch (Exception e) {
+            System.out.println("❌ Erro na autenticação:");
+            System.out.println("   Tipo do erro: " + e.getClass().getSimpleName());
+            System.out.println("   Mensagem: " + e.getMessage());
+            if (e.getCause() != null) {
+                System.out.println("   Causa: " + e.getCause().getMessage());
+            }
+            
+            // Stack trace mais detalhado
+            System.out.println("   Stack trace:");
+            for (StackTraceElement element : e.getStackTrace()) {
+                if (element.getClassName().contains("security") || 
+                    element.getClassName().contains("authentication") ||
+                    element.getClassName().contains("password")) {
+                    System.out.println("     " + element);
+                }
+            }
+            
             return ResponseEntity.status(401).body("Credenciais inválidas ou autenticação falhou.");
         }
     }

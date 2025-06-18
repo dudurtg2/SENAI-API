@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-18T00:22:30-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
+    date = "2025-06-18T00:29:50-0300",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class AlunosMapperImpl implements AlunosMapper {
@@ -29,17 +29,17 @@ public class AlunosMapperImpl implements AlunosMapper {
 
         AlunosEntity.AlunosEntityBuilder alunosEntity = AlunosEntity.builder();
 
-        alunosEntity.uuid( alunos.getUuid() );
-        alunosEntity.usuarios( usuariosToUsuariosEntity( alunos.getUsuarios() ) );
-        alunosEntity.endereco( enderecoToEnderecoEntity( alunos.getEndereco() ) );
-        alunosEntity.matricula( alunos.getMatricula() );
+        alunosEntity.atualizadoEm( alunos.getAtualizadoEm() );
+        alunosEntity.criadoEm( alunos.getCriadoEm() );
         alunosEntity.curso( cursoToCursoEntity( alunos.getCurso() ) );
+        alunosEntity.endereco( enderecoToEnderecoEntity( alunos.getEndereco() ) );
+        alunosEntity.linkedin( alunos.getLinkedin() );
+        alunosEntity.matricula( alunos.getMatricula() );
+        alunosEntity.status( alunos.getStatus() );
         alunosEntity.telefonePessoal( alunos.getTelefonePessoal() );
         alunosEntity.telefoneProfissional( alunos.getTelefoneProfissional() );
-        alunosEntity.linkedin( alunos.getLinkedin() );
-        alunosEntity.status( alunos.getStatus() );
-        alunosEntity.criadoEm( alunos.getCriadoEm() );
-        alunosEntity.atualizadoEm( alunos.getAtualizadoEm() );
+        alunosEntity.usuarios( usuariosToUsuariosEntity( alunos.getUsuarios() ) );
+        alunosEntity.uuid( alunos.getUuid() );
 
         return alunosEntity.build();
     }
@@ -52,17 +52,17 @@ public class AlunosMapperImpl implements AlunosMapper {
 
         Alunos.AlunosBuilder alunos = Alunos.builder();
 
-        alunos.uuid( alunosEntity.getUuid() );
-        alunos.usuarios( usuariosEntityToUsuarios( alunosEntity.getUsuarios() ) );
-        alunos.matricula( alunosEntity.getMatricula() );
+        alunos.atualizadoEm( alunosEntity.getAtualizadoEm() );
+        alunos.criadoEm( alunosEntity.getCriadoEm() );
         alunos.curso( cursoEntityToCurso( alunosEntity.getCurso() ) );
+        alunos.endereco( enderecoEntityToEndereco( alunosEntity.getEndereco() ) );
+        alunos.linkedin( alunosEntity.getLinkedin() );
+        alunos.matricula( alunosEntity.getMatricula() );
+        alunos.status( alunosEntity.getStatus() );
         alunos.telefonePessoal( alunosEntity.getTelefonePessoal() );
         alunos.telefoneProfissional( alunosEntity.getTelefoneProfissional() );
-        alunos.linkedin( alunosEntity.getLinkedin() );
-        alunos.endereco( enderecoEntityToEndereco( alunosEntity.getEndereco() ) );
-        alunos.status( alunosEntity.getStatus() );
-        alunos.criadoEm( alunosEntity.getCriadoEm() );
-        alunos.atualizadoEm( alunosEntity.getAtualizadoEm() );
+        alunos.usuarios( usuariosEntityToUsuarios( alunosEntity.getUsuarios() ) );
+        alunos.uuid( alunosEntity.getUuid() );
 
         return alunos.build();
     }
@@ -95,23 +95,19 @@ public class AlunosMapperImpl implements AlunosMapper {
         return list;
     }
 
-    protected UsuariosEntity usuariosToUsuariosEntity(Usuarios usuarios) {
-        if ( usuarios == null ) {
+    protected CursoEntity cursoToCursoEntity(Curso curso) {
+        if ( curso == null ) {
             return null;
         }
 
-        UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
+        CursoEntity.CursoEntityBuilder cursoEntity = CursoEntity.builder();
 
-        usuariosEntity.uuid( usuarios.getUuid() );
-        usuariosEntity.usuario( usuarios.getUsuario() );
-        usuariosEntity.senha( usuarios.getSenha() );
-        usuariosEntity.email( usuarios.getEmail() );
-        usuariosEntity.tipo( usuarios.getTipo() );
-        usuariosEntity.status( usuarios.getStatus() );
-        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
-        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
+        cursoEntity.cargaHoraria( curso.getCargaHoraria() );
+        cursoEntity.descricao( curso.getDescricao() );
+        cursoEntity.nome( curso.getNome() );
+        cursoEntity.uuid( curso.getUuid() );
 
-        return usuariosEntity.build();
+        return cursoEntity.build();
     }
 
     protected EnderecoEntity enderecoToEnderecoEntity(Endereco endereco) {
@@ -121,51 +117,36 @@ public class AlunosMapperImpl implements AlunosMapper {
 
         EnderecoEntity.EnderecoEntityBuilder enderecoEntity = EnderecoEntity.builder();
 
-        enderecoEntity.uuid( endereco.getUuid() );
+        enderecoEntity.bairro( endereco.getBairro() );
         enderecoEntity.cep( endereco.getCep() );
+        enderecoEntity.cidade( endereco.getCidade() );
+        enderecoEntity.complemento( endereco.getComplemento() );
+        enderecoEntity.estado( endereco.getEstado() );
         enderecoEntity.logradouro( endereco.getLogradouro() );
         enderecoEntity.numero( endereco.getNumero() );
-        enderecoEntity.complemento( endereco.getComplemento() );
-        enderecoEntity.bairro( endereco.getBairro() );
-        enderecoEntity.cidade( endereco.getCidade() );
-        enderecoEntity.estado( endereco.getEstado() );
         enderecoEntity.pais( endereco.getPais() );
+        enderecoEntity.uuid( endereco.getUuid() );
 
         return enderecoEntity.build();
     }
 
-    protected CursoEntity cursoToCursoEntity(Curso curso) {
-        if ( curso == null ) {
+    protected UsuariosEntity usuariosToUsuariosEntity(Usuarios usuarios) {
+        if ( usuarios == null ) {
             return null;
         }
 
-        CursoEntity.CursoEntityBuilder cursoEntity = CursoEntity.builder();
+        UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
 
-        cursoEntity.uuid( curso.getUuid() );
-        cursoEntity.nome( curso.getNome() );
-        cursoEntity.descricao( curso.getDescricao() );
-        cursoEntity.cargaHoraria( curso.getCargaHoraria() );
+        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
+        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
+        usuariosEntity.email( usuarios.getEmail() );
+        usuariosEntity.senha( usuarios.getSenha() );
+        usuariosEntity.status( usuarios.getStatus() );
+        usuariosEntity.tipo( usuarios.getTipo() );
+        usuariosEntity.usuario( usuarios.getUsuario() );
+        usuariosEntity.uuid( usuarios.getUuid() );
 
-        return cursoEntity.build();
-    }
-
-    protected Usuarios usuariosEntityToUsuarios(UsuariosEntity usuariosEntity) {
-        if ( usuariosEntity == null ) {
-            return null;
-        }
-
-        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
-
-        usuarios.uuid( usuariosEntity.getUuid() );
-        usuarios.usuario( usuariosEntity.getUsuario() );
-        usuarios.senha( usuariosEntity.getSenha() );
-        usuarios.email( usuariosEntity.getEmail() );
-        usuarios.tipo( usuariosEntity.getTipo() );
-        usuarios.status( usuariosEntity.getStatus() );
-        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
-        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
-
-        return usuarios.build();
+        return usuariosEntity.build();
     }
 
     protected Curso cursoEntityToCurso(CursoEntity cursoEntity) {
@@ -175,10 +156,10 @@ public class AlunosMapperImpl implements AlunosMapper {
 
         Curso.CursoBuilder curso = Curso.builder();
 
-        curso.uuid( cursoEntity.getUuid() );
-        curso.nome( cursoEntity.getNome() );
-        curso.descricao( cursoEntity.getDescricao() );
         curso.cargaHoraria( cursoEntity.getCargaHoraria() );
+        curso.descricao( cursoEntity.getDescricao() );
+        curso.nome( cursoEntity.getNome() );
+        curso.uuid( cursoEntity.getUuid() );
 
         return curso.build();
     }
@@ -190,16 +171,35 @@ public class AlunosMapperImpl implements AlunosMapper {
 
         Endereco.EnderecoBuilder endereco = Endereco.builder();
 
-        endereco.uuid( enderecoEntity.getUuid() );
+        endereco.bairro( enderecoEntity.getBairro() );
         endereco.cep( enderecoEntity.getCep() );
+        endereco.cidade( enderecoEntity.getCidade() );
+        endereco.complemento( enderecoEntity.getComplemento() );
+        endereco.estado( enderecoEntity.getEstado() );
         endereco.logradouro( enderecoEntity.getLogradouro() );
         endereco.numero( enderecoEntity.getNumero() );
-        endereco.complemento( enderecoEntity.getComplemento() );
-        endereco.bairro( enderecoEntity.getBairro() );
-        endereco.cidade( enderecoEntity.getCidade() );
-        endereco.estado( enderecoEntity.getEstado() );
         endereco.pais( enderecoEntity.getPais() );
+        endereco.uuid( enderecoEntity.getUuid() );
 
         return endereco.build();
+    }
+
+    protected Usuarios usuariosEntityToUsuarios(UsuariosEntity usuariosEntity) {
+        if ( usuariosEntity == null ) {
+            return null;
+        }
+
+        Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
+
+        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
+        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
+        usuarios.email( usuariosEntity.getEmail() );
+        usuarios.senha( usuariosEntity.getSenha() );
+        usuarios.status( usuariosEntity.getStatus() );
+        usuarios.tipo( usuariosEntity.getTipo() );
+        usuarios.usuario( usuariosEntity.getUsuario() );
+        usuarios.uuid( usuariosEntity.getUuid() );
+
+        return usuarios.build();
     }
 }
