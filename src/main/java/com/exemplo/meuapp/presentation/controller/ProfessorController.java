@@ -24,8 +24,6 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/professor")
 public class ProfessorController {
 
-    @Autowired
-    @Qualifier("professoresMapperImpl")
     private ProfessoresMapper mapper;
     private CriarProfessorUseCase criarProfessorUseCase;
     private EncontrarProfessorUseCase encontrarProfessorUseCase;
@@ -36,7 +34,7 @@ public class ProfessorController {
 
     @Autowired
     public ProfessorController(
-            @Qualifier("professoresMapperImpl")ProfessoresMapper mapper,
+            ProfessoresMapper mapper,
             CriarProfessorUseCase criarProfessorUseCase,
             EncontrarUsuariosUseCase encontrarUsuariosUseCase,
             CollectEmailForTokenService collectEmailForTokenService,
@@ -53,10 +51,9 @@ public class ProfessorController {
     }
 
     @PostMapping("/create")
-    ResponseEntity<?> create(@RequestBody Professores request, HttpServletRequest httpServletRequest) {
+    ResponseEntity<?> create(@RequestBody Professores request) {
         try {
-            request.setUsuarios(encontrarUsuariosUseCase.buscarPorEmailUser(
-                    collectEmailForTokenService.execute(httpServletRequest)));
+       
             Professores professor = criarProfessorUseCase.criar(request);
             ProfessoresEntity response = mapper.toEntity(professor);
 

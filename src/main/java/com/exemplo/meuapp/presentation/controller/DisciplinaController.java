@@ -20,8 +20,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/disciplina")
 public class DisciplinaController {
 
-    @Autowired
-    @Qualifier("disciplinaMapperImpl")
+    
     private DisciplinaMapper mapper;
     private CriarDisciplinaUseCase criarDisciplinaUseCase;
     private EncontrarDisciplinaUseCase encontrarDisciplinaUseCase;
@@ -30,7 +29,7 @@ public class DisciplinaController {
 
     @Autowired
     public DisciplinaController(
-            @Qualifier("disciplinaMapperImpl") DisciplinaMapper mapper,
+            DisciplinaMapper mapper,
             CriarDisciplinaUseCase criarDisciplinaUseCase,
             EncontrarDisciplinaUseCase encontrarDisciplinaUseCase,
             DeleteDisciplinaUseCase deleteDisciplinaUseCase,

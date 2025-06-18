@@ -25,8 +25,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/alunos")
 public class AlunosController {
 
-    @Autowired
-    @Qualifier("alunosMapperImpl")
+ 
     private AlunosMapper mapper;
     private CriarAlunosUseCase criarAlunosUseCase;
     private EncontrarAlunosUseCase encontrarAlunosUseCase;
@@ -37,7 +36,7 @@ public class AlunosController {
 
     @Autowired
     public AlunosController(
-            @Qualifier("alunosMapperImpl") AlunosMapper mapper,
+            AlunosMapper mapper,
             CriarAlunosUseCase criarAlunosUseCase,
             EncontrarAlunosUseCase encontrarAlunosUseCase,
             DeletarAlunosUseCase deletarAlunosUseCase,
@@ -54,10 +53,9 @@ public class AlunosController {
     }
 
     public @PostMapping("/create")
-    ResponseEntity<?> create(@RequestBody Alunos request, HttpServletRequest httpServletRequest) {
+    ResponseEntity<?> create(@RequestBody Alunos request) {
         try {
-            request.setUsuarios(encontrarUsuariosUseCase.buscarPorEmailUser(
-                    collectEmailForTokenService.execute(httpServletRequest)));
+            
             Alunos alunos = criarAlunosUseCase.criar(request);
            
             AlunosEntity response = mapper.toEntity(alunos);

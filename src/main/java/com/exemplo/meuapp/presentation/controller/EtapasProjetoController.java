@@ -20,8 +20,7 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/etapasProjeto")
 public class EtapasProjetoController {
 
-    @Autowired
-    @Qualifier("etapasProjetoMapperImpl")
+ 
     private EtapasProjetoMapper mapper;
     private CriarEtapasProjetoUseCase criarEtapasProjetoUseCase;
     private EncontrarEtapasProjetoUseCase encontrarEtapasProjetoUseCase;
@@ -31,7 +30,7 @@ public class EtapasProjetoController {
 
     @Autowired
     public EtapasProjetoController(
-            @Qualifier("etapasProjetoMapperImpl") EtapasProjetoMapper mapper,
+           EtapasProjetoMapper mapper,
                             CriarEtapasProjetoUseCase criarEtapasProjetoUseCase,
                             EncontrarEtapasProjetoUseCase encontrarEtapasProjetoUseCase,
                             DeletarEtapasProjetoUseCase deletarEtapasProjetoUseCase,

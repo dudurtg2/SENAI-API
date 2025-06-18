@@ -5,6 +5,8 @@ import com.exemplo.meuapp.application.port.in.professor.CriarProfessorUseCase;
 import com.exemplo.meuapp.application.port.in.professor.DeletarProfessorUseCase;
 import com.exemplo.meuapp.application.port.in.professor.EncontrarProfessorUseCase;
 import com.exemplo.meuapp.application.port.out.ProfessoresGateways;
+import com.exemplo.meuapp.application.port.out.UsuariosGateways;
+import com.exemplo.meuapp.common.mapper.UsuariosMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,8 +14,10 @@ import org.springframework.context.annotation.Configuration;
 public class ProfessorConfig {
 
     @Bean
-    public CriarProfessorUseCase criarProfessorUseCase (ProfessoresGateways professoresGateways){
-        return new CriarProfessorUseCase(professoresGateways);
+    public CriarProfessorUseCase criarProfessorUseCase (ProfessoresGateways professoresGateways,
+                                                         UsuariosGateways usuariosGateways,
+                                                         UsuariosMapper usuariosMapper){
+        return new CriarProfessorUseCase(professoresGateways, usuariosGateways, usuariosMapper);
     }
 
     @Bean

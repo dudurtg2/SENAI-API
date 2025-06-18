@@ -25,7 +25,7 @@ public class Alunos {
     private Usuarios usuarios;
 
     private String matricula;
-    private String curso;
+    private Curso curso;
     
     private String telefonePessoal;
     private String telefoneProfissional;
@@ -42,7 +42,7 @@ public class Alunos {
         if (matricula == null || matricula.isBlank()) {
             throw new DadosInvalidosException("Matrícula não pode ser nula ou vazia");
         }
-        if (curso == null || curso.isBlank()) {
+        if (curso == null) {
             throw new DadosInvalidosException("Curso não pode ser nulo ou vazio");
         }
         if (telefoneProfissional == null || telefoneProfissional.isBlank()) {

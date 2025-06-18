@@ -20,8 +20,8 @@ import java.util.UUID;
 @RequestMapping("/api/v1/senai/AnexoEtapa")
 public class AnexoEtapaController {
 
-    @Autowired
-    @Qualifier("anexoEtapaMapperImpl")
+
+   
     private AnexoMapper mapper;
     private CriarAnexoUseCase criarAnexoUseCase;
     private EncontrarAnexoUseCase encontrarAnexoUseCase;
@@ -30,7 +30,7 @@ public class AnexoEtapaController {
 
     @Autowired
     public AnexoEtapaController(
-            @Qualifier("anexoEtapaMapperImpl") AnexoMapper mapper,
+            AnexoMapper mapper,
             CriarAnexoUseCase criarAnexoUseCase,
             EncontrarAnexoUseCase encontrarAnexoUseCase,
             DeletarAnexoUseCase deletarAnexoUseCase,

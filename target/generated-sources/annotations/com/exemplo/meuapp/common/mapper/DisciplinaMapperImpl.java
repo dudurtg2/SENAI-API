@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-17T19:55:08-0300",
+    date = "2025-06-18T00:01:58-0300",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
 )
 @Component
@@ -135,12 +135,12 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
 
         professoresEntity.uuid( professores.getUuid() );
         professoresEntity.usuarios( usuariosToUsuariosEntity( professores.getUsuarios() ) );
+        professoresEntity.endereco( enderecoToEnderecoEntity( professores.getEndereco() ) );
         professoresEntity.especialidade( professores.getEspecialidade() );
         professoresEntity.departamento( professores.getDepartamento() );
         professoresEntity.telefonePessoal( professores.getTelefonePessoal() );
         professoresEntity.telefoneProfissional( professores.getTelefoneProfissional() );
         professoresEntity.linkedin( professores.getLinkedin() );
-        professoresEntity.endereco( enderecoToEnderecoEntity( professores.getEndereco() ) );
         professoresEntity.status( professores.getStatus() );
         professoresEntity.criadoEm( professores.getCriadoEm() );
         professoresEntity.atualizadoEm( professores.getAtualizadoEm() );

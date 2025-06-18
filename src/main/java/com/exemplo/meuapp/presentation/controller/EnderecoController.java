@@ -19,8 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/senai/endereco")
 public class EnderecoController {
-    @Autowired
-    @Qualifier("enderecoMapperImpl")
+    
     private EnderecoMapper mapper;
     private CriarEnderecoUseCase criarEnderecoUseCase;
     private EncontrarEnderecoUseCase encontrarEnderecoUseCase;
@@ -29,7 +28,7 @@ public class EnderecoController {
 
     @Autowired
     public EnderecoController(
-            @Qualifier("enderecoMapperImpl") EnderecoMapper mapper,
+           EnderecoMapper mapper,
             CriarEnderecoUseCase criarEnderecoUseCase,
             EncontrarEnderecoUseCase encontrarEnderecoUseCase,
             DeletarEnderecoUseCase deletarEnderecoUseCase,

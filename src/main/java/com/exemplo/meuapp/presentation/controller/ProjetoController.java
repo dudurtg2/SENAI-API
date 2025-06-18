@@ -19,8 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/senai/projeto")
 public class ProjetoController {
-    @Autowired
-    @Qualifier("projetoMapperImpl")
+    
     private ProjetoMapper mapper;
     private CriarProjetoUseCase criarProjetoUseCase;
     private EncontrarProjetoUseCase encontrarProjetoUseCase;
@@ -29,7 +28,7 @@ public class ProjetoController {
 
     @Autowired
     public ProjetoController(
-            @Qualifier("projetoMapperImpl")ProjetoMapper mapper,
+            ProjetoMapper mapper,
             CriarProjetoUseCase criarProjetoUseCase,
             EncontrarProjetoUseCase encontrarProjetoUseCase,
             DeletarProjetoUseCase deletarProjetoUseCase,

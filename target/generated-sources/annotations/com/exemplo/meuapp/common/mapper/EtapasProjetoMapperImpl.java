@@ -2,6 +2,7 @@ package com.exemplo.meuapp.common.mapper;
 
 import com.exemplo.meuapp.domain.model.Alunos;
 import com.exemplo.meuapp.domain.model.Anexo;
+import com.exemplo.meuapp.domain.model.Curso;
 import com.exemplo.meuapp.domain.model.Disciplina;
 import com.exemplo.meuapp.domain.model.Endereco;
 import com.exemplo.meuapp.domain.model.EtapasProjeto;
@@ -10,6 +11,7 @@ import com.exemplo.meuapp.domain.model.Projeto;
 import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.persistence.entity.AlunosEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.AnexoEntity;
+import com.exemplo.meuapp.infrastructure.persistence.entity.CursoEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.DisciplinaEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.EnderecoEntity;
 import com.exemplo.meuapp.infrastructure.persistence.entity.EtapasProjetoEntity;
@@ -23,7 +25,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-17T19:55:08-0300",
+    date = "2025-06-18T00:01:57-0300",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
 )
 @Component
@@ -145,12 +147,12 @@ public class EtapasProjetoMapperImpl implements EtapasProjetoMapper {
 
         professoresEntity.uuid( professores.getUuid() );
         professoresEntity.usuarios( usuariosToUsuariosEntity( professores.getUsuarios() ) );
+        professoresEntity.endereco( enderecoToEnderecoEntity( professores.getEndereco() ) );
         professoresEntity.especialidade( professores.getEspecialidade() );
         professoresEntity.departamento( professores.getDepartamento() );
         professoresEntity.telefonePessoal( professores.getTelefonePessoal() );
         professoresEntity.telefoneProfissional( professores.getTelefoneProfissional() );
         professoresEntity.linkedin( professores.getLinkedin() );
-        professoresEntity.endereco( enderecoToEnderecoEntity( professores.getEndereco() ) );
         professoresEntity.status( professores.getStatus() );
         professoresEntity.criadoEm( professores.getCriadoEm() );
         professoresEntity.atualizadoEm( professores.getAtualizadoEm() );
@@ -184,7 +186,6 @@ public class EtapasProjetoMapperImpl implements EtapasProjetoMapper {
         AnexoEntity.AnexoEntityBuilder anexoEntity = AnexoEntity.builder();
 
         anexoEntity.uuid( anexo.getUuid() );
-        anexoEntity.etapa( toEntity( anexo.getEtapa() ) );
         anexoEntity.nomeArquivo( anexo.getNomeArquivo() );
         anexoEntity.url( anexo.getUrl() );
         anexoEntity.tipo( anexo.getTipo() );
@@ -206,6 +207,21 @@ public class EtapasProjetoMapperImpl implements EtapasProjetoMapper {
         return list1;
     }
 
+    protected CursoEntity cursoToCursoEntity(Curso curso) {
+        if ( curso == null ) {
+            return null;
+        }
+
+        CursoEntity.CursoEntityBuilder cursoEntity = CursoEntity.builder();
+
+        cursoEntity.uuid( curso.getUuid() );
+        cursoEntity.nome( curso.getNome() );
+        cursoEntity.descricao( curso.getDescricao() );
+        cursoEntity.cargaHoraria( curso.getCargaHoraria() );
+
+        return cursoEntity.build();
+    }
+
     protected AlunosEntity alunosToAlunosEntity(Alunos alunos) {
         if ( alunos == null ) {
             return null;
@@ -215,12 +231,12 @@ public class EtapasProjetoMapperImpl implements EtapasProjetoMapper {
 
         alunosEntity.uuid( alunos.getUuid() );
         alunosEntity.usuarios( usuariosToUsuariosEntity( alunos.getUsuarios() ) );
+        alunosEntity.endereco( enderecoToEnderecoEntity( alunos.getEndereco() ) );
         alunosEntity.matricula( alunos.getMatricula() );
-        alunosEntity.curso( alunos.getCurso() );
+        alunosEntity.curso( cursoToCursoEntity( alunos.getCurso() ) );
         alunosEntity.telefonePessoal( alunos.getTelefonePessoal() );
         alunosEntity.telefoneProfissional( alunos.getTelefoneProfissional() );
         alunosEntity.linkedin( alunos.getLinkedin() );
-        alunosEntity.endereco( enderecoToEnderecoEntity( alunos.getEndereco() ) );
         alunosEntity.status( alunos.getStatus() );
         alunosEntity.criadoEm( alunos.getCriadoEm() );
         alunosEntity.atualizadoEm( alunos.getAtualizadoEm() );
@@ -263,7 +279,6 @@ public class EtapasProjetoMapperImpl implements EtapasProjetoMapper {
         Anexo.AnexoBuilder anexo = Anexo.builder();
 
         anexo.uuid( anexoEntity.getUuid() );
-        anexo.etapa( toDomain( anexoEntity.getEtapa() ) );
         anexo.nomeArquivo( anexoEntity.getNomeArquivo() );
         anexo.url( anexoEntity.getUrl() );
         anexo.tipo( anexoEntity.getTipo() );
@@ -364,6 +379,21 @@ public class EtapasProjetoMapperImpl implements EtapasProjetoMapper {
         return disciplina.build();
     }
 
+    protected Curso cursoEntityToCurso(CursoEntity cursoEntity) {
+        if ( cursoEntity == null ) {
+            return null;
+        }
+
+        Curso.CursoBuilder curso = Curso.builder();
+
+        curso.uuid( cursoEntity.getUuid() );
+        curso.nome( cursoEntity.getNome() );
+        curso.descricao( cursoEntity.getDescricao() );
+        curso.cargaHoraria( cursoEntity.getCargaHoraria() );
+
+        return curso.build();
+    }
+
     protected Alunos alunosEntityToAlunos(AlunosEntity alunosEntity) {
         if ( alunosEntity == null ) {
             return null;
@@ -374,7 +404,7 @@ public class EtapasProjetoMapperImpl implements EtapasProjetoMapper {
         alunos.uuid( alunosEntity.getUuid() );
         alunos.usuarios( usuariosEntityToUsuarios( alunosEntity.getUsuarios() ) );
         alunos.matricula( alunosEntity.getMatricula() );
-        alunos.curso( alunosEntity.getCurso() );
+        alunos.curso( cursoEntityToCurso( alunosEntity.getCurso() ) );
         alunos.telefonePessoal( alunosEntity.getTelefonePessoal() );
         alunos.telefoneProfissional( alunosEntity.getTelefoneProfissional() );
         alunos.linkedin( alunosEntity.getLinkedin() );

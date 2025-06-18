@@ -35,10 +35,6 @@ public class AnexoEntity {
     @Column(name = "uuid")
     private UUID uuid;
 
-    @ManyToOne
-    @JoinColumn(name = "etapa_uuid")
-    private EtapasProjetoEntity etapa;
-
     @Column(length = 255)
     private String nomeArquivo;
 

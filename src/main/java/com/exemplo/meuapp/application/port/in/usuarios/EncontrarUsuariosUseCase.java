@@ -47,7 +47,7 @@ public class EncontrarUsuariosUseCase {
                     aluno.getCriadoEm(),
                     aluno.getAtualizadoEm(),
                     aluno.getMatricula(),
-                    aluno.getCurso(),
+                    aluno.getCurso().getNome(),
                     null,
                     null);
         }
@@ -81,7 +81,7 @@ public class EncontrarUsuariosUseCase {
                         aluno.getCriadoEm(),
                         aluno.getAtualizadoEm(),
                         aluno.getMatricula(),
-                        aluno.getCurso(),
+                        aluno.getCurso().getNome(),
                         null,
                         null);
 

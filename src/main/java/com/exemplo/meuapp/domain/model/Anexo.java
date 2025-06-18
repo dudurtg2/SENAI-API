@@ -15,16 +15,13 @@ import java.time.LocalDateTime;
 @Data
 public class Anexo {
     private UUID uuid;
-    private EtapasProjeto etapa;
     private String nomeArquivo;
     private String url;
     private TipoAnexo tipo;
     private LocalDateTime dataUpload;
 
     public Anexo correct() {
-        if (etapa == null) {
-            throw new DadosInvalidosException("O campo etapa deve ser preenchido");
-        }
+       
         if (nomeArquivo == null || nomeArquivo.isBlank()) {
             throw new DadosInvalidosException("O campo nomeArquivo deve ser preenchido");
         }

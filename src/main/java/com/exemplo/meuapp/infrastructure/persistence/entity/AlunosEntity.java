@@ -29,22 +29,28 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AlunosEntity  {
+public class AlunosEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "uuid")
     private UUID uuid;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuarios_uuid")
     private UsuariosEntity usuarios;
+
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_uuid")
+    private EnderecoEntity endereco;
 
     @Column(length = 50)
     private String matricula;
 
-    @Column(length = 100)
-    private String curso;
+    @ManyToOne
+    @JoinColumn(name = "curso_uuid")
+    private CursoEntity curso;
 
     @Column(length = 20)
     private String telefonePessoal;
@@ -54,10 +60,6 @@ public class AlunosEntity  {
 
     @Column(length = 255)
     private String linkedin;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "endereco_uuid")
-    private EnderecoEntity endereco;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

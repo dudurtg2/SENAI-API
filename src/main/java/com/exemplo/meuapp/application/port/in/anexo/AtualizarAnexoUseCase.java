@@ -20,12 +20,7 @@ package com.exemplo.meuapp.application.port.in.anexo;
             if (anexoInDb == null) {
                 throw new RegraDeNegocioException("Anexo não encontrado.");
             }
-
-
-            if (!anexoInDb.getNomeArquivo().equals(anexo.getNomeArquivo()) &&
-                    anexoGateways.existsByEtapaAndNomeArquivo(anexo.getEtapa().getUuid(), anexo.getNomeArquivo())) {
-                throw new RegraDeNegocioException("Já existe um anexo com este nome para a etapa.");
-            }
+            
 
             if (anexo.getUrl() == null || !anexo.getUrl().startsWith("https://")) {
                 throw new DadosInvalidosException("URL do anexo deve começar com https://");
@@ -35,7 +30,6 @@ package com.exemplo.meuapp.application.port.in.anexo;
                 throw new RegraDeNegocioException("Data de upload não pode ser futura.");
             }
 
-            anexoInDb.setEtapa(anexo.getEtapa());
             anexoInDb.setNomeArquivo(anexo.getNomeArquivo());
             anexoInDb.setUrl(anexo.getUrl());
             anexoInDb.setTipo(anexo.getTipo());

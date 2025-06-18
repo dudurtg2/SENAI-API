@@ -16,8 +16,7 @@ package com.exemplo.meuapp.application.port.in.anexo;
 
         public Anexo criar(Anexo anexo) {
             anexo.setDataUpload(LocalDateTime.now());
-            anexo.correct();
-
+            
 
             if (!anexo.getNomeArquivo().matches("^[\\w\\-. ]+$")) {
                 throw new DadosInvalidosException("Nome do arquivo contém caracteres inválidos.");
@@ -28,15 +27,11 @@ package com.exemplo.meuapp.application.port.in.anexo;
                 throw new DadosInvalidosException("A URL do anexo deve começar com https://");
             }
 
-            if (anexoGateways.existsByEtapaAndNomeArquivo(
-                    anexo.getEtapa().getUuid(), anexo.getNomeArquivo())) {
-                throw new RegraDeNegocioException("Já existe um anexo com este nome para esta etapa.");
-            }
 
             if (anexo.getDataUpload() != null && anexo.getDataUpload().isAfter(LocalDateTime.now())) {
                 throw new RegraDeNegocioException("Data de upload não pode ser futura.");
             }
 
-            return anexoGateways.save(anexo);
+            return anexoGateways.save(anexo.correct());
         }
     }
