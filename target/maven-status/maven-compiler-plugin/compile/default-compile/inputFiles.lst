@@ -26,6 +26,7 @@ D:\SENAI-API\src\main\java\com\exemplo\meuapp\presentation\controller\EnderecoCo
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\usuarios\CriarUsuariosUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\endereco\EncontrarEnderecoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\presentation\controller\DisciplinaController.java
+D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\config\security\CorsConfig.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\projeto\DeletarProjetoUseCase.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\infrastructure\webclient\CustomOAuth2UserService.java
 D:\SENAI-API\src\main\java\com\exemplo\meuapp\application\port\in\alunos\AtualizarAlunosUseCase.java

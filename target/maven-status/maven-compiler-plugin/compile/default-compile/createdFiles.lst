@@ -88,6 +88,7 @@ com\exemplo\meuapp\infrastructure\config\ProfessorConfig.class
 com\exemplo\meuapp\common\mapper\ProjetoMapperImpl.class
 com\exemplo\meuapp\domain\enums\EtapaStatus.class
 com\exemplo\meuapp\application\port\in\projeto\CriarProjetoUseCase.class
+com\exemplo\meuapp\infrastructure\config\security\CorsConfig.class
 com\exemplo\meuapp\application\port\in\professor\AtualizarProfessorUseCase.class
 com\exemplo\meuapp\infrastructure\persistence\repository\EtapasProjetoRepository.class
 com\exemplo\meuapp\infrastructure\config\security\JwtAuthenticationFilter.class
