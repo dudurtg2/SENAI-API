@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 import com.exemplo.meuapp.application.port.in.projeto.CriarProjetoUseCase;
 import com.exemplo.meuapp.domain.model.Projeto;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.UUID;
 
 @RestController
+@RequestScope
+@CrossOrigin
 @RequestMapping("/api/v1/senai/projeto")
 public class ProjetoController {
     

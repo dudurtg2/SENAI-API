@@ -20,7 +20,7 @@ package com.exemplo.meuapp.application.port.in.anexo;
             if (anexoInDb == null) {
                 throw new RegraDeNegocioException("Anexo não encontrado.");
             }
-            
+
 
             if (anexo.getUrl() == null || !anexo.getUrl().startsWith("https://")) {
                 throw new DadosInvalidosException("URL do anexo deve começar com https://");

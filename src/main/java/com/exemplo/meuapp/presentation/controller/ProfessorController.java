@@ -17,10 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.exemplo.meuapp.application.port.in.professor.CriarProfessorUseCase;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.UUID;
 
 @RestController
+@RequestScope
+@CrossOrigin
 @RequestMapping("/api/v1/senai/professor")
 public class ProfessorController {
 

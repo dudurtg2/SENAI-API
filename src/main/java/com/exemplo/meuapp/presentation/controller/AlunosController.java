@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.*;
 
 import com.exemplo.meuapp.application.port.in.alunos.CriarAlunosUseCase;
 import com.exemplo.meuapp.domain.model.Alunos;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.UUID;
 
 @RestController
+@RequestScope
+@CrossOrigin
 @RequestMapping("/api/v1/senai/alunos")
 public class AlunosController {
 

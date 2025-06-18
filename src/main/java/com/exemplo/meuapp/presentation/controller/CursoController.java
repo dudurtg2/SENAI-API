@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.*;
 import com.exemplo.meuapp.application.port.in.curso.CriarCursoUseCase;
 import com.exemplo.meuapp.application.port.in.curso.DeletarCursoUseCase;
 import com.exemplo.meuapp.domain.model.Curso;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.UUID;
 
 @RestController
+@RequestScope
+@CrossOrigin
 @RequestMapping("/api/v1/senai/Curso")
 public class CursoController {
 

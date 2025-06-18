@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 import com.exemplo.meuapp.application.port.in.endereco.CriarEnderecoUseCase;
 import com.exemplo.meuapp.domain.model.Endereco;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.UUID;
 
 @RestController
+@RequestScope
+@CrossOrigin
 @RequestMapping("/api/v1/senai/endereco")
 public class EnderecoController {
     

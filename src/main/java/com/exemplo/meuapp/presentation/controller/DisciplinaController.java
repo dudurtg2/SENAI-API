@@ -13,10 +13,13 @@ import org.springframework.web.bind.annotation.*;
 
 import com.exemplo.meuapp.application.port.in.disciplina.CriarDisciplinaUseCase;
 import com.exemplo.meuapp.domain.model.Disciplina;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.UUID;
 
 @RestController
+@RequestScope
+@CrossOrigin
 @RequestMapping("/api/v1/senai/disciplina")
 public class DisciplinaController {
 

@@ -23,20 +23,17 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.token.TokenService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.context.annotation.RequestScope;
 
 import java.util.UUID;
 
 @RestController
+@RequestScope
+@CrossOrigin
 @RequestMapping("/api/user")
 public class UsuariosController {
 
@@ -66,7 +63,20 @@ public class UsuariosController {
         this.authenticationManager = authenticationManager;
         this.jwtTokenProvider = jwtTokenProvider;
     }
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody NovoPerfil data) {
 
+         Usuarios usuarios = criarUsuariosUseCase.criar(data);
+
+        return ResponseEntity.ok(
+                jwtTokenProvider.generateTokens(
+                        encontrarUsuariosUseCase.buscarPorEmail(
+                                data.email()
+                        )
+                )
+        );
+
+    }
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthorizationDTO data) {
         try {
