@@ -132,7 +132,6 @@
 
 ```json
 {
-  "etapa":      { "uuid": "44444444-4444-4444-4444-444444444444" },
   "nomeArquivo":"plano_teste.pdf",
   "url":        "https://storage.exemplo.com/anexos/plano_teste.pdf",
   "tipo":       "DOCUMENTO"
@@ -141,7 +140,6 @@
 
 ```json
 {
-  "etapa":      { "uuid": "55555555-5555-5555-5555-555555555555" },
   "nomeArquivo":"diagrama.png",
   "url":        "https://storage.exemplo.com/anexos/diagrama.png",
   "tipo":       "IMAGEM"
