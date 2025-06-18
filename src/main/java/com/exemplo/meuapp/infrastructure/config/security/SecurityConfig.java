@@ -1,11 +1,13 @@
 package com.exemplo.meuapp.infrastructure.config.security;
 
-
 import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
 import com.exemplo.meuapp.common.mapper.UsuariosMapper;
 import com.exemplo.meuapp.infrastructure.webclient.CustomOAuth2UserService;
 import com.exemplo.meuapp.infrastructure.webclient.CustomUserDetailsService;
+
+import jakarta.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,8 +21,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-
-
 
 @Configuration
 @EnableWebSecurity
@@ -46,28 +46,34 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http,
-                                           JwtTokenProvider tokenProvider,
-                                           CustomUserDetailsService uds,
-                                           CustomOAuth2UserService oauth2UserService,
-                                           OAuth2SuccessHandler successHandler) throws Exception {
+            JwtTokenProvider tokenProvider,
+            CustomUserDetailsService uds,
+            CustomOAuth2UserService oauth2UserService,
+            OAuth2SuccessHandler successHandler) throws Exception {
 
-        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(encontrarUsuariosUseCase,tokenProvider, usuariosMapper);
+        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(encontrarUsuariosUseCase, tokenProvider,
+                usuariosMapper);
 
         http
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(
+                                (req, res, authEx) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED)) 
+                        .accessDeniedHandler((req, res, deniedEx) -> res.sendError(HttpServletResponse.SC_FORBIDDEN)) 
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**", "/oauth2/**").permitAll()
-                        .requestMatchers("/api/user/login", "/api/user/register").permitAll()
+                        .requestMatchers("/api/user/login/google", "/api/user/login", "/api/user/register").permitAll()
                         .requestMatchers("/api/user/refresh-token").authenticated()
                         .requestMatchers("/api/user/update").authenticated()
                         .requestMatchers("/api/v1/senai/**").authenticated()
-                        .anyRequest().authenticated()
-                )
+                        .anyRequest().authenticated())
                 .oauth2Login(oauth2 -> oauth2
+
+                        .loginPage("/api/user/login/google")
                         .userInfoEndpoint(u -> u.userService(oauth2UserService))
-                        .successHandler(successHandler)
-                )
+                        .successHandler(successHandler))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

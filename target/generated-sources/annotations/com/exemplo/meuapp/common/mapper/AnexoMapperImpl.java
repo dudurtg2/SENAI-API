@@ -9,8 +9,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-18T00:01:57-0300",
-    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.4 (Oracle Corporation)"
+    date = "2025-06-18T15:18:33-0300",
+    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
 )
 @Component
 public class AnexoMapperImpl implements AnexoMapper {
@@ -23,11 +23,11 @@ public class AnexoMapperImpl implements AnexoMapper {
 
         AnexoEntity.AnexoEntityBuilder anexoEntity = AnexoEntity.builder();
 
-        anexoEntity.uuid( aluno.getUuid() );
-        anexoEntity.nomeArquivo( aluno.getNomeArquivo() );
-        anexoEntity.url( aluno.getUrl() );
-        anexoEntity.tipo( aluno.getTipo() );
         anexoEntity.dataUpload( aluno.getDataUpload() );
+        anexoEntity.nomeArquivo( aluno.getNomeArquivo() );
+        anexoEntity.tipo( aluno.getTipo() );
+        anexoEntity.url( aluno.getUrl() );
+        anexoEntity.uuid( aluno.getUuid() );
 
         return anexoEntity.build();
     }
@@ -40,11 +40,11 @@ public class AnexoMapperImpl implements AnexoMapper {
 
         Anexo.AnexoBuilder anexo = Anexo.builder();
 
-        anexo.uuid( alunoEntity.getUuid() );
-        anexo.nomeArquivo( alunoEntity.getNomeArquivo() );
-        anexo.url( alunoEntity.getUrl() );
-        anexo.tipo( alunoEntity.getTipo() );
         anexo.dataUpload( alunoEntity.getDataUpload() );
+        anexo.nomeArquivo( alunoEntity.getNomeArquivo() );
+        anexo.tipo( alunoEntity.getTipo() );
+        anexo.url( alunoEntity.getUrl() );
+        anexo.uuid( alunoEntity.getUuid() );
 
         return anexo.build();
     }

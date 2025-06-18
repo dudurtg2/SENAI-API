@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.context.annotation.RequestScope;
 
+import java.net.URI;
 import java.util.UUID;
 
 @RestController
@@ -71,7 +72,7 @@ public class UsuariosController {
         return ResponseEntity.ok(
                 jwtTokenProvider.generateTokens(
                         encontrarUsuariosUseCase.buscarPorEmail(
-                                data.email()
+                                usuarios.getEmail()
                         )
                 )
         );
@@ -96,8 +97,12 @@ public class UsuariosController {
         }
     }
 
-    @GetMapping("/login/google")
-    public void loginGoogle(@AuthenticationPrincipal OidcUser user) {
+     @GetMapping("/login/google")
+    public ResponseEntity<Void> loginGoogleRedirect() {
+        return ResponseEntity
+            .status(HttpStatus.FOUND)
+            .location(URI.create("/oauth2/authorization/google"))
+            .build();
     }
 
 

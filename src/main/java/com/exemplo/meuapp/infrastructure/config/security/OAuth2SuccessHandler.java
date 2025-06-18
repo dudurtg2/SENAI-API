@@ -24,18 +24,15 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
     private final JwtTokenProvider jwtProvider;
     private EncontrarUsuariosUseCase encontrarUsuariosUseCase;
     private CriarUsuariosUseCase criarUsuariosUseCase;
-    private UsuariosMapper usuariosMapper;
     private final ObjectMapper objectMapper;
     public OAuth2SuccessHandler(
             JwtTokenProvider jwtProvider,
             EncontrarUsuariosUseCase encontrarUsuariosUseCase,
             CriarUsuariosUseCase criarUsuariosUseCase,
-            UsuariosMapper usuariosMapper,
             ObjectMapper objectMapper) {
         this.jwtProvider = jwtProvider;
         this.encontrarUsuariosUseCase = encontrarUsuariosUseCase;
         this.criarUsuariosUseCase = criarUsuariosUseCase;
-        this.usuariosMapper = usuariosMapper;
         this.objectMapper = objectMapper;
     }
 
