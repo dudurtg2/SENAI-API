@@ -38,7 +38,6 @@ com\exemplo\meuapp\application\port\out\UsuariosGateways.class
 com\exemplo\meuapp\domain\exception\RegraDeNegocioException.class
 com\exemplo\meuapp\domain\model\Endereco.class
 com\exemplo\meuapp\domain\model\Anexo.class
-com\exemplo\meuapp\infrastructure\webclient\CustomUserDetailsService.class
 com\exemplo\meuapp\application\port\in\disciplina\EncontrarDisciplinaUseCase.class
 com\exemplo\meuapp\domain\enums\TipoAnexo.class
 com\exemplo\meuapp\infrastructure\config\security\JwtTokenProvider.class
@@ -70,13 +69,13 @@ com\exemplo\meuapp\application\port\in\curso\CriarCursoUseCase.class
 com\exemplo\meuapp\application\port\in\endereco\EncontrarEnderecoUseCase.class
 com\exemplo\meuapp\domain\model\Curso.class
 com\exemplo\meuapp\infrastructure\persistence\entity\AlunosEntity$AlunosEntityBuilder.class
-com\exemplo\meuapp\infrastructure\webclient\CustomOAuth2UserService.class
 com\exemplo\meuapp\common\mapper\DisciplinaMapperImpl.class
 com\exemplo\meuapp\infrastructure\config\security\OAuth2SuccessHandler.class
 com\exemplo\meuapp\domain\exception\DadosInvalidosException.class
 com\exemplo\meuapp\application\port\in\curso\EncontrarCursoUseCase.class
 com\exemplo\meuapp\infrastructure\persistence\entity\EtapasProjetoEntity.class
 com\exemplo\meuapp\infrastructure\config\AlunosConfig.class
+com\exemplo\meuapp\infrastructure\config\security\SecurityConfig$1.class
 com\exemplo\meuapp\application\port\in\curso\DeletarCursoUseCase.class
 com\exemplo\meuapp\infrastructure\config\security\SecurityConfig.class
 com\exemplo\meuapp\presentation\controller\DisciplinaController.class

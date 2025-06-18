@@ -15,8 +15,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-18T00:29:49-0300",
-    comments = "version: 1.5.3.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+    date = "2025-06-18T14:11:45-0300",
+    comments = "version: 1.5.3.Final, compiler: javac, environment: Java 21.0.5 (Oracle Corporation)"
 )
 @Component
 public class DisciplinaMapperImpl implements DisciplinaMapper {
@@ -29,13 +29,13 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
 
         DisciplinaEntity.DisciplinaEntityBuilder disciplinaEntity = DisciplinaEntity.builder();
 
-        disciplinaEntity.atualizadoEm( aluno.getAtualizadoEm() );
-        disciplinaEntity.cargaHoraria( aluno.getCargaHoraria() );
-        disciplinaEntity.criadoEm( aluno.getCriadoEm() );
-        disciplinaEntity.descricao( aluno.getDescricao() );
+        disciplinaEntity.uuid( aluno.getUuid() );
         disciplinaEntity.nome( aluno.getNome() );
         disciplinaEntity.professor( professoresToProfessoresEntity( aluno.getProfessor() ) );
-        disciplinaEntity.uuid( aluno.getUuid() );
+        disciplinaEntity.criadoEm( aluno.getCriadoEm() );
+        disciplinaEntity.atualizadoEm( aluno.getAtualizadoEm() );
+        disciplinaEntity.descricao( aluno.getDescricao() );
+        disciplinaEntity.cargaHoraria( aluno.getCargaHoraria() );
 
         return disciplinaEntity.build();
     }
@@ -48,13 +48,13 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
 
         Disciplina.DisciplinaBuilder disciplina = Disciplina.builder();
 
-        disciplina.atualizadoEm( alunoEntity.getAtualizadoEm() );
-        disciplina.cargaHoraria( alunoEntity.getCargaHoraria() );
-        disciplina.criadoEm( alunoEntity.getCriadoEm() );
-        disciplina.descricao( alunoEntity.getDescricao() );
+        disciplina.uuid( alunoEntity.getUuid() );
         disciplina.nome( alunoEntity.getNome() );
         disciplina.professor( professoresEntityToProfessores( alunoEntity.getProfessor() ) );
-        disciplina.uuid( alunoEntity.getUuid() );
+        disciplina.criadoEm( alunoEntity.getCriadoEm() );
+        disciplina.atualizadoEm( alunoEntity.getAtualizadoEm() );
+        disciplina.descricao( alunoEntity.getDescricao() );
+        disciplina.cargaHoraria( alunoEntity.getCargaHoraria() );
 
         return disciplina.build();
     }
@@ -87,26 +87,6 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
         return list;
     }
 
-    protected EnderecoEntity enderecoToEnderecoEntity(Endereco endereco) {
-        if ( endereco == null ) {
-            return null;
-        }
-
-        EnderecoEntity.EnderecoEntityBuilder enderecoEntity = EnderecoEntity.builder();
-
-        enderecoEntity.bairro( endereco.getBairro() );
-        enderecoEntity.cep( endereco.getCep() );
-        enderecoEntity.cidade( endereco.getCidade() );
-        enderecoEntity.complemento( endereco.getComplemento() );
-        enderecoEntity.estado( endereco.getEstado() );
-        enderecoEntity.logradouro( endereco.getLogradouro() );
-        enderecoEntity.numero( endereco.getNumero() );
-        enderecoEntity.pais( endereco.getPais() );
-        enderecoEntity.uuid( endereco.getUuid() );
-
-        return enderecoEntity.build();
-    }
-
     protected UsuariosEntity usuariosToUsuariosEntity(Usuarios usuarios) {
         if ( usuarios == null ) {
             return null;
@@ -114,16 +94,36 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
 
         UsuariosEntity.UsuariosEntityBuilder usuariosEntity = UsuariosEntity.builder();
 
-        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
-        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
-        usuariosEntity.email( usuarios.getEmail() );
-        usuariosEntity.senha( usuarios.getSenha() );
-        usuariosEntity.status( usuarios.getStatus() );
-        usuariosEntity.tipo( usuarios.getTipo() );
-        usuariosEntity.usuario( usuarios.getUsuario() );
         usuariosEntity.uuid( usuarios.getUuid() );
+        usuariosEntity.usuario( usuarios.getUsuario() );
+        usuariosEntity.senha( usuarios.getSenha() );
+        usuariosEntity.email( usuarios.getEmail() );
+        usuariosEntity.tipo( usuarios.getTipo() );
+        usuariosEntity.status( usuarios.getStatus() );
+        usuariosEntity.criadoEm( usuarios.getCriadoEm() );
+        usuariosEntity.atualizadoEm( usuarios.getAtualizadoEm() );
 
         return usuariosEntity.build();
+    }
+
+    protected EnderecoEntity enderecoToEnderecoEntity(Endereco endereco) {
+        if ( endereco == null ) {
+            return null;
+        }
+
+        EnderecoEntity.EnderecoEntityBuilder enderecoEntity = EnderecoEntity.builder();
+
+        enderecoEntity.uuid( endereco.getUuid() );
+        enderecoEntity.cep( endereco.getCep() );
+        enderecoEntity.logradouro( endereco.getLogradouro() );
+        enderecoEntity.numero( endereco.getNumero() );
+        enderecoEntity.complemento( endereco.getComplemento() );
+        enderecoEntity.bairro( endereco.getBairro() );
+        enderecoEntity.cidade( endereco.getCidade() );
+        enderecoEntity.estado( endereco.getEstado() );
+        enderecoEntity.pais( endereco.getPais() );
+
+        return enderecoEntity.build();
     }
 
     protected ProfessoresEntity professoresToProfessoresEntity(Professores professores) {
@@ -133,39 +133,19 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
 
         ProfessoresEntity.ProfessoresEntityBuilder professoresEntity = ProfessoresEntity.builder();
 
-        professoresEntity.atualizadoEm( professores.getAtualizadoEm() );
-        professoresEntity.criadoEm( professores.getCriadoEm() );
-        professoresEntity.departamento( professores.getDepartamento() );
+        professoresEntity.uuid( professores.getUuid() );
+        professoresEntity.usuarios( usuariosToUsuariosEntity( professores.getUsuarios() ) );
         professoresEntity.endereco( enderecoToEnderecoEntity( professores.getEndereco() ) );
         professoresEntity.especialidade( professores.getEspecialidade() );
-        professoresEntity.linkedin( professores.getLinkedin() );
-        professoresEntity.status( professores.getStatus() );
+        professoresEntity.departamento( professores.getDepartamento() );
         professoresEntity.telefonePessoal( professores.getTelefonePessoal() );
         professoresEntity.telefoneProfissional( professores.getTelefoneProfissional() );
-        professoresEntity.usuarios( usuariosToUsuariosEntity( professores.getUsuarios() ) );
-        professoresEntity.uuid( professores.getUuid() );
+        professoresEntity.linkedin( professores.getLinkedin() );
+        professoresEntity.status( professores.getStatus() );
+        professoresEntity.criadoEm( professores.getCriadoEm() );
+        professoresEntity.atualizadoEm( professores.getAtualizadoEm() );
 
         return professoresEntity.build();
-    }
-
-    protected Endereco enderecoEntityToEndereco(EnderecoEntity enderecoEntity) {
-        if ( enderecoEntity == null ) {
-            return null;
-        }
-
-        Endereco.EnderecoBuilder endereco = Endereco.builder();
-
-        endereco.bairro( enderecoEntity.getBairro() );
-        endereco.cep( enderecoEntity.getCep() );
-        endereco.cidade( enderecoEntity.getCidade() );
-        endereco.complemento( enderecoEntity.getComplemento() );
-        endereco.estado( enderecoEntity.getEstado() );
-        endereco.logradouro( enderecoEntity.getLogradouro() );
-        endereco.numero( enderecoEntity.getNumero() );
-        endereco.pais( enderecoEntity.getPais() );
-        endereco.uuid( enderecoEntity.getUuid() );
-
-        return endereco.build();
     }
 
     protected Usuarios usuariosEntityToUsuarios(UsuariosEntity usuariosEntity) {
@@ -175,16 +155,36 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
 
         Usuarios.UsuariosBuilder usuarios = Usuarios.builder();
 
-        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
-        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
-        usuarios.email( usuariosEntity.getEmail() );
-        usuarios.senha( usuariosEntity.getSenha() );
-        usuarios.status( usuariosEntity.getStatus() );
-        usuarios.tipo( usuariosEntity.getTipo() );
-        usuarios.usuario( usuariosEntity.getUsuario() );
         usuarios.uuid( usuariosEntity.getUuid() );
+        usuarios.usuario( usuariosEntity.getUsuario() );
+        usuarios.senha( usuariosEntity.getSenha() );
+        usuarios.email( usuariosEntity.getEmail() );
+        usuarios.tipo( usuariosEntity.getTipo() );
+        usuarios.status( usuariosEntity.getStatus() );
+        usuarios.criadoEm( usuariosEntity.getCriadoEm() );
+        usuarios.atualizadoEm( usuariosEntity.getAtualizadoEm() );
 
         return usuarios.build();
+    }
+
+    protected Endereco enderecoEntityToEndereco(EnderecoEntity enderecoEntity) {
+        if ( enderecoEntity == null ) {
+            return null;
+        }
+
+        Endereco.EnderecoBuilder endereco = Endereco.builder();
+
+        endereco.uuid( enderecoEntity.getUuid() );
+        endereco.cep( enderecoEntity.getCep() );
+        endereco.logradouro( enderecoEntity.getLogradouro() );
+        endereco.numero( enderecoEntity.getNumero() );
+        endereco.complemento( enderecoEntity.getComplemento() );
+        endereco.bairro( enderecoEntity.getBairro() );
+        endereco.cidade( enderecoEntity.getCidade() );
+        endereco.estado( enderecoEntity.getEstado() );
+        endereco.pais( enderecoEntity.getPais() );
+
+        return endereco.build();
     }
 
     protected Professores professoresEntityToProfessores(ProfessoresEntity professoresEntity) {
@@ -194,17 +194,17 @@ public class DisciplinaMapperImpl implements DisciplinaMapper {
 
         Professores.ProfessoresBuilder professores = Professores.builder();
 
-        professores.atualizadoEm( professoresEntity.getAtualizadoEm() );
-        professores.criadoEm( professoresEntity.getCriadoEm() );
-        professores.departamento( professoresEntity.getDepartamento() );
-        professores.endereco( enderecoEntityToEndereco( professoresEntity.getEndereco() ) );
+        professores.uuid( professoresEntity.getUuid() );
+        professores.usuarios( usuariosEntityToUsuarios( professoresEntity.getUsuarios() ) );
         professores.especialidade( professoresEntity.getEspecialidade() );
-        professores.linkedin( professoresEntity.getLinkedin() );
-        professores.status( professoresEntity.getStatus() );
+        professores.departamento( professoresEntity.getDepartamento() );
         professores.telefonePessoal( professoresEntity.getTelefonePessoal() );
         professores.telefoneProfissional( professoresEntity.getTelefoneProfissional() );
-        professores.usuarios( usuariosEntityToUsuarios( professoresEntity.getUsuarios() ) );
-        professores.uuid( professoresEntity.getUuid() );
+        professores.linkedin( professoresEntity.getLinkedin() );
+        professores.endereco( enderecoEntityToEndereco( professoresEntity.getEndereco() ) );
+        professores.status( professoresEntity.getStatus() );
+        professores.criadoEm( professoresEntity.getCriadoEm() );
+        professores.atualizadoEm( professoresEntity.getAtualizadoEm() );
 
         return professores.build();
     }
