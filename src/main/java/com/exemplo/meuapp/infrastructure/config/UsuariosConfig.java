@@ -11,10 +11,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class UsuariosConfig {
-    @Bean
-    public CriarUsuariosUseCase criarUsuariosUseCase(UsuariosGateways usuariosGateways) {
-        return new CriarUsuariosUseCase(usuariosGateways);
+public class UsuariosConfig {    @Bean
+    public CriarUsuariosUseCase criarUsuariosUseCase(UsuariosGateways usuariosGateways,
+                                                    AlunosGateways alunosGateways,
+                                                    ProfessoresGateways professoresGateways) {
+        return new CriarUsuariosUseCase(usuariosGateways, alunosGateways, professoresGateways);
     }
     @Bean
     public EncontrarUsuariosUseCase encontrarUsuariosUseCase(UsuariosGateways usuariosGateways, 

@@ -1,11 +1,6 @@
 package com.exemplo.meuapp.infrastructure.config.security;
 
 
-import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
-import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
-import com.exemplo.meuapp.common.mapper.UsuariosMapper;
-import com.exemplo.meuapp.infrastructure.webclient.CustomOAuth2UserService;
-import com.exemplo.meuapp.infrastructure.webclient.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +14,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
+import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
+import com.exemplo.meuapp.common.mapper.UsuariosMapper;
+import com.exemplo.meuapp.infrastructure.webclient.CustomOAuth2UserService;
+import com.exemplo.meuapp.infrastructure.webclient.CustomUserDetailsService;
 
 
 
@@ -51,17 +52,34 @@ public class SecurityConfig {
                                            CustomOAuth2UserService oauth2UserService,
                                            OAuth2SuccessHandler successHandler) throws Exception {
 
-        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(encontrarUsuariosUseCase,tokenProvider, usuariosMapper);
-
-        http
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeHttpRequests(auth -> auth
+        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(encontrarUsuariosUseCase,tokenProvider, usuariosMapper);        http
+                // 🔒 Desabilitar CSRF para APIs REST
+                .csrf(csrf -> csrf.disable())
+                
+                // 📊 Configurar sessões como stateless (JWT)
+                .sessionManagement(session -> session
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                ).authorizeHttpRequests(auth -> auth
+                        // 🔓 Endpoints públicos de autenticação
                         .requestMatchers("/auth/**", "/oauth2/**").permitAll()
                         .requestMatchers("/api/user/login", "/api/user/register").permitAll()
+                        
+                        // 📚 Endpoints públicos do Swagger/OpenAPI
+                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
+                        .requestMatchers("/api-docs/**", "/api-docs").permitAll()
+                        .requestMatchers("/v3/api-docs/**", "/v3/api-docs").permitAll()
+                        .requestMatchers("/swagger-resources/**").permitAll()
+                        .requestMatchers("/webjars/**").permitAll()
+                        
+                        // 🧪 Endpoints de demonstração (públicos)
+                        .requestMatchers("/api/v1/demo/**").permitAll()
+                        
+                        // 🔒 Endpoints que precisam de autenticação
                         .requestMatchers("/api/user/refresh-token").authenticated()
                         .requestMatchers("/api/user/update").authenticated()
                         .requestMatchers("/api/v1/senai/**").authenticated()
+                        
+                        // 🔒 Todos os outros precisam de autenticação
                         .anyRequest().authenticated()
                 )
                 .oauth2Login(oauth2 -> oauth2

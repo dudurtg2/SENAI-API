@@ -2,18 +2,20 @@ package com.exemplo.meuapp.common.mapper;
 
 import java.util.List;
 
-import com.exemplo.meuapp.domain.model.Usuarios;
-
-import com.exemplo.meuapp.presentation.dto.NovoPerfil;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
+import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
+import com.exemplo.meuapp.presentation.dto.NovoPerfil;
 
 @Mapper(componentModel = "spring")
 public interface UsuariosMapper {
 
-    UsuariosEntity toEntity(Usuarios usuarios);
-
+    UsuariosEntity toEntity(Usuarios usuarios);    @Mapping(target = "uuid", ignore = true)
+    @Mapping(target = "criadoEm", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
+    @Mapping(target = "tipo", expression = "java(novoPerfil.tipo() != null ? novoPerfil.tipo() : com.exemplo.meuapp.domain.enums.UsuarioTipo.ALUNO)")
     Usuarios toDomain(NovoPerfil novoPerfil);
 
     Usuarios toDomain(UsuariosEntity usuariosEntity);

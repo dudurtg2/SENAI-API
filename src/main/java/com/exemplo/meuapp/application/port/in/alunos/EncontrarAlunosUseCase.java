@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import com.exemplo.meuapp.application.port.out.AlunosGateways;
 import com.exemplo.meuapp.domain.model.Alunos;
-import com.exemplo.meuapp.domain.model.Professores;
 
 public class EncontrarAlunosUseCase {
 

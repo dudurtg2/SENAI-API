@@ -3,10 +3,6 @@ package com.exemplo.meuapp.domain.model;
 import com.exemplo.meuapp.domain.exception.DadosInvalidosException;
 import lombok.*;
 import java.util.UUID;
-import java.util.UUID;
-import java.util.UUID;
-import java.util.UUID;
-
 import java.time.LocalDateTime;
 
 @Builder
