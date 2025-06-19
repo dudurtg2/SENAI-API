@@ -1,5 +1,13 @@
 package com.exemplo.meuapp.infrastructure.config.security;
 
+import java.io.IOException;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.stereotype.Component;
+
 import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
 import com.exemplo.meuapp.common.mapper.UsuariosMapper;
@@ -11,13 +19,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {

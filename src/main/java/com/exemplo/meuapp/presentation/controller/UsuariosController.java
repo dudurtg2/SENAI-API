@@ -262,11 +262,88 @@ public class UsuariosController {
         // Usar o service para criar (que já cria o registro de aluno automaticamente)
         return criarUsuariosUseCase.criar(novoUsuario);
     }
-
-
     @GetMapping("/online")
-    public ResponseEntity<?> online() {
-        return ResponseEntity.ok("Usuário online");
+    @Operation(
+        summary = "🟢 Verificar status online do usuário",
+        description = """
+            **Verifica se o usuário está autenticado e online.**
+            
+            **Funcionalidades:**
+            - ✅ Valida token JWT ativo
+            - ✅ Retorna dados básicos do usuário
+            - ✅ Health check da sessão
+            - ✅ Status da conta
+            
+            **Headers necessários:**
+            - `Authorization: Bearer <token>`
+            
+            **Uso típico:** Verificar se usuário ainda está logado antes de operações sensíveis.
+            """,
+        responses = {
+            @ApiResponse(
+                responseCode = "200", 
+                description = "✅ Usuário online e autenticado",
+                content = @Content(
+                    examples = @ExampleObject(
+                        value = """
+                        {
+                          "status": "online",
+                          "message": "✅ Usuário autenticado",
+                          "user": {
+                            "uuid": "123e4567-e89b-12d3-a456-426614174000",
+                            "email": "usuario@senai.br",
+                            "nome": "João Silva",
+                            "tipo": "ALUNO",
+                            "status": "ATIVO",
+                            "lastActivity": "2025-06-19T05:30:00"
+                          },
+                          "session": {
+                            "tokenValid": true,
+                            "expiresIn": "23h 45m"
+                          }
+                        }
+                        """
+                    )
+                )
+            ),
+            @ApiResponse(responseCode = "401", description = "❌ Token inválido ou expirado"),
+            @ApiResponse(responseCode = "403", description = "❌ Usuário não autorizado")
+        }
+    )
+    public ResponseEntity<?> online(HttpServletRequest request) {
+        try {
+            String email = collectEmailForTokenService.execute(request);
+            if (email == null) {
+                return ResponseEntity.status(401).body(Map.of(
+                    "status", "offline",
+                    "message", "❌ Token não fornecido ou inválido"
+                ));
+            }
+            
+            PerfilUsuario user = encontrarUsuariosUseCase.buscarPorEmail(email);
+            
+            return ResponseEntity.ok(Map.of(
+                "status", "online",
+                "message", "✅ Usuário autenticado",                "user", Map.of(
+                    "uuid", user.uuid(),
+                    "email", user.email(),
+                    "nome", user.nome(),
+                    "tipo", user.tipo(),
+                    "status", user.status(),
+                    "lastActivity", java.time.LocalDateTime.now()
+                ),
+                "session", Map.of(
+                    "tokenValid", true,
+                    "timestamp", java.time.LocalDateTime.now()
+                )
+            ));
+            
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(Map.of(
+                "status", "offline",
+                "message", "❌ Erro na autenticação: " + e.getMessage()
+            ));
+        }
     }
     @PostMapping("/refresh-token")
     @Operation(
@@ -331,18 +408,110 @@ public class UsuariosController {
 
         return ResponseEntity
                 .ok(new TokenUpdateDTO(jwtTokenProvider.generateAccessToken(user)));
-    }
-
-    @PutMapping("/update")
-    public ResponseEntity<?> update(@RequestBody NovoPerfil user, HttpServletRequest request) {
-        try {
-            UUID uuid = encontrarUsuariosUseCase.buscarPorEmailUser(collectEmailForTokenService.execute(request)).getUuid();
-            Usuarios updatedUser = atualizarUsuariosUseCase.atualizar(uuid, usuariosMapper.toDomain(user));
-            return ResponseEntity.ok(updatedUser);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erro ao atualizar usuário: " + e.getMessage());
+    }    @PutMapping("/update")
+    @Operation(
+        summary = "✏️ Atualizar dados do perfil do usuário",
+        description = """
+            **Atualiza as informações do perfil do usuário autenticado.**
+            
+            **Funcionalidades:**
+            - ✅ Atualiza dados pessoais
+            - ✅ Valida token JWT automaticamente
+            - ✅ Busca usuário pelo token
+            - ✅ Preserva dados não informados
+            
+            **Headers necessários:**
+            - `Authorization: Bearer <token>`
+            
+            **Campos atualizáveis:**
+            - `usuario`: Nome de usuário
+            - `email`: Email (se único)
+            - `senha`: Nova senha
+            - `status`: Status da conta
+            - `tipo`: Tipo de usuário (apenas admin)
+            
+            **Segurança:** Apenas o próprio usuário pode atualizar seus dados.
+            """,
+        responses = {
+            @ApiResponse(
+                responseCode = "200", 
+                description = "✅ Dados atualizados com sucesso",
+                content = @Content(
+                    examples = @ExampleObject(
+                        value = """
+                        {
+                          "message": "✅ Perfil atualizado com sucesso!",
+                          "usuario": {
+                            "uuid": "123e4567-e89b-12d3-a456-426614174000",
+                            "usuario": "joao.silva.updated",
+                            "email": "joao.updated@senai.br",
+                            "tipo": "ALUNO",
+                            "status": "ATIVO",
+                            "atualizadoEm": "2025-06-19T05:30:00"
+                          }
+                        }
+                        """
+                    )
+                )
+            ),
+            @ApiResponse(responseCode = "400", description = "❌ Dados inválidos"),
+            @ApiResponse(responseCode = "401", description = "❌ Token inválido ou expirado"),
+            @ApiResponse(responseCode = "404", description = "❌ Usuário não encontrado")
         }
-    }    @PostMapping("/register")
+    )
+    public ResponseEntity<?> update(
+        @Parameter(
+            description = "Novos dados do usuário",
+            required = true,
+            content = @Content(
+                examples = @ExampleObject(
+                    name = "Exemplo de atualização",
+                    value = """
+                    {
+                      "usuario": "joao.silva.updated",
+                      "email": "joao.updated@senai.br",
+                      "senha": "NovaSenha123!",
+                      "status": "ATIVO"
+                    }
+                    """
+                )
+            )
+        )
+        @RequestBody NovoPerfil user, 
+        HttpServletRequest request
+    ) {
+        try {
+            String email = collectEmailForTokenService.execute(request);
+            if (email == null) {
+                return ResponseEntity.status(401).body(Map.of(
+                    "error", "❌ Token não fornecido ou inválido",
+                    "message", "Faça login novamente para continuar."
+                ));
+            }
+            
+            UUID uuid = encontrarUsuariosUseCase.buscarPorEmailUser(email).getUuid();
+            Usuarios updatedUser = atualizarUsuariosUseCase.atualizar(uuid, usuariosMapper.toDomain(user));
+            
+            return ResponseEntity.ok(Map.of(
+                "message", "✅ Perfil atualizado com sucesso!",
+                "usuario", Map.of(
+                    "uuid", updatedUser.getUuid(),
+                    "usuario", updatedUser.getUsuario(),
+                    "email", updatedUser.getEmail(),
+                    "tipo", updatedUser.getTipo(),
+                    "status", updatedUser.getStatus(),
+                    "atualizadoEm", updatedUser.getAtualizadoEm()
+                )
+            ));
+            
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of(
+                "error", "❌ Erro ao atualizar usuário",
+                "message", e.getMessage(),
+                "details", "Verifique se todos os dados estão corretos e tente novamente."
+            ));
+        }
+    }@PostMapping("/register")
     @Operation(
         summary = "➕ Cadastrar novo usuário",
         description = """
