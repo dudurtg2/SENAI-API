@@ -1,5 +1,7 @@
 package com.exemplo.meuapp.application.port.in.usuarios;
 
+import java.time.LocalDateTime;
+
 import com.exemplo.meuapp.application.port.out.AlunosGateways;
 import com.exemplo.meuapp.application.port.out.ProfessoresGateways;
 import com.exemplo.meuapp.application.port.out.UsuariosGateways;
@@ -8,9 +10,6 @@ import com.exemplo.meuapp.domain.enums.UsuariosStatus;
 import com.exemplo.meuapp.domain.model.Alunos;
 import com.exemplo.meuapp.domain.model.Professores;
 import com.exemplo.meuapp.domain.model.Usuarios;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.time.LocalDateTime;
 
 public class CriarUsuariosUseCase {
 

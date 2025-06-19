@@ -1,5 +1,6 @@
 package com.exemplo.meuapp.presentation.controller;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,6 +22,8 @@ import com.exemplo.meuapp.application.port.in.usuarios.AtualizarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
 import com.exemplo.meuapp.common.mapper.UsuariosMapper;
+import com.exemplo.meuapp.domain.enums.UsuarioTipo;
+import com.exemplo.meuapp.domain.enums.UsuariosStatus;
 import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.config.security.JwtTokenProvider;
 import com.exemplo.meuapp.infrastructure.webclient.CollectEmailForTokenService;
@@ -37,6 +40,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping("/api/user")
@@ -160,10 +164,103 @@ public class UsuariosController {
             e.printStackTrace();
             return ResponseEntity.status(401).body("Credenciais inválidas ou autenticação falhou.");
         }
+    }    @GetMapping("/login/google")
+    @Operation(
+        summary = "🔐 Login/Registro via Google OAuth2",
+        description = """
+            Autentica ou registra um usuário usando conta Google.
+            
+            **Fluxo:**
+            1. Usuário é redirecionado para Google
+            2. Após autorização, Google retorna com dados
+            3. Sistema verifica se usuário existe:
+               - ✅ Existe: Login direto
+               - ❌ Não existe: Registro automático
+            4. Retorna tokens JWT
+            
+            **Acesse:** `/api/user/login/google`
+            """,
+        responses = {
+            @ApiResponse(responseCode = "302", description = "🔄 Redirecionamento para frontend com tokens"),
+            @ApiResponse(responseCode = "400", description = "❌ Erro na autenticação Google")
+        }
+    )
+    public ResponseEntity<?> loginGoogle(@AuthenticationPrincipal OidcUser user, HttpServletResponse response) {
+        try {
+            System.out.println("🔐 GOOGLE LOGIN ATTEMPT:");
+            System.out.println("   - User: " + (user != null ? user.getEmail() : "null"));
+            
+            if (user == null) {
+                return ResponseEntity.badRequest().body("❌ Usuário Google não autenticado");
+            }
+            
+            String email = user.getEmail();
+            String nome = user.getGivenName() + " " + user.getFamilyName();
+            String googleId = user.getSubject();
+            
+            System.out.println("✅ Dados Google recebidos:");
+            System.out.println("   - Email: " + email);
+            System.out.println("   - Nome: " + nome);
+            System.out.println("   - Google ID: " + googleId);
+              // Verificar se usuário já existe
+            PerfilUsuario perfilExistente = null;
+            try {
+                perfilExistente = encontrarUsuariosUseCase.buscarPorEmail(email);
+                System.out.println("👤 Usuário encontrado no banco: " + (perfilExistente != null));
+            } catch (Exception e) {
+                System.out.println("❌ Usuário não encontrado no banco");
+            }
+            
+            PerfilUsuario perfil;
+            if (perfilExistente != null) {
+                // LOGIN: Usuário já existe
+                System.out.println("🔑 Fazendo LOGIN de usuário existente");
+                perfil = perfilExistente;            } else {
+                // REGISTRO: Criar novo usuário
+                System.out.println("📝 Fazendo REGISTRO de novo usuário");
+                criarUsuarioGoogle(email, nome, googleId);
+                // Buscar o perfil completo do usuário recém-criado
+                perfil = encontrarUsuariosUseCase.buscarPorEmail(email);
+            }
+            
+            // Gerar tokens JWT
+            var tokens = jwtTokenProvider.generateTokens(perfil);
+              // Redirecionar para frontend com tokens
+            String redirectUrl = String.format(
+                "http://localhost:3000/auth/callback?accessToken=%s&refreshToken=%s&email=%s&nome=%s",
+                tokens.getAccessToken(),
+                tokens.getRefreshToken(),
+                email,
+                nome.replace(" ", "%20")
+            );
+            
+            response.sendRedirect(redirectUrl);
+            return null;
+            
+        } catch (Exception e) {
+            System.out.println("❌ Erro no login Google: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("❌ Erro na autenticação Google: " + e.getMessage());
+        }
     }
-
-    @GetMapping("/login/google")
-    public void loginGoogle(@AuthenticationPrincipal OidcUser user) {
+    
+    private Usuarios criarUsuarioGoogle(String email, String nome, String googleId) {
+        System.out.println("🆕 Criando novo usuário Google:");
+        System.out.println("   - Email: " + email);
+        System.out.println("   - Nome: " + nome);
+        
+        // Criar usuário com dados do Google
+        Usuarios novoUsuario = new Usuarios();
+        novoUsuario.setEmail(email);
+        novoUsuario.setUsuario(nome.toLowerCase().replace(" ", "."));
+        novoUsuario.setSenha("GOOGLE_OAUTH"); // Senha placeholder para OAuth
+        novoUsuario.setTipo(UsuarioTipo.ALUNO); // Padrão ALUNO
+        novoUsuario.setStatus(UsuariosStatus.ATIVO);
+        novoUsuario.setCriadoEm(LocalDateTime.now());
+        novoUsuario.setAtualizadoEm(LocalDateTime.now());
+        
+        // Usar o service para criar (que já cria o registro de aluno automaticamente)
+        return criarUsuariosUseCase.criar(novoUsuario);
     }
 
 

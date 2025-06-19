@@ -48,12 +48,10 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
         String email = oauthUser.getAttribute("email");
         String nome = oauthUser.getAttribute("given_name");
-        if (encontrarUsuariosUseCase.buscarPorEmailUser(email) == null) {
-
-            criarUsuariosUseCase.criar(Usuarios.builder()
+        if (encontrarUsuariosUseCase.buscarPorEmailUser(email) == null) {            criarUsuariosUseCase.criar(Usuarios.builder()
                     .email(email)
                     .usuario(nome)
-                    .tipo(UsuarioTipo.VISITANTE)
+                    .tipo(UsuarioTipo.ALUNO)  // 🔧 CORRIGIDO: ALUNO ao invés de VISITANTE
                     .status(UsuariosStatus.ATIVO)
                     .senha(nome.replaceAll("\\s", "") + "@Senai")
                     .build());
