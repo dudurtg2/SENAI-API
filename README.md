@@ -3,9 +3,10 @@
 <div align="center">
   <img src="https://img.shields.io/badge/Java-21-orange" alt="Java 21">
   <img src="https://img.shields.io/badge/Spring%20Boot-3.1.2-brightgreen" alt="Spring Boot 3.1.2">
-  <img src="https://img.shields.io/badge/Maven-3.9.5-blue" alt="Maven 3.9.5">
-  <img src="https://img.shields.io/badge/Hibernate-6.2.6-yellow" alt="Hibernate 6.2.6">
+  <img src="https://img.shields.io/badge/Maven-Wrapper-blue" alt="Maven Wrapper">
   <img src="https://img.shields.io/badge/PostgreSQL-Ready-blue" alt="PostgreSQL Ready">
+  <img src="https://img.shields.io/badge/OAuth2-Google-red" alt="OAuth2 Google">
+  <img src="https://img.shields.io/badge/Swagger-OpenAPI-brightgreen" alt="Swagger OpenAPI">
 </div>
 
 ---
@@ -15,13 +16,16 @@
 Esta API RESTful faz parte de uma **plataforma web educacional** do SENAI que permite aos alunos:
 
 - 📝 **Cadastrar e gerenciar projetos acadêmicos**
-- 🔗 **Compartilhar projetos com links e recursos**  
+- 🔗 **Compartilhar projetos com links e recursos**
 - 👥 **Colaborar com outros alunos**
 - 🏢 **Atrair investimento de empresas**
 - 🎯 **Controlar visibilidade** (público/privado)
+- 🔐 **Autenticação via Google OAuth2**
 
 ### 🏗️ Arquitetura
+
 Implementa uma **arquitetura híbrida** combinando:
+
 - **n-Layer Architecture** (Presentation, Service, Repository)
 - **Clean Architecture** (Entities, Use Cases, Interface Adapters)
 - **Hexagonal Architecture** (Ports & Adapters)
@@ -30,48 +34,75 @@ Implementa uma **arquitetura híbrida** combinando:
 
 ## 🛠️ Tecnologias Utilizadas
 
-| Categoria | Tecnologia | Versão |
-|-----------|------------|--------|
-| **Backend** | Java | 21 |
-| **Framework** | Spring Boot | 3.1.2 |
-| **Build Tool** | Maven | 3.9.5 |
-| **ORM** | Hibernate/JPA | 6.2.6 |
-| **Database** | PostgreSQL | Latest |
-| **Security** | Spring Security + OAuth2 | 3.1.2 |
-| **Documentation** | MapStruct | 1.5.3 |
-| **Code Generation** | Lombok | 1.18.34 |
+| Categoria           | Tecnologia               | Versão  |
+| ------------------- | ------------------------ | ------- |
+| **Backend**         | Java                     | 21      |
+| **Framework**       | Spring Boot              | 3.1.2   |
+| **Build Tool**      | Maven                    | 3.9.5   |
+| **ORM**             | Hibernate/JPA            | 6.2.6   |
+| **Database**        | PostgreSQL               | Latest  |
+| **Security**        | Spring Security + OAuth2 | 3.1.2   |
+| **Documentation**   | MapStruct                | 1.5.3   |
+| **Code Generation** | Lombok                   | 1.18.34 |
 
 ---
 
 ## 📁 Estrutura do Projeto
 
+## 📁 Estrutura do Projeto
+
 ```bash
 📦 SENAI-API/
-├── 📁 .mvn/wrapper/          # Maven Wrapper files
 ├── 📁 .vscode/               # VS Code configurations
-│   ├── extensions.json       # Recommended extensions
-│   ├── settings.json         # Workspace settings  
-│   └── launch.json          # Debug configurations
-├── 📁 docs/                  # Documentation
-│   └── vscode-setup.md       # VS Code setup guide
+│   ├── tasks.json           # Tasks pré-configuradas do Maven
+│   ├── extensions.json      # Extensões recomendadas
+│   └── settings.json        # Configurações do workspace
+├── 📁 database/             # Scripts de banco de dados
+│   └── 📁 seeds/            # Scripts SQL organizados
+│       ├── 01_cursos.sql
+│       ├── 02_enderecos.sql
+│       ├── 03_usuarios.sql
+│       ├── 04_professores.sql
+│       ├── 05_alunos.sql
+│       ├── 06_unidades_curriculares.sql
+│       ├── 07_disciplinas.sql
+│       ├── 08_projetos.sql
+│       ├── 09_etapas_projetos.sql
+│       ├── 10_relacionamentos.sql
+│       ├── 11_anexos.sql
+│       ├── clean_database.sql
+│       └── run_all_seeds.sql
+├── 📁 docs/                 # Documentação
+│   ├── architecture.md      # Arquitetura do sistema
+│   └── vscode-setup.md      # Guia de configuração VS Code
 ├── 📁 src/
 │   └── 📁 main/
 │       ├── 📁 java/com/exemplo/meuapp/
+│       │   ├── Main.java            # 🚀 Classe principal Spring Boot
 │       │   ├── 📁 presentation/     # 🌐 REST Controllers & DTOs
 │       │   ├── 📁 application/      # ⚙️ Use Cases & Business Logic
-│       │   ├── 📁 domain/          # 🎯 Entities & Business Rules
+│       │   │   ├── 📁 port/         # Interfaces (Ports)
+│       │   │   └── 📁 service/      # Implementações de serviços
+│       │   ├── 📁 domain/           # 🎯 Entities & Business Rules
+│       │   │   ├── 📁 model/        # Entidades de domínio
+│       │   │   ├── 📁 enums/        # Enumerações
+│       │   │   └── 📁 exception/    # Exceções customizadas
 │       │   ├── 📁 infrastructure/   # 🔧 Database & External APIs
-│       │   └── 📁 common/          # 🔄 Mappers & Utils
+│       │   │   ├── 📁 config/       # Configurações
+│       │   │   ├── 📁 persistence/  # Repositórios JPA
+│       │   │   └── 📁 webclient/    # Clientes externos
+│       │   └── 📁 common/           # 🔄 Mappers & Utils
+│       │       └── 📁 mapper/       # MapStruct mappers
 │       └── 📁 resources/
-│           ├── application.yml      # Spring Boot config
-│           ├── 📁 static/          # Static files
-│           └── 📁 db/              # Database scripts
-├── 📁 target/                # Build output (ignored)
-├── .gitignore               # Git ignore rules
-├── mvnw                     # Maven Wrapper (Unix)
-├── mvnw.cmd                # Maven Wrapper (Windows)
-├── pom.xml                 # Maven dependencies
-└── README.md               # This file
+│           ├── application.yml      # ⚙️ Configurações Spring Boot
+│           ├── 📁 static/          # Arquivos estáticos
+│           └── 📁 templates/        # Templates (se houver)
+├── 📁 target/                # 🗂️ Build output (Maven - ignorado pelo Git)
+├── .gitignore               # 🚫 Regras do Git
+├── mvnw                     # 🔧 Maven Wrapper (Unix/Linux/Mac)
+├── mvnw.cmd                # 🔧 Maven Wrapper (Windows)
+├── pom.xml                 # 📋 Dependências e configurações Maven
+└── README.md               # 📖 Este arquivo
 ```
 
 ---
@@ -82,11 +113,19 @@ Implementa uma **arquitetura híbrida** combinando:
 
 - ☕ **Java 21** ou superior ([Download JDK](https://adoptium.net/))
 - 🎯 **VS Code** ([Download](https://code.visualstudio.com/))
-- 🐘 **PostgreSQL** (opcional - H2 embarcado disponível)
+- 🐘 **PostgreSQL** (configurado para conexão externa)
 
 ### 🚀 Executando o Projeto
 
-#### Opção 1: Via Maven Wrapper (Recomendado)
+#### Opção 1: Via Tasks do VS Code (Recomendado)
+
+1. Abra o projeto no VS Code
+2. Pressione `Ctrl + Shift + P`
+3. Digite "Tasks: Run Task"
+4. Selecione "🚀 Spring Boot Run"
+
+#### Opção 2: Via Maven Wrapper
+
 ```bash
 # Clone o repositório
 git clone <repository-url>
@@ -99,23 +138,23 @@ cd SENAI-API
 .\mvnw.cmd spring-boot:run
 ```
 
-#### Opção 2: Via VS Code
-1. Abra o projeto no VS Code
-2. Instale as extensões recomendadas (popup automático)
-3. Pressione `F5` para debug ou `Ctrl+F5` para executar
+#### Opção 3: Via Terminal Integrado
 
-#### Opção 3: Compilar JAR
 ```bash
-# Gerar JAR executável
-./mvnw clean package
-
-# Executar JAR
-java -jar target/meuapp-0.0.1-SNAPSHOT.jar
+# No terminal do VS Code
+./mvnw spring-boot:run
 ```
+
+#### ⚠️ **IMPORTANTE - NÃO use o botão "Play"**
+
+- O botão "▶️ Play" do VS Code **NÃO funcionará** para este projeto
+- Spring Boot precisa das dependências do Maven para executar
+- Use sempre as **Tasks configuradas** ou o **Maven Wrapper**
 
 ### 🌐 Acessando a Aplicação
 
 Após iniciar, a aplicação estará disponível em:
+
 - **URL**: `http://localhost:8080`
 - **📚 Swagger UI**: `http://localhost:8080/swagger-ui.html` ⭐
 - **📋 OpenAPI JSON**: `http://localhost:8080/api-docs`
@@ -129,6 +168,7 @@ Após iniciar, a aplicação estará disponível em:
 ### 🎯 **O que é o Swagger?**
 
 O **Swagger** (agora **OpenAPI 3**) é uma ferramenta que gera automaticamente:
+
 - 📖 **Documentação interativa** da sua API
 - 🧪 **Interface de testes** para todos os endpoints
 - 📋 **Especificação OpenAPI** em JSON/YAML
@@ -137,6 +177,7 @@ O **Swagger** (agora **OpenAPI 3**) é uma ferramenta que gera automaticamente:
 ### 🚀 **Como acessar:**
 
 1. **Execute a aplicação**:
+
    ```bash
    ./mvnw spring-boot:run
    ```
@@ -176,12 +217,12 @@ springdoc:
 
 ### 📝 **Endpoints de Demonstração:**
 
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| `GET` | `/api/v1/demo/health` | ❤️ Health check da API |
-| `GET` | `/api/v1/demo/projetos` | 📋 Listar projetos |
-| `POST` | `/api/v1/demo/projetos` | ➕ Criar projeto |
-| `GET` | `/api/v1/demo/projetos/{id}` | 🔍 Buscar projeto por ID |
+| Método | Endpoint                     | Descrição                |
+| ------ | ---------------------------- | ------------------------ |
+| `GET`  | `/api/v1/demo/health`        | ❤️ Health check da API   |
+| `GET`  | `/api/v1/demo/projetos`      | 📋 Listar projetos       |
+| `POST` | `/api/v1/demo/projetos`      | ➕ Criar projeto         |
+| `GET`  | `/api/v1/demo/projetos/{id}` | 🔍 Buscar projeto por ID |
 
 ### 🔧 **Testando no Swagger:**
 
@@ -196,17 +237,20 @@ springdoc:
 ## 🎯 Funcionalidades da API
 
 ### 👤 Gestão de Usuários
+
 - ✅ Cadastro e autenticação
 - ✅ OAuth2 (Google, GitHub)
 - ✅ Perfis de Aluno/Professor/Admin
 
-### 📂 Gestão de Projetos  
+### 📂 Gestão de Projetos
+
 - ✅ CRUD completo de projetos
 - ✅ Upload de anexos
 - ✅ Controle de visibilidade
 - ✅ Colaboração entre alunos
 
 ### 🏢 Módulo Empresas
+
 - ✅ Visualização de projetos públicos
 - ✅ Sistema de investimento
 - ✅ Contato com desenvolvedores
@@ -234,6 +278,7 @@ O projeto inclui configuração automática para VS Code. As extensões serão s
 ### ⚙️ Configurações do Workspace
 
 Configurações otimizadas incluídas em `.vscode/settings.json`:
+
 - Auto-organização de imports
 - Formatação automática
 - Configurações do Java
@@ -242,6 +287,7 @@ Configurações otimizadas incluídas em `.vscode/settings.json`:
 ### 🐛 Debug Configuration
 
 Configuração de debug pré-configurada em `.vscode/launch.json`:
+
 - Debug da aplicação Spring Boot
 - Hot reload ativado
 - Perfis de ambiente
@@ -251,28 +297,52 @@ Configuração de debug pré-configurada em `.vscode/launch.json`:
 ## 🗃️ Banco de Dados
 
 ### 🐘 PostgreSQL (Produção)
+
 ```yaml
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/senai_db
-    username: ${DB_USER:senai}
-    password: ${DB_PASSWORD:senha}
+    url: "jdbc:postgresql://147.79.86.117:10103/senai"
+    username: postgres
+    password: "DUdu@147"
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     show-sql: false
 ```
 
-### 🎯 H2 Database (Desenvolvimento)
+### 🔐 OAuth2 Configuration
+
 ```yaml
 spring:
-  datasource:
-    url: jdbc:h2:mem:testdb
-    driver-class-name: org.h2.Driver
-  h2:
-    console:
-      enabled: true
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: 566612538072-lt6fo1kk28mnmrsfbhqtlvc4kpqv97vh.apps.googleusercontent.com
+            client-secret: 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
+            scope:
+              - openid
+              - profile
+              - email
 ```
+
+### 📊 Scripts de Banco Disponíveis
+
+O projeto inclui scripts SQL organizados em `database/seeds/`:
+
+- `01_cursos.sql` - Estrutura de cursos
+- `02_enderecos.sql` - Dados de endereços
+- `03_usuarios.sql` - Usuários do sistema
+- `04_professores.sql` - Dados de professores
+- `05_alunos.sql` - Dados de alunos
+- `06_unidades_curriculares.sql` - Unidades curriculares
+- `07_disciplinas.sql` - Disciplinas
+- `08_projetos.sql` - Projetos acadêmicos
+- `09_etapas_projetos.sql` - Etapas dos projetos
+- `10_relacionamentos.sql` - Relacionamentos entre entidades
+- `11_anexos.sql` - Anexos dos projetos
 
 ---
 
@@ -285,22 +355,22 @@ graph TB
     subgraph "🌐 Presentation Layer"
         A[Controllers] --> B[DTOs]
     end
-    
-    subgraph "⚙️ Application Layer"  
+
+    subgraph "⚙️ Application Layer"
         C[Use Cases] --> D[Ports In]
         C --> E[Ports Out]
     end
-    
+
     subgraph "🎯 Domain Layer"
         F[Entities] --> G[Value Objects]
         F --> H[Domain Rules]
     end
-    
+
     subgraph "🔧 Infrastructure Layer"
         I[Repositories] --> J[Database]
         K[External APIs] --> L[Web Clients]
     end
-    
+
     A --> C
     C --> F
     E --> I
@@ -310,7 +380,7 @@ graph TB
 ### 🧩 Padrões Implementados
 
 - **🔌 Ports & Adapters**: Isolamento de dependências externas
-- **📦 Repository Pattern**: Abstração de acesso a dados  
+- **📦 Repository Pattern**: Abstração de acesso a dados
 - **🎯 Use Cases**: Lógica de negócio isolada
 - **🔄 DTO Pattern**: Transferência de dados segura
 - **🛡️ Exception Handling**: Tratamento centralizado de erros
@@ -337,7 +407,7 @@ graph TB
 ```bash
 📁 src/test/java/
 ├── 📁 presentation/     # Controller tests
-├── 📁 application/      # Use case tests  
+├── 📁 application/      # Use case tests
 ├── 📁 domain/          # Domain logic tests
 └── 📁 infrastructure/   # Repository tests
 ```
@@ -347,6 +417,7 @@ graph TB
 ## 🚀 Deploy
 
 ### 🐳 Docker (Em breve)
+
 ```dockerfile
 # Dockerfile incluído no projeto
 FROM openjdk:21-jre-slim
@@ -356,10 +427,32 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 ```
 
 ### ☁️ Cloud Ready
+
 - ✅ **Profiles** configurados (dev, test, prod)
 - ✅ **Environment Variables** suportadas
 - ✅ **Health Checks** implementados
 - ✅ **Metrics** via Actuator
+
+---
+
+## 🛠️ Tasks Disponíveis no VS Code
+
+Este projeto inclui tasks pré-configuradas para facilitar o desenvolvimento:
+
+| Task                   | Comando                            | Descrição                |
+| ---------------------- | ---------------------------------- | ------------------------ |
+| 🧹 **Maven Clean**     | `./mvnw clean`                     | Limpa o diretório target |
+| 🔨 **Maven Compile**   | `./mvnw compile`                   | Compila o código fonte   |
+| 🧪 **Maven Test**      | `./mvnw test`                      | Executa os testes        |
+| 🚀 **Spring Boot Run** | `./mvnw spring-boot:run`           | Inicia a aplicação       |
+| 📦 **Maven Package**   | `./mvnw clean package -DskipTests` | Gera o JAR               |
+| 🔍 **Maven Verify**    | `./mvnw verify`                    | Verifica o projeto       |
+
+### 🎯 Como usar as Tasks:
+
+1. Pressione `Ctrl + Shift + P`
+2. Digite "Tasks: Run Task"
+3. Selecione a task desejada
 
 ---
 
@@ -405,6 +498,77 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 ---
 
+## ❗ Solução de Problemas Comuns
+
+### 🚫 **Erro: "package org.springframework.boot does not exist"**
+
+**Problema**: Você tentou usar o botão "▶️ Play" no arquivo `Main.java`
+
+**Solução**:
+
+```bash
+# ❌ NÃO FAÇA ISSO:
+# Apertar o botão "Play" no Main.java
+
+# ✅ FAÇA ISSO:
+# Use as tasks do VS Code ou Maven Wrapper
+./mvnw spring-boot:run
+```
+
+**Por que acontece?**
+
+- O botão "Play" tenta executar apenas o arquivo Java isoladamente
+- Spring Boot precisa de todas as dependências do Maven
+- Use sempre as tasks configuradas no projeto
+
+### 🔌 **Erro de Conexão com Banco**
+
+**Problema**: Erro ao conectar com PostgreSQL
+
+**Verificações**:
+
+1. ✅ PostgreSQL está rodando?
+2. ✅ Host `147.79.86.117:10103` está acessível?
+3. ✅ Credenciais estão corretas no `application.yml`?
+
+### 🚀 **Porta 8080 em uso**
+
+**Problema**: `Port 8080 was already in use`
+
+**Solução**:
+
+```bash
+# Verificar processos na porta 8080
+netstat -ano | findstr :8080
+
+# Matar processo (Windows)
+taskkill /F /PID <PID_NUMBER>
+
+# Ou usar outra porta
+./mvnw spring-boot:run -Dserver.port=8081
+```
+
+### 🔧 **Maven Wrapper não funciona**
+
+**Problema**: `./mvnw: command not found`
+
+**Solução Windows PowerShell**:
+
+```powershell
+# Use a versão Windows
+.\mvnw.cmd spring-boot:run
+```
+
+**Solução Git Bash**:
+
+```bash
+# Dar permissão de execução
+chmod +x mvnw
+./mvnw spring-boot:run
+```
+
+---
+
 ## 📚 Documentação Adicional
 
 - 📖 **[Setup VS Code](./docs/vscode-setup.md)** - Guia completo de configuração
@@ -426,7 +590,7 @@ ENTRYPOINT ["java", "-jar", "/app.jar"]
 
 ```bash
 feat: nova funcionalidade
-fix: correção de bug  
+fix: correção de bug
 docs: atualização de documentação
 style: formatação de código
 refactor: refatoração
@@ -450,8 +614,11 @@ chore: tarefas de build/configuração
 © 2025 SENAI - Serviço Nacional de Aprendizagem Industrial
 Todos os direitos reservados.
 
-Este projeto é propriedade do SENAI e destina-se exclusivamente 
+Este projeto é propriedade do SENAI e destina-se exclusivamente
 para fins educacionais e de desenvolvimento acadêmico.
+
+Última atualização: Junho 2025
+Versão da API: 0.0.1-SNAPSHOT
 ```
 
 ---
