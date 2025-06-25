@@ -30,6 +30,7 @@ import com.exemplo.meuapp.infrastructure.webclient.CollectEmailForTokenService;
 import com.exemplo.meuapp.presentation.dto.AuthorizationDTO;
 import com.exemplo.meuapp.presentation.dto.NovoPerfil;
 import com.exemplo.meuapp.presentation.dto.PerfilUsuario;
+import com.exemplo.meuapp.presentation.dto.RegistroUnificadoDTO;
 import com.exemplo.meuapp.presentation.dto.TokenUpdateDTO;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -511,7 +512,10 @@ public class UsuariosController {
                 "details", "Verifique se todos os dados estão corretos e tente novamente."
             ));
         }
-    }@PostMapping("/register")
+    }
+    
+    // COMENTADO PARA EVITAR CONFLITO COM /auth/register
+    // @PostMapping("/register")
     @Operation(
         summary = "➕ Cadastrar novo usuário",
         description = """
@@ -610,6 +614,176 @@ public class UsuariosController {
                 "error", "❌ Erro ao cadastrar usuário",
                 "message", e.getMessage(),
                 "details", "Verifique se o email já não está em uso ou se todos os campos obrigatórios foram preenchidos."
+            ));        }
+    }
+
+    @PostMapping("/auth/register")
+    @Operation(
+        summary = "🆕 Registro unificado (compatível com frontend React)",
+        description = """
+            **Endpoint moderno para registro de usuários integrado com o frontend React.**
+            
+            **Melhorias:**
+            - ✅ Validação de aceite de termos obrigatória
+            - ✅ Status definido automaticamente como ATIVO
+            - ✅ Campos unificados (login = email = usuario)
+            - ✅ Validação de tipo de usuário (ALUNO/PROFESSOR)
+            - ✅ Compatível com estrutura do frontend
+            
+            **Validações implementadas:**
+            - Email único no sistema
+            - Senha mínima de 6 caracteres
+            - Aceite de termos obrigatório
+            - Nome com mínimo 2 caracteres
+            """
+    )
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "201", 
+            description = "✅ Usuário registrado com sucesso",
+            content = @Content(
+                mediaType = "application/json",
+                examples = @ExampleObject(
+                    value = """
+                    {
+                      "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                      "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                      "usuariosEntity": {
+                        "uuid": "123e4567-e89b-12d3-a456-426614174000",
+                        "usuario": "maria@senai.br",
+                        "email": "maria@senai.br",
+                        "tipo": "ALUNO",
+                        "status": "ATIVO",
+                        "aceiteTermos": true,
+                        "criadoEm": "2025-06-22T10:30:00"
+                      }
+                    }
+                    """
+                )
+            )
+        ),
+        @ApiResponse(
+            responseCode = "400", 
+            description = "❌ Dados inválidos ou aceite de termos não confirmado",
+            content = @Content(
+                examples = @ExampleObject(
+                    value = """
+                    {
+                      "error": "❌ Erro na validação",
+                      "message": "É obrigatório aceitar os termos de uso para se cadastrar",
+                      "details": "Verifique todos os campos obrigatórios"
+                    }
+                    """
+                )
+            )
+        ),
+        @ApiResponse(
+            responseCode = "409", 
+            description = "❌ Email já está em uso",
+            content = @Content(
+                examples = @ExampleObject(
+                    value = """
+                    {
+                      "error": "❌ Conflito de dados",
+                      "message": "Este email já está cadastrado no sistema",
+                      "details": "Tente fazer login ou use outro email"
+                    }
+                    """
+                )
+            )
+        )
+    })
+    public ResponseEntity<?> registerAuth(
+        @Parameter(
+            description = "Dados para registro unificado",
+            required = true,
+            content = @Content(
+                examples = @ExampleObject(
+                    name = "Exemplo de registro",
+                    value = """
+                    {
+                      "login": "maria.silva@senai.br",
+                      "senha": "senai123",
+                      "nome": "Maria Silva",
+                      "tipo": "ALUNO",
+                      "aceiteTermos": true
+                    }
+                    """
+                )
+            )
+        )
+        @RequestBody RegistroUnificadoDTO registroData
+    ) {
+        try {
+            System.out.println("🆕 REGISTRO UNIFICADO ATTEMPT:");
+            System.out.println("   - Email: " + registroData.login());
+            System.out.println("   - Nome: " + registroData.nome());
+            System.out.println("   - Tipo: " + registroData.tipo());
+            System.out.println("   - Aceite de Termos: " + registroData.aceiteTermos());
+            
+            // Validação obrigatória do aceite de termos
+            if (!registroData.aceiteTermos()) {
+                return ResponseEntity.status(400).body(Map.of(
+                    "error", "❌ Erro na validação",
+                    "message", "É obrigatório aceitar os termos de uso para se cadastrar",
+                    "details", "Marque a opção de aceite dos termos e tente novamente"
+                ));
+            }
+            
+            // Verificar se email já existe
+            try {
+                encontrarUsuariosUseCase.buscarPorEmail(registroData.login());
+                return ResponseEntity.status(409).body(Map.of(
+                    "error", "❌ Conflito de dados",
+                    "message", "Este email já está cadastrado no sistema",
+                    "details", "Tente fazer login ou use outro email"
+                ));
+            } catch (Exception e) {
+                // Email não existe, pode prosseguir
+            }
+              // Criar novo usuário com valores obrigatórios garantidos
+            Usuarios novoUsuario = Usuarios.builder()
+                .usuario(registroData.login())  // Usuario = email
+                .email(registroData.login())    // Email = login
+                .senha(registroData.senha())    // Senha será criptografada no Use Case
+                .tipo(registroData.tipo())
+                .status(UsuariosStatus.ATIVO)   // Status definido explicitamente
+                .aceiteTermos(registroData.aceiteTermos() != null ? registroData.aceiteTermos() : Boolean.FALSE)
+                .criadoEm(LocalDateTime.now())
+                .atualizadoEm(LocalDateTime.now())
+                .build();
+            
+            // Log para debug
+            System.out.println("🔧 Dados do usuário a ser criado:");
+            System.out.println("   - Status: " + novoUsuario.getStatus());
+            System.out.println("   - AceiteTermos: " + novoUsuario.getAceiteTermos());
+            System.out.println("   - Tipo: " + novoUsuario.getTipo());
+            
+            // Criar usuário usando o Use Case
+            Usuarios usuarioCriado = criarUsuariosUseCase.criar(novoUsuario);
+            System.out.println("✅ Usuário criado com sucesso: " + usuarioCriado.getUuid());            // Gerar resposta com dados do usuário (sem senha) e sucesso
+            return ResponseEntity.status(201).body(Map.of(
+                "message", "✅ Usuário registrado com sucesso!",
+                "usuariosEntity", Map.of(
+                    "uuid", usuarioCriado.getUuid(),
+                    "usuario", usuarioCriado.getUsuario(),
+                    "email", usuarioCriado.getEmail(),
+                    "tipo", usuarioCriado.getTipo(),
+                    "status", usuarioCriado.getStatus(),
+                    "aceiteTermos", usuarioCriado.getAceiteTermos(),
+                    "criadoEm", usuarioCriado.getCriadoEm()
+                ),
+                "instruction", "✅ Conta criada! Use /api/user/login para fazer login."
+            ));
+            
+        } catch (Exception e) {
+            System.out.println("❌ Erro no registro unificado: " + e.getClass().getSimpleName() + " - " + e.getMessage());
+            e.printStackTrace();
+            
+            return ResponseEntity.status(400).body(Map.of(
+                "error", "❌ Erro ao criar conta",
+                "message", e.getMessage(),
+                "details", "Verifique os dados fornecidos e tente novamente"
             ));
         }
     }

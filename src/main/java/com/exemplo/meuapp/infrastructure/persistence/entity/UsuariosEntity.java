@@ -57,10 +57,11 @@ public class UsuariosEntity implements UserDetails {
     private UsuariosStatus status;
 
     @Column(name = "criado_em")
-    private LocalDateTime criadoEm;
-
-    @Column(name = "atualizado_em")
+    private LocalDateTime criadoEm;    @Column(name = "atualizado_em")
     private LocalDateTime atualizadoEm;
+    
+    @Column(name = "aceite_termos", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean aceiteTermos;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -162,9 +163,15 @@ public class UsuariosEntity implements UserDetails {
 
     public LocalDateTime getAtualizadoEm() {
         return atualizadoEm;
-    }
-
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
+    }    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
         this.atualizadoEm = atualizadoEm;
+    }
+    
+    public Boolean getAceiteTermos() {
+        return aceiteTermos;
+    }
+    
+    public void setAceiteTermos(Boolean aceiteTermos) {
+        this.aceiteTermos = aceiteTermos;
     }
 }

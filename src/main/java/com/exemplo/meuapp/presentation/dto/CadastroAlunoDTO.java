@@ -1,14 +1,12 @@
 package com.exemplo.meuapp.presentation.dto;
 
 import com.exemplo.meuapp.domain.enums.UsuarioTipo;
-import com.exemplo.meuapp.domain.enums.UsuariosStatus;
 
-public record NovoPerfil(
-        String usuario,
+public record CadastroAlunoDTO(
+        String login,
         String senha,
+        String nome,
         String email,
         UsuarioTipo tipo,
-        UsuariosStatus status,
-        Boolean aceiteTermos
+        boolean aceiteTermos
 ) {}
-

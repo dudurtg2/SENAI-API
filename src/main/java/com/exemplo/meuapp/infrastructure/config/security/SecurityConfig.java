@@ -50,19 +50,30 @@ public class SecurityConfig {
                                            JwtTokenProvider tokenProvider,
                                            CustomUserDetailsService uds,
                                            CustomOAuth2UserService oauth2UserService,
-                                           OAuth2SuccessHandler successHandler) throws Exception {
-
-        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(encontrarUsuariosUseCase,tokenProvider, usuariosMapper);        http
+                                           OAuth2SuccessHandler successHandler) throws Exception {        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(encontrarUsuariosUseCase,tokenProvider, usuariosMapper);        
+        
+        http
                 // 🔒 Desabilitar CSRF para APIs REST
                 .csrf(csrf -> csrf.disable())
                 
+                // 🌐 Habilitar CORS
+                .cors(cors -> cors.configurationSource(request -> {
+                    var corsConfig = new org.springframework.web.cors.CorsConfiguration();
+                    corsConfig.setAllowedOriginPatterns(java.util.Arrays.asList("*"));
+                    corsConfig.setAllowedMethods(java.util.Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+                    corsConfig.setAllowedHeaders(java.util.Arrays.asList("*"));
+                    corsConfig.setAllowCredentials(true);
+                    corsConfig.setMaxAge(3600L);
+                    return corsConfig;
+                }))
+                
                 // 📊 Configurar sessões como stateless (JWT)
                 .sessionManagement(session -> session
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                ).authorizeHttpRequests(auth -> auth
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)                ).authorizeHttpRequests(auth -> auth
                         // 🔓 Endpoints públicos de autenticação
                         .requestMatchers("/auth/**", "/oauth2/**").permitAll()
-                        .requestMatchers("/api/user/login", "/api/user/register").permitAll()
+                        .requestMatchers("/api/user/login", "/api/user/register", "/api/user/auth/register").permitAll()
+                        .requestMatchers("/login/oauth2/code/google").permitAll()
                         
                         // 📚 Endpoints públicos do Swagger/OpenAPI
                         .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
@@ -70,9 +81,14 @@ public class SecurityConfig {
                         .requestMatchers("/v3/api-docs/**", "/v3/api-docs").permitAll()
                         .requestMatchers("/swagger-resources/**").permitAll()
                         .requestMatchers("/webjars/**").permitAll()
-                        
-                        // 🧪 Endpoints de demonstração (públicos)
+                          // 🧪 Endpoints de demonstração (públicos)
                         .requestMatchers("/api/v1/demo/**").permitAll()
+                        
+                        // 👁️ Endpoints públicos para visitantes (limitados)
+                        .requestMatchers("/api/v1/senai/projeto/findAll").permitAll()
+                        .requestMatchers("/api/v1/senai/projeto/findByUUID/**").permitAll()
+                        .requestMatchers("/api/v1/senai/disciplina/findAll").permitAll()
+                        .requestMatchers("/api/v1/senai/unidadeCurricular/findAll").permitAll()
                         
                         // 🔒 Endpoints que precisam de autenticação
                         .requestMatchers("/api/user/refresh-token").authenticated()

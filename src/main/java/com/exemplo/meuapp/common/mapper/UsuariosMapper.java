@@ -4,15 +4,18 @@ import java.util.List;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingConstants;
 
 import com.exemplo.meuapp.domain.model.Usuarios;
 import com.exemplo.meuapp.infrastructure.persistence.entity.UsuariosEntity;
 import com.exemplo.meuapp.presentation.dto.NovoPerfil;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface UsuariosMapper {
 
-    UsuariosEntity toEntity(Usuarios usuarios);    @Mapping(target = "uuid", ignore = true)
+    UsuariosEntity toEntity(Usuarios usuarios);
+
+    @Mapping(target = "uuid", ignore = true)
     @Mapping(target = "criadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "atualizadoEm", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "tipo", expression = "java(novoPerfil.tipo() != null ? novoPerfil.tipo() : com.exemplo.meuapp.domain.enums.UsuarioTipo.ALUNO)")

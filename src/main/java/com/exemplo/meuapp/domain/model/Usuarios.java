@@ -19,10 +19,10 @@ public class Usuarios {
     private String usuario;
     private String senha;
     private String email;
-    private UsuarioTipo tipo;
-    private UsuariosStatus status;
+    private UsuarioTipo tipo;    private UsuariosStatus status;
     private LocalDateTime criadoEm;
     private LocalDateTime atualizadoEm;
+    private Boolean aceiteTermos;
 
     public UUID getUuid() {
         return uuid;
@@ -82,9 +82,15 @@ public class Usuarios {
 
     public LocalDateTime getAtualizadoEm() {
         return atualizadoEm;
-    }
-
-    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
+    }    public void setAtualizadoEm(LocalDateTime atualizadoEm) {
         this.atualizadoEm = atualizadoEm;
+    }
+    
+    public Boolean getAceiteTermos() {
+        return aceiteTermos;
+    }
+    
+    public void setAceiteTermos(Boolean aceiteTermos) {
+        this.aceiteTermos = aceiteTermos;
     }
 }
