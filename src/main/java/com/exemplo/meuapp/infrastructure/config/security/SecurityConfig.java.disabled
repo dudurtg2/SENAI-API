@@ -69,34 +69,11 @@ public class SecurityConfig {
                 
                 // 📊 Configurar sessões como stateless (JWT)
                 .sessionManagement(session -> session
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)                ).authorizeHttpRequests(auth -> auth
-                        // 🔓 Endpoints públicos de autenticação
-                        .requestMatchers("/auth/**", "/oauth2/**").permitAll()
-                        .requestMatchers("/api/user/login", "/api/user/register", "/api/user/auth/register").permitAll()
-                        .requestMatchers("/login/oauth2/code/google").permitAll()
-                        
-                        // 📚 Endpoints públicos do Swagger/OpenAPI
-                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/api-docs/**", "/api-docs").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/v3/api-docs").permitAll()
-                        .requestMatchers("/swagger-resources/**").permitAll()
-                        .requestMatchers("/webjars/**").permitAll()
-                          // 🧪 Endpoints de demonstração (públicos)
-                        .requestMatchers("/api/v1/demo/**").permitAll()
-                        
-                        // 👁️ Endpoints públicos para visitantes (limitados)
-                        .requestMatchers("/api/v1/senai/projeto/findAll").permitAll()
-                        .requestMatchers("/api/v1/senai/projeto/findByUUID/**").permitAll()
-                        .requestMatchers("/api/v1/senai/disciplina/findAll").permitAll()
-                        .requestMatchers("/api/v1/senai/unidadeCurricular/findAll").permitAll()
-                        
-                        // 🔒 Endpoints que precisam de autenticação
-                        .requestMatchers("/api/user/refresh-token").authenticated()
-                        .requestMatchers("/api/user/update").authenticated()
-                        .requestMatchers("/api/v1/senai/**").authenticated()
-                        
-                        // 🔒 Todos os outros precisam de autenticação
-                        .anyRequest().authenticated()
+                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                )
+                // Temporarily disable security for frontend development
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(u -> u.userService(oauth2UserService))

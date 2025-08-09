@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle + ' - SENAI API'}">Projetos - SENAI API</title>
+    
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" content="SENAI, projetos, inovação, estudantes, portfólio, showcase">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a th:href="@{/}" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                SENAI API
+            </a>
+            
+            <nav class="navbar">
+                <a th:href="@{/}" th:classappend="${activePage == 'home' ? 'active' : ''}">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a th:href="@{/sobre}" th:classappend="${activePage == 'sobre' ? 'active' : ''}">
+                    <i class="fas fa-info-circle"></i> Sobre
+                </a>
+                <a th:href="@{/projetos}" th:classappend="${activePage == 'projetos' ? 'active' : ''}">
+                    <i class="fas fa-project-diagram"></i> Projetos
+                </a>
+                <a th:href="@{/cursos}" th:classappend="${activePage == 'cursos' ? 'active' : ''}">
+                    <i class="fas fa-book"></i> Cursos
+                </a>
+                <a th:href="@{/contato}" th:classappend="${activePage == 'contato' ? 'active' : ''}">
+                    <i class="fas fa-envelope"></i> Contato
+                </a>
+                <a th:href="@{/swagger-ui.html}" target="_blank">
+                    <i class="fas fa-code"></i> API Docs
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="hero" style="padding: 4rem 0;">
+        <div class="hero-content">
+            <div class="container text-center">
+                <h1>Projetos Acadêmicos</h1>
+                <p>Descubra projetos incríveis desenvolvidos pelos alunos do SENAI</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Search and Filters -->
+    <section class="section" style="padding: 2rem 0; background-color: var(--senai-light-gray);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="form-group">
+                        <input type="search" id="searchProjects" class="form-control" placeholder="Pesquisar projetos..." style="padding: 0.75rem 1rem; font-size: 1rem;">
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <select id="filterCategory" class="form-control" style="padding: 0.75rem 1rem;">
+                            <option value="">Todas as categorias</option>
+                            <option value="web">Desenvolvimento Web</option>
+                            <option value="mobile">Mobile</option>
+                            <option value="iot">IoT</option>
+                            <option value="ia">Inteligência Artificial</option>
+                            <option value="robotica">Robótica</option>
+                            <option value="automacao">Automação</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section class="section">
+        <div class="container">
+            <div class="row" id="projectsGrid">
+                <!-- Sample Project 1 -->
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-blue), var(--senai-light-blue)); color: white; padding: 1rem;">
+                            <i class="fas fa-globe" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Sistema de Gestão Escolar</h5>
+                            <p class="card-text">Plataforma web para gerenciamento de notas, frequência e comunicação entre alunos, professores e pais.</p>
+                            <div style="margin: 1rem 0;">
+                                <span class="badge" style="background-color: var(--senai-blue); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-right: 0.5rem;">Web Development</span>
+                                <span class="badge" style="background-color: var(--senai-orange); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">React</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <small class="text-muted">Por João Silva</small>
+                                <div>
+                                    <a href="#" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-external-link-alt"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Project 2 -->
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-orange), #e55a2b); color: white; padding: 1rem;">
+                            <i class="fas fa-mobile-alt" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">App de Monitoramento IoT</h5>
+                            <p class="card-text">Aplicativo móvel para monitoramento de sensores industriais em tempo real com alertas e relatórios.</p>
+                            <div style="margin: 1rem 0;">
+                                <span class="badge" style="background-color: var(--senai-blue); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-right: 0.5rem;">Mobile</span>
+                                <span class="badge" style="background-color: var(--senai-orange); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">IoT</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <small class="text-muted">Por Maria Santos</small>
+                                <div>
+                                    <a href="#" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-external-link-alt"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Project 3 -->
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-blue), var(--senai-dark-blue)); color: white; padding: 1rem;">
+                            <i class="fas fa-robot" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Braço Robótico Inteligente</h5>
+                            <p class="card-text">Sistema de automação industrial com braço robótico controlado por IA para classificação de peças.</p>
+                            <div style="margin: 1rem 0;">
+                                <span class="badge" style="background-color: var(--senai-blue); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-right: 0.5rem;">Robótica</span>
+                                <span class="badge" style="background-color: var(--senai-orange); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">AI</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <small class="text-muted">Por Carlos Lima</small>
+                                <div>
+                                    <a href="#" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-external-link-alt"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Project 4 -->
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-orange), #e55a2b); color: white; padding: 1rem;">
+                            <i class="fas fa-chart-line" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Dashboard Analytics</h5>
+                            <p class="card-text">Painel de análise de dados em tempo real para indústria 4.0 com machine learning e visualizações interativas.</p>
+                            <div style="margin: 1rem 0;">
+                                <span class="badge" style="background-color: var(--senai-blue); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-right: 0.5rem;">Analytics</span>
+                                <span class="badge" style="background-color: var(--senai-orange); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Machine Learning</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <small class="text-muted">Por Ana Costa</small>
+                                <div>
+                                    <a href="#" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-external-link-alt"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Project 5 -->
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-blue), var(--senai-light-blue)); color: white; padding: 1rem;">
+                            <i class="fas fa-cogs" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Sistema de Automação Predial</h5>
+                            <p class="card-text">Controle inteligente de iluminação, temperatura e segurança para edifícios comerciais.</p>
+                            <div style="margin: 1rem 0;">
+                                <span class="badge" style="background-color: var(--senai-blue); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-right: 0.5rem;">Automação</span>
+                                <span class="badge" style="background-color: var(--senai-orange); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Smart Building</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <small class="text-muted">Por Pedro Oliveira</small>
+                                <div>
+                                    <a href="#" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-external-link-alt"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Project 6 -->
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-orange), #e55a2b); color: white; padding: 1rem;">
+                            <i class="fas fa-brain" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">IA para Diagnóstico Médico</h5>
+                            <p class="card-text">Sistema de inteligência artificial para auxiliar diagnósticos médicos através de análise de imagens.</p>
+                            <div style="margin: 1rem 0;">
+                                <span class="badge" style="background-color: var(--senai-blue); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem; margin-right: 0.5rem;">AI</span>
+                                <span class="badge" style="background-color: var(--senai-orange); color: white; padding: 0.25rem 0.5rem; border-radius: 0.25rem;">Healthcare</span>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <small class="text-muted">Por Luiza Ferreira</small>
+                                <div>
+                                    <a href="#" class="btn btn-secondary" style="margin-right: 0.5rem;">
+                                        <i class="fab fa-github"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-external-link-alt"></i> Ver
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="text-center mt-4">
+                <button class="btn btn-outline-primary btn-lg" id="loadMoreProjects">
+                    <i class="fas fa-plus-circle"></i> Carregar Mais Projetos
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="section" style="background-color: var(--senai-light-gray);">
+        <div class="container">
+            <h2 class="section-title">Impacto dos Projetos</h2>
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; color: var(--senai-blue); font-weight: bold;">500+</div>
+                            <h5>Projetos</h5>
+                            <p>Desenvolvidos pelos alunos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; color: var(--senai-orange); font-weight: bold;">85%</div>
+                            <h5>Taxa de Sucesso</h5>
+                            <p>Projetos implementados</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; color: var(--senai-blue); font-weight: bold;">120+</div>
+                            <h5>Empresas</h5>
+                            <p>Interessadas em parcerias</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; color: var(--senai-orange); font-weight: bold;">95%</div>
+                            <h5>Empregabilidade</h5>
+                            <p>Dos desenvolvedores</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section" style="background: linear-gradient(135deg, var(--senai-blue) 0%, var(--senai-dark-blue) 100%); color: white;">
+        <div class="container text-center">
+            <h2 style="color: white;">Desenvolva Seu Próximo Projeto</h2>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+                Junte-se à nossa comunidade e transforme suas ideias em projetos inovadores
+            </p>
+            <div>
+                <a th:href="@{/contato}" class="btn btn-outline-light btn-lg me-3">
+                    <i class="fas fa-envelope"></i> Entre em Contato
+                </a>
+                <a th:href="@{/swagger-ui.html}" class="btn btn-primary btn-lg" target="_blank">
+                    <i class="fas fa-code"></i> API Docs
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-graduation-cap"></i> SENAI API</h5>
+                    <p>Plataforma web educacional do SENAI que permite aos alunos cadastrar e gerenciar projetos acadêmicos, compartilhar com outros alunos e atrair investimento de empresas.</p>
+                    <div>
+                        <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5><i class="fas fa-link"></i> Links Úteis</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a th:href="@{/}">Início</a></li>
+                        <li><a th:href="@{/sobre}">Sobre Nós</a></li>
+                        <li><a th:href="@{/projetos}">Projetos</a></li>
+                        <li><a th:href="@{/cursos}">Cursos</a></li>
+                        <li><a th:href="@{/contato}">Contato</a></li>
+                        <li><a th:href="@{/swagger-ui.html}" target="_blank">Documentação API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5><i class="fas fa-map-marker-alt"></i> Contato</h5>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Orlando Gomes, 1845<br>Piatã, Salvador - BA</p>
+                    <p><i class="fas fa-phone"></i> (71) 3462-9500</p>
+                    <p><i class="fas fa-envelope"></i> senai@fieb.org.br</p>
+                    <p><i class="fas fa-globe"></i> www.senaibahia.com.br</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SENAI - Serviço Nacional de Aprendizagem Industrial. Todos os direitos reservados.</p>
+                <p>Desenvolvido com ❤️ para fins educacionais e de desenvolvimento acadêmico.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        // Projects page specific JavaScript
+        $(document).ready(function() {
+            // Search functionality
+            $('#searchProjects').on('input', debounce(function() {
+                const searchTerm = $(this).val().toLowerCase();
+                filterProjects(searchTerm, $('#filterCategory').val());
+            }, 300));
+            
+            // Category filter
+            $('#filterCategory').on('change', function() {
+                const category = $(this).val();
+                const searchTerm = $('#searchProjects').val().toLowerCase();
+                filterProjects(searchTerm, category);
+            });
+            
+            // Load more projects
+            $('#loadMoreProjects').on('click', function() {
+                loadMoreProjects();
+            });
+        });
+        
+        function filterProjects(searchTerm, category) {
+            $('#projectsGrid .col-md-4').each(function() {
+                const projectTitle = $(this).find('.card-title').text().toLowerCase();
+                const projectDescription = $(this).find('.card-text').text().toLowerCase();
+                const projectBadges = $(this).find('.badge').text().toLowerCase();
+                
+                const matchesSearch = !searchTerm || 
+                    projectTitle.includes(searchTerm) || 
+                    projectDescription.includes(searchTerm) ||
+                    projectBadges.includes(searchTerm);
+                
+                const matchesCategory = !category || projectBadges.includes(category.toLowerCase());
+                
+                if (matchesSearch && matchesCategory) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
+        
+        function loadMoreProjects() {
+            // Simulate loading more projects
+            showAlert('Carregando mais projetos... (Funcionalidade em desenvolvimento)', 'info');
+            
+            // In a real implementation, this would make an API call to load more projects
+            // Example: API.get('/api/v1/projetos?page=' + nextPage, displayProjects);
+        }
+    </script>
+</body>
+</html>

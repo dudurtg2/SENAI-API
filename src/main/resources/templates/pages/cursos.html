@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle + ' - SENAI API'}">Cursos - SENAI API</title>
+    
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" content="SENAI, cursos, educação, técnico, superior, qualificação, formação">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a th:href="@{/}" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                SENAI API
+            </a>
+            
+            <nav class="navbar">
+                <a th:href="@{/}" th:classappend="${activePage == 'home' ? 'active' : ''}">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a th:href="@{/sobre}" th:classappend="${activePage == 'sobre' ? 'active' : ''}">
+                    <i class="fas fa-info-circle"></i> Sobre
+                </a>
+                <a th:href="@{/projetos}" th:classappend="${activePage == 'projetos' ? 'active' : ''}">
+                    <i class="fas fa-project-diagram"></i> Projetos
+                </a>
+                <a th:href="@{/cursos}" th:classappend="${activePage == 'cursos' ? 'active' : ''}">
+                    <i class="fas fa-book"></i> Cursos
+                </a>
+                <a th:href="@{/contato}" th:classappend="${activePage == 'contato' ? 'active' : ''}">
+                    <i class="fas fa-envelope"></i> Contato
+                </a>
+                <a th:href="@{/swagger-ui.html}" target="_blank">
+                    <i class="fas fa-code"></i> API Docs
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="hero" style="padding: 4rem 0;">
+        <div class="hero-content">
+            <div class="container text-center">
+                <h1>Cursos SENAI</h1>
+                <p>Formação técnica e superior de excelência para o mercado de trabalho</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Levels -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Níveis de Formação</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-header" style="background: linear-gradient(135deg, var(--senai-blue), var(--senai-light-blue)); color: white;">
+                            <i class="fas fa-tools" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                            <h4>Qualificação Profissional</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Cursos rápidos e práticos para desenvolver competências específicas do mercado de trabalho.</p>
+                            <ul style="list-style: none; padding: 0; text-align: left;">
+                                <li><i class="fas fa-check text-success"></i> Duração: 40h a 200h</li>
+                                <li><i class="fas fa-check text-success"></i> Modalidade: Presencial/EAD</li>
+                                <li><i class="fas fa-check text-success"></i> Certificação: Qualificação</li>
+                                <li><i class="fas fa-check text-success"></i> Idade mínima: 16 anos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-header" style="background: linear-gradient(135deg, var(--senai-orange), #e55a2b); color: white;">
+                            <i class="fas fa-graduation-cap" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                            <h4>Técnico</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Formação técnica de nível médio para atuação em diversas áreas industriais e tecnológicas.</p>
+                            <ul style="list-style: none; padding: 0; text-align: left;">
+                                <li><i class="fas fa-check text-success"></i> Duração: 800h a 1200h</li>
+                                <li><i class="fas fa-check text-success"></i> Modalidade: Presencial/Híbrida</li>
+                                <li><i class="fas fa-check text-success"></i> Certificação: Técnico</li>
+                                <li><i class="fas fa-check text-success"></i> Ensino médio completo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-header" style="background: linear-gradient(135deg, var(--senai-blue), var(--senai-dark-blue)); color: white;">
+                            <i class="fas fa-university" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
+                            <h4>Superior</h4>
+                        </div>
+                        <div class="card-body">
+                            <p>Graduação tecnológica focada na formação de profissionais para a indústria 4.0.</p>
+                            <ul style="list-style: none; padding: 0; text-align: left;">
+                                <li><i class="fas fa-check text-success"></i> Duração: 2 a 3 anos</li>
+                                <li><i class="fas fa-check text-success"></i> Modalidade: Presencial</li>
+                                <li><i class="fas fa-check text-success"></i> Certificação: Tecnólogo</li>
+                                <li><i class="fas fa-check text-success"></i> Ensino médio completo</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Courses -->
+    <section class="section" style="background-color: var(--senai-light-gray);">
+        <div class="container">
+            <h2 class="section-title">Cursos em Destaque</h2>
+            <div class="row">
+                <!-- Course 1 -->
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-blue), var(--senai-light-blue)); color: white; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                    <div>
+                                        <i class="fas fa-laptop-code" style="font-size: 2.5rem; margin-bottom: 0.5rem;"></i>
+                                        <div style="font-size: 0.9rem;">TÉCNICO</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Desenvolvimento de Sistemas</h5>
+                                    <p class="card-text">Formação completa em programação, banco de dados e desenvolvimento web.</p>
+                                    <p><strong>Duração:</strong> 1200h | <strong>Modalidade:</strong> Presencial</p>
+                                    <a href="#" class="btn btn-primary">Saiba Mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-orange), #e55a2b); color: white; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                    <div>
+                                        <i class="fas fa-robot" style="font-size: 2.5rem; margin-bottom: 0.5rem;"></i>
+                                        <div style="font-size: 0.9rem;">TÉCNICO</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Automação Industrial</h5>
+                                    <p class="card-text">Especialização em sistemas automatizados e controle de processos industriais.</p>
+                                    <p><strong>Duração:</strong> 1000h | <strong>Modalidade:</strong> Presencial</p>
+                                    <a href="#" class="btn btn-primary">Saiba Mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 3 -->
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-blue), var(--senai-dark-blue)); color: white; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                    <div>
+                                        <i class="fas fa-microchip" style="font-size: 2.5rem; margin-bottom: 0.5rem;"></i>
+                                        <div style="font-size: 0.9rem;">SUPERIOR</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Engenharia de Controle e Automação</h5>
+                                    <p class="card-text">Graduação tecnológica em sistemas de controle e automação industrial.</p>
+                                    <p><strong>Duração:</strong> 3 anos | <strong>Modalidade:</strong> Presencial</p>
+                                    <a href="#" class="btn btn-primary">Saiba Mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 4 -->
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="row no-gutters">
+                            <div class="col-md-4">
+                                <div class="card-header text-center" style="background: linear-gradient(135deg, var(--senai-orange), #e55a2b); color: white; height: 100%; display: flex; align-items: center; justify-content: center;">
+                                    <div>
+                                        <i class="fas fa-wifi" style="font-size: 2.5rem; margin-bottom: 0.5rem;"></i>
+                                        <div style="font-size: 0.9rem;">QUALIFICAÇÃO</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Internet das Coisas (IoT)</h5>
+                                    <p class="card-text">Desenvolvimento de soluções conectadas para indústria e residências.</p>
+                                    <p><strong>Duração:</strong> 160h | <strong>Modalidade:</strong> Híbrida</p>
+                                    <a href="#" class="btn btn-primary">Saiba Mais</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Areas -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Áreas de Conhecimento</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="feature-title">Tecnologia da Informação</h3>
+                    <p class="feature-description">Desenvolvimento de software, sistemas web, mobile e banco de dados.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3 class="feature-title">Automação e Controle</h3>
+                    <p class="feature-description">Sistemas automatizados, robótica e controle de processos industriais.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-industry"></i>
+                    </div>
+                    <h3 class="feature-title">Manufatura e Produção</h3>
+                    <p class="feature-description">Processos produtivos, qualidade e gestão da produção industrial.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="feature-title">Eletrotécnica</h3>
+                    <p class="feature-description">Instalações elétricas, máquinas e equipamentos elétricos.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-wrench"></i>
+                    </div>
+                    <h3 class="feature-title">Mecânica</h3>
+                    <p class="feature-description">Usinagem, soldagem, manutenção e projeto mecânico.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3 class="feature-title">Segurança do Trabalho</h3>
+                    <p class="feature-description">Prevenção de acidentes e saúde ocupacional.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="section" style="background-color: var(--senai-light-gray);">
+        <div class="container">
+            <h2 class="section-title">Histórias de Sucesso</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="feature-icon" style="margin: 0 auto 1rem;">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h5>"Consegui meu primeiro emprego"</h5>
+                            <p>"Após concluir o curso técnico em Desenvolvimento de Sistemas, fui contratado por uma empresa de tecnologia."</p>
+                            <small><strong>João Silva</strong> - Técnico em Desenvolvimento</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="feature-icon" style="margin: 0 auto 1rem;">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h5>"Abri minha própria empresa"</h5>
+                            <p>"Com o conhecimento adquirido no SENAI, criei uma startup de soluções IoT para a indústria."</p>
+                            <small><strong>Maria Santos</strong> - Empreendedora</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div class="feature-icon" style="margin: 0 auto 1rem;">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h5>"Promoção garantida"</h5>
+                            <p>"A especialização em Automação me ajudou a conseguir uma promoção para coordenador técnico."</p>
+                            <small><strong>Carlos Lima</strong> - Coordenador Técnico</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enrollment Process -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Como se Inscrever</h2>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; color: var(--senai-blue); margin-bottom: 1rem;">1</div>
+                            <h5>Escolha o Curso</h5>
+                            <p>Selecione o curso que melhor se adequa aos seus objetivos profissionais.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; color: var(--senai-orange); margin-bottom: 1rem;">2</div>
+                            <h5>Faça a Inscrição</h5>
+                            <p>Preencha o formulário online ou compareça presencialmente à unidade.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; color: var(--senai-blue); margin-bottom: 1rem;">3</div>
+                            <h5>Documentação</h5>
+                            <p>Apresente os documentos necessários e efetue o pagamento da matrícula.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-3">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; color: var(--senai-orange); margin-bottom: 1rem;">4</div>
+                            <h5>Comece a Estudar</h5>
+                            <p>Inicie suas aulas e comece a construir seu futuro profissional.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="section" style="background-color: var(--senai-light-gray);">
+        <div class="container">
+            <h2 class="section-title">Números que Impressionam</h2>
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; color: var(--senai-blue); font-weight: bold;">150+</div>
+                            <h5>Cursos</h5>
+                            <p>Disponíveis</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; color: var(--senai-orange); font-weight: bold;">95%</div>
+                            <h5>Empregabilidade</h5>
+                            <p>Dos egressos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; color: var(--senai-blue); font-weight: bold;">50k+</div>
+                            <h5>Alunos</h5>
+                            <p>Formados</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 2.5rem; color: var(--senai-orange); font-weight: bold;">70+</div>
+                            <h5>Anos</h5>
+                            <p>De experiência</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="section" style="background: linear-gradient(135deg, var(--senai-blue) 0%, var(--senai-dark-blue) 100%); color: white;">
+        <div class="container text-center">
+            <h2 style="color: white;">Invista no Seu Futuro</h2>
+            <p style="color: rgba(255,255,255,0.9); font-size: 1.125rem; margin-bottom: 2rem;">
+                Comece hoje mesmo sua jornada de qualificação profissional no SENAI
+            </p>
+            <div>
+                <a th:href="@{/contato}" class="btn btn-outline-light btn-lg me-3">
+                    <i class="fas fa-user-plus"></i> Quero me Inscrever
+                </a>
+                <a href="#" class="btn btn-primary btn-lg">
+                    <i class="fas fa-download"></i> Catálogo de Cursos
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-graduation-cap"></i> SENAI API</h5>
+                    <p>Plataforma web educacional do SENAI que permite aos alunos cadastrar e gerenciar projetos acadêmicos, compartilhar com outros alunos e atrair investimento de empresas.</p>
+                    <div>
+                        <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5><i class="fas fa-link"></i> Links Úteis</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a th:href="@{/}">Início</a></li>
+                        <li><a th:href="@{/sobre}">Sobre Nós</a></li>
+                        <li><a th:href="@{/projetos}">Projetos</a></li>
+                        <li><a th:href="@{/cursos}">Cursos</a></li>
+                        <li><a th:href="@{/contato}">Contato</a></li>
+                        <li><a th:href="@{/swagger-ui.html}" target="_blank">Documentação API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5><i class="fas fa-map-marker-alt"></i> Contato</h5>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Orlando Gomes, 1845<br>Piatã, Salvador - BA</p>
+                    <p><i class="fas fa-phone"></i> (71) 3462-9500</p>
+                    <p><i class="fas fa-envelope"></i> senai@fieb.org.br</p>
+                    <p><i class="fas fa-globe"></i> www.senaibahia.com.br</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SENAI - Serviço Nacional de Aprendizagem Industrial. Todos os direitos reservados.</p>
+                <p>Desenvolvido com ❤️ para fins educacionais e de desenvolvimento acadêmico.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
