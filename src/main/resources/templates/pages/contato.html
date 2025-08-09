@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${pageTitle + ' - SENAI API'}">Contato - SENAI API</title>
+    
+    <meta name="description" th:content="${pageDescription}">
+    <meta name="keywords" content="SENAI, contato, telefone, email, endereço, suporte, dúvidas">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a th:href="@{/}" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                SENAI API
+            </a>
+            
+            <nav class="navbar">
+                <a th:href="@{/}" th:classappend="${activePage == 'home' ? 'active' : ''}">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a th:href="@{/sobre}" th:classappend="${activePage == 'sobre' ? 'active' : ''}">
+                    <i class="fas fa-info-circle"></i> Sobre
+                </a>
+                <a th:href="@{/projetos}" th:classappend="${activePage == 'projetos' ? 'active' : ''}">
+                    <i class="fas fa-project-diagram"></i> Projetos
+                </a>
+                <a th:href="@{/cursos}" th:classappend="${activePage == 'cursos' ? 'active' : ''}">
+                    <i class="fas fa-book"></i> Cursos
+                </a>
+                <a th:href="@{/contato}" th:classappend="${activePage == 'contato' ? 'active' : ''}">
+                    <i class="fas fa-envelope"></i> Contato
+                </a>
+                <a th:href="@{/swagger-ui.html}" target="_blank">
+                    <i class="fas fa-code"></i> API Docs
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="hero" style="padding: 4rem 0;">
+        <div class="hero-content">
+            <div class="container text-center">
+                <h1>Entre em Contato</h1>
+                <p>Estamos aqui para ajudar! Entre em contato conosco através dos canais abaixo</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Information -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="card text-center mb-4">
+                        <div class="card-body">
+                            <div class="feature-icon" style="margin: 0 auto 1rem;">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h5>Endereço</h5>
+                            <p>
+                                Av. Orlando Gomes, 1845<br>
+                                Piatã, Salvador - BA<br>
+                                CEP: 41650-010
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card text-center mb-4">
+                        <div class="card-body">
+                            <div class="feature-icon" style="margin: 0 auto 1rem;">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <h5>Telefone</h5>
+                            <p>
+                                <strong>Principal:</strong> (71) 3462-9500<br>
+                                <strong>Suporte:</strong> (71) 3462-9550<br>
+                                <strong>WhatsApp:</strong> (71) 99999-9999
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="card text-center mb-4">
+                        <div class="card-body">
+                            <div class="feature-icon" style="margin: 0 auto 1rem;">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h5>E-mail</h5>
+                            <p>
+                                <strong>Geral:</strong> senai@fieb.org.br<br>
+                                <strong>Suporte:</strong> suporte-api@senai.br<br>
+                                <strong>Parcerias:</strong> parcerias@senai.br
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section class="section" style="background-color: var(--senai-light-gray);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 mx-auto">
+                    <div class="card">
+                        <div class="card-header text-center">
+                            <h3><i class="fas fa-paper-plane"></i> Envie sua Mensagem</h3>
+                            <p>Preencha o formulário abaixo e entraremos em contato em breve</p>
+                        </div>
+                        <div class="card-body">
+                            <form id="contactForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="nome" class="form-label">Nome Completo *</label>
+                                            <input type="text" id="nome" name="nome" class="form-control" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="email" class="form-label">E-mail *</label>
+                                            <input type="email" id="email" name="email" class="form-control" required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="telefone" class="form-label">Telefone</label>
+                                            <input type="tel" id="telefone" name="telefone" class="form-control" placeholder="(11) 99999-9999">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label for="assunto" class="form-label">Assunto *</label>
+                                            <select id="assunto" name="assunto" class="form-control" required>
+                                                <option value="">Selecione um assunto</option>
+                                                <option value="duvida-geral">Dúvida Geral</option>
+                                                <option value="suporte-tecnico">Suporte Técnico</option>
+                                                <option value="parcerias">Parcerias</option>
+                                                <option value="sugestao">Sugestão</option>
+                                                <option value="reclamacao">Reclamação</option>
+                                                <option value="outro">Outro</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="perfil" class="form-label">Você é:</label>
+                                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 0.5rem;">
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="radio" name="perfil" value="aluno"> Aluno
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="radio" name="perfil" value="professor"> Professor
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="radio" name="perfil" value="empresa"> Empresa
+                                        </label>
+                                        <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                            <input type="radio" name="perfil" value="visitante"> Visitante
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="mensagem" class="form-label">Mensagem *</label>
+                                    <textarea id="mensagem" name="mensagem" class="form-control" rows="6" required placeholder="Descreva sua dúvida, sugestão ou mensagem detalhadamente..."></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label style="display: flex; align-items: center; gap: 0.5rem;">
+                                        <input type="checkbox" name="newsletter" value="sim">
+                                        Desejo receber newsletters e atualizações da plataforma
+                                    </label>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label style="display: flex; align-items: flex-start; gap: 0.5rem;">
+                                        <input type="checkbox" name="privacidade" required>
+                                        <span>Concordo com a <a href="#" target="_blank">Política de Privacidade</a> e autorizo o uso dos meus dados para responder esta solicitação *</span>
+                                    </label>
+                                </div>
+                                
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary btn-lg">
+                                        <i class="fas fa-paper-plane"></i> Enviar Mensagem
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Perguntas Frequentes</h2>
+            <p class="section-subtitle">Encontre respostas rápidas para as dúvidas mais comuns</p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5><i class="fas fa-question-circle"></i> Como cadastrar um projeto?</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Para cadastrar um projeto, você precisa estar logado na plataforma. Acesse a seção "Projetos" e clique em "Novo Projeto". Preencha os dados solicitados e submeta para aprovação.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5><i class="fas fa-question-circle"></i> Como acessar a API?</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>A documentação completa da API está disponível em <a th:href="@{/swagger-ui.html}" target="_blank">/swagger-ui.html</a>. Lá você encontra todos os endpoints, exemplos e pode testar as funcionalidades.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5><i class="fas fa-question-circle"></i> Posso colaborar em projetos?</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Sim! A plataforma permite colaboração entre alunos. Você pode convidar outros estudantes para participar dos seus projetos ou solicitar participação em projetos públicos.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5><i class="fas fa-question-circle"></i> Como empresas podem investir?</h5>
+                        </div>
+                        <div class="card-body">
+                            <p>Empresas podem visualizar projetos públicos e entrar em contato com os desenvolvedores através da plataforma. Para parcerias maiores, entre em contato conosco diretamente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours and Support -->
+    <section class="section" style="background-color: var(--senai-light-gray);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-clock"></i> Horário de Funcionamento</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul style="list-style: none; padding: 0;">
+                                <li><strong>Segunda a Sexta:</strong> 8h às 18h</li>
+                                <li><strong>Sábados:</strong> 8h às 12h</li>
+                                <li><strong>Domingos e Feriados:</strong> Fechado</li>
+                            </ul>
+                            <p><i class="fas fa-info-circle"></i> <em>Suporte técnico online disponível 24/7</em></p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-headset"></i> Canais de Suporte</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul style="list-style: none; padding: 0;">
+                                <li><i class="fas fa-envelope"></i> <strong>E-mail:</strong> suporte-api@senai.br</li>
+                                <li><i class="fab fa-whatsapp"></i> <strong>WhatsApp:</strong> (71) 99999-9999</li>
+                                <li><i class="fas fa-comments"></i> <strong>Chat Online:</strong> Disponível no site</li>
+                                <li><i class="fab fa-github"></i> <strong>GitHub Issues:</strong> Para bugs técnicos</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section (Placeholder) -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Localização</h2>
+            <div class="card">
+                <div class="card-body text-center" style="padding: 4rem;">
+                    <i class="fas fa-map-marked-alt" style="font-size: 4rem; color: var(--senai-blue); margin-bottom: 1rem;"></i>
+                    <h4>SENAI CIMATEC</h4>
+                    <p>Av. Orlando Gomes, 1845 - Piatã, Salvador - BA</p>
+                    <p><em>Mapa interativo em breve</em></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-graduation-cap"></i> SENAI API</h5>
+                    <p>Plataforma web educacional do SENAI que permite aos alunos cadastrar e gerenciar projetos acadêmicos, compartilhar com outros alunos e atrair investimento de empresas.</p>
+                    <div>
+                        <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5><i class="fas fa-link"></i> Links Úteis</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a th:href="@{/}">Início</a></li>
+                        <li><a th:href="@{/sobre}">Sobre Nós</a></li>
+                        <li><a th:href="@{/projetos}">Projetos</a></li>
+                        <li><a th:href="@{/cursos}">Cursos</a></li>
+                        <li><a th:href="@{/contato}">Contato</a></li>
+                        <li><a th:href="@{/swagger-ui.html}" target="_blank">Documentação API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5><i class="fas fa-map-marker-alt"></i> Contato</h5>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Orlando Gomes, 1845<br>Piatã, Salvador - BA</p>
+                    <p><i class="fas fa-phone"></i> (71) 3462-9500</p>
+                    <p><i class="fas fa-envelope"></i> senai@fieb.org.br</p>
+                    <p><i class="fas fa-globe"></i> www.senaibahia.com.br</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SENAI - Serviço Nacional de Aprendizagem Industrial. Todos os direitos reservados.</p>
+                <p>Desenvolvido com ❤️ para fins educacionais e de desenvolvimento acadêmico.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script>
+        // Contact form specific JavaScript
+        $(document).ready(function() {
+            $('#contactForm').on('submit', function(e) {
+                e.preventDefault();
+                
+                // Show loading state
+                var submitBtn = $(this).find('button[type="submit"]');
+                var originalText = submitBtn.html();
+                submitBtn.html('<i class="fas fa-spinner fa-spin"></i> Enviando...');
+                submitBtn.prop('disabled', true);
+                
+                // Simulate form submission (replace with actual API call)
+                setTimeout(function() {
+                    showAlert('Mensagem enviada com sucesso! Entraremos em contato em breve.', 'success');
+                    $('#contactForm')[0].reset();
+                    
+                    // Reset button
+                    submitBtn.html(originalText);
+                    submitBtn.prop('disabled', false);
+                }, 2000);
+            });
+            
+            // Phone mask
+            $('#telefone').on('input', function() {
+                var value = $(this).val().replace(/\D/g, '');
+                if (value.length <= 11) {
+                    value = value.replace(/^(\d{2})(\d{5})(\d{4})$/, '($1) $2-$3');
+                    value = value.replace(/^(\d{2})(\d{4})(\d{4})$/, '($1) $2-$3');
+                    $(this).val(value);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

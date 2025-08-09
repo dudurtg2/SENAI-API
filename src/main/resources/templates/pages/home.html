@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title th:text="${pageTitle != null ? pageTitle + ' - SENAI API' : 'SENAI API - Plataforma de Projetos Acadêmicos'}">SENAI API</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" th:content="${pageDescription != null ? pageDescription : 'Plataforma web educacional do SENAI para cadastro, gerenciamento e compartilhamento de projetos acadêmicos entre alunos, professores e empresas.'}">
+    <meta name="keywords" content="SENAI, educação, projetos acadêmicos, plataforma educacional, alunos, professores, empresas, inovação, tecnologia">
+    <meta name="author" content="SENAI - Serviço Nacional de Aprendizagem Industrial">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" th:content="${pageTitle != null ? pageTitle + ' - SENAI API' : 'SENAI API - Plataforma de Projetos Acadêmicos'}">
+    <meta property="og:description" th:content="${pageDescription != null ? pageDescription : 'Plataforma web educacional do SENAI para cadastro, gerenciamento e compartilhamento de projetos acadêmicos entre alunos, professores e empresas.'}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" th:content="@{/}">
+    <meta property="og:image" content="/images/senai-og-image.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <a th:href="@{/}" class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                SENAI API
+            </a>
+            
+            <nav class="navbar">
+                <a th:href="@{/}" th:classappend="${activePage == 'home' ? 'active' : ''}">
+                    <i class="fas fa-home"></i> Início
+                </a>
+                <a th:href="@{/sobre}" th:classappend="${activePage == 'sobre' ? 'active' : ''}">
+                    <i class="fas fa-info-circle"></i> Sobre
+                </a>
+                <a th:href="@{/projetos}" th:classappend="${activePage == 'projetos' ? 'active' : ''}">
+                    <i class="fas fa-project-diagram"></i> Projetos
+                </a>
+                <a th:href="@{/cursos}" th:classappend="${activePage == 'cursos' ? 'active' : ''}">
+                    <i class="fas fa-book"></i> Cursos
+                </a>
+                <a th:href="@{/contato}" th:classappend="${activePage == 'contato' ? 'active' : ''}">
+                    <i class="fas fa-envelope"></i> Contato
+                </a>
+                <a th:href="@{/swagger-ui.html}" target="_blank">
+                    <i class="fas fa-code"></i> API Docs
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="container">
+                <h1>Transformando Educação em Inovação</h1>
+                <p>Plataforma web educacional do SENAI que conecta alunos, professores e empresas através de projetos acadêmicos inovadores e colaborativos.</p>
+                <div style="margin-top: 2rem;">
+                    <a href="#features" class="btn btn-outline-light btn-lg me-3">
+                        <i class="fas fa-rocket"></i> Conheça a Plataforma
+                    </a>
+                    <a th:href="@{/swagger-ui.html}" class="btn btn-primary btn-lg" target="_blank">
+                        <i class="fas fa-code"></i> Documentação API
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section">
+        <div class="container">
+            <h2 class="section-title">Funcionalidades da Plataforma</h2>
+            <p class="section-subtitle">Descubra como nossa plataforma está revolucionando a forma de compartilhar conhecimento e projetos acadêmicos</p>
+            
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3 class="feature-title">Gestão de Projetos</h3>
+                    <p class="feature-description">Sistema completo para cadastro, gerenciamento e acompanhamento de projetos acadêmicos com controle de visibilidade público/privado.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="feature-title">Colaboração</h3>
+                    <p class="feature-description">Ambiente colaborativo onde alunos e professores podem trabalhar juntos em projetos, compartilhar conhecimento e ideias.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3 class="feature-title">Conexão com Empresas</h3>
+                    <p class="feature-description">Ponte entre academia e mercado, permitindo que empresas visualizem projetos públicos e invistam em talentos promissores.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Segurança</h3>
+                    <p class="feature-description">Sistema seguro com autenticação OAuth2, controle de acesso e proteção de dados dos usuários e projetos.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Responsivo</h3>
+                    <p class="feature-description">Interface moderna e responsiva que funciona perfeitamente em dispositivos móveis, tablets e desktops.</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-api"></i>
+                    </div>
+                    <h3 class="feature-title">API RESTful</h3>
+                    <p class="feature-description">API completa e bem documentada seguindo padrões REST, facilitando integrações e desenvolvimento de aplicações.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section class="section" style="background-color: var(--senai-light-gray);">
+        <div class="container">
+            <h2 class="section-title">SENAI em Números</h2>
+            <div class="row text-center">
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; color: var(--senai-blue); font-weight: bold;">500+</div>
+                            <h5>Projetos Cadastrados</h5>
+                            <p>Projetos acadêmicos desenvolvidos por nossos alunos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; color: var(--senai-orange); font-weight: bold;">1.200+</div>
+                            <h5>Alunos Ativos</h5>
+                            <p>Estudantes utilizando a plataforma ativamente</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; color: var(--senai-blue); font-weight: bold;">80+</div>
+                            <h5>Professores</h5>
+                            <p>Educadores orientando e avaliando projetos</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div style="font-size: 3rem; color: var(--senai-orange); font-weight: bold;">30+</div>
+                            <h5>Empresas Parceiras</h5>
+                            <p>Organizações interessadas em nossos projetos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Stack Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Tecnologias Utilizadas</h2>
+            <p class="section-subtitle">Desenvolvido com as mais modernas tecnologias para garantir performance, segurança e escalabilidade</p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-server"></i> Backend</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul style="list-style: none; padding: 0;">
+                                <li><i class="fab fa-java"></i> Java 17</li>
+                                <li><i class="fas fa-leaf"></i> Spring Boot 3.1.2</li>
+                                <li><i class="fas fa-database"></i> Spring Data JPA</li>
+                                <li><i class="fas fa-shield-alt"></i> Spring Security + OAuth2</li>
+                                <li><i class="fas fa-elephant"></i> PostgreSQL / H2</li>
+                                <li><i class="fas fa-hammer"></i> Maven</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4><i class="fas fa-desktop"></i> Frontend</h4>
+                        </div>
+                        <div class="card-body">
+                            <ul style="list-style: none; padding: 0;">
+                                <li><i class="fab fa-html5"></i> HTML5</li>
+                                <li><i class="fab fa-css3-alt"></i> CSS3 + Custom Properties</li>
+                                <li><i class="fab fa-js-square"></i> JavaScript ES6+</li>
+                                <li><i class="fas fa-leaf"></i> Thymeleaf Templates</li>
+                                <li><i class="fas fa-mobile-alt"></i> Responsive Design</li>
+                                <li><i class="fab fa-font-awesome"></i> Font Awesome Icons</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action Section -->
+    <section class="section" style="background: linear-gradient(135deg, var(--senai-blue) 0%, var(--senai-dark-blue) 100%); color: white;">
+        <div class="container text-center">
+            <h2 style="color: white; font-size: 2.5rem;">Pronto para Inovar?</h2>
+            <p style="font-size: 1.25rem; margin-bottom: 2rem; color: rgba(255,255,255,0.9);">
+                Junte-se à nossa comunidade de estudantes, professores e empresas que estão transformando ideias em realidade
+            </p>
+            <div>
+                <a th:href="@{/projetos}" class="btn btn-outline-light btn-lg me-3">
+                    <i class="fas fa-eye"></i> Ver Projetos
+                </a>
+                <a th:href="@{/contato}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket"></i> Começar Agora
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5><i class="fas fa-graduation-cap"></i> SENAI API</h5>
+                    <p>Plataforma web educacional do SENAI que permite aos alunos cadastrar e gerenciar projetos acadêmicos, compartilhar com outros alunos e atrair investimento de empresas.</p>
+                    <div>
+                        <a href="#" class="me-3"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="me-3"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5><i class="fas fa-link"></i> Links Úteis</h5>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a th:href="@{/}">Início</a></li>
+                        <li><a th:href="@{/sobre}">Sobre Nós</a></li>
+                        <li><a th:href="@{/projetos}">Projetos</a></li>
+                        <li><a th:href="@{/cursos}">Cursos</a></li>
+                        <li><a th:href="@{/contato}">Contato</a></li>
+                        <li><a th:href="@{/swagger-ui.html}" target="_blank">Documentação API</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-md-4">
+                    <h5><i class="fas fa-map-marker-alt"></i> Contato</h5>
+                    <p><i class="fas fa-map-marker-alt"></i> Av. Orlando Gomes, 1845<br>Piatã, Salvador - BA</p>
+                    <p><i class="fas fa-phone"></i> (71) 3462-9500</p>
+                    <p><i class="fas fa-envelope"></i> senai@fieb.org.br</p>
+                    <p><i class="fas fa-globe"></i> www.senaibahia.com.br</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 SENAI - Serviço Nacional de Aprendizagem Industrial. Todos os direitos reservados.</p>
+                <p>Desenvolvido com ❤️ para fins educacionais e de desenvolvimento acadêmico.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>
