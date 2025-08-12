@@ -3,7 +3,8 @@ package com.exemplo.meuapp.domain.enums;
 public enum UsuarioTipo {
     ALUNO("ALUNO"),
     PROFESSOR("PROFESSOR"),
-    VISITANTE("VISITANTE");
+    VISITANTE("VISITANTE"),
+    ADMIN("ADMIN");
 
     private final String role;
 
