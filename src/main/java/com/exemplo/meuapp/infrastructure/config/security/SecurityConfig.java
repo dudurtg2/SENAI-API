@@ -13,13 +13,11 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.exemplo.meuapp.application.port.in.usuarios.CriarUsuariosUseCase;
 import com.exemplo.meuapp.application.port.in.usuarios.EncontrarUsuariosUseCase;
 import com.exemplo.meuapp.common.mapper.UsuariosMapper;
-import com.exemplo.meuapp.infrastructure.webclient.CustomOAuth2UserService;
-import com.exemplo.meuapp.infrastructure.webclient.CustomUserDetailsService;
 
 
 
@@ -46,15 +44,14 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http,
-                                           JwtTokenProvider tokenProvider,
-                                           CustomUserDetailsService uds,
-                                           CustomOAuth2UserService oauth2UserService,
-                                           OAuth2SuccessHandler successHandler) throws Exception {        JwtAuthenticationFilter jwtFilter = new JwtAuthenticationFilter(encontrarUsuariosUseCase,tokenProvider, usuariosMapper);        
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {        
         
         http
                 // 🔒 Desabilitar CSRF para APIs REST
                 .csrf(csrf -> csrf.disable())
+                
+                // 🖼️ Permitir frames para console H2
+                .headers(headers -> headers.frameOptions().sameOrigin())
                 
                 // 🌐 Habilitar CORS
                 .cors(cors -> cors.configurationSource(request -> {
@@ -71,38 +68,44 @@ public class SecurityConfig {
                 .sessionManagement(session -> session
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)                ).authorizeHttpRequests(auth -> auth
                         // 🔓 Endpoints públicos de autenticação
-                        .requestMatchers("/auth/**", "/oauth2/**").permitAll()
-                        .requestMatchers("/api/user/login", "/api/user/register", "/api/user/auth/register").permitAll()
-                        .requestMatchers("/login/oauth2/code/google").permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/auth/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/oauth2/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/user/login")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/user/register")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/user/auth/register")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/login/oauth2/code/google")).permitAll()
                         
                         // 📚 Endpoints públicos do Swagger/OpenAPI
-                        .requestMatchers("/swagger-ui/**", "/swagger-ui.html").permitAll()
-                        .requestMatchers("/api-docs/**", "/api-docs").permitAll()
-                        .requestMatchers("/v3/api-docs/**", "/v3/api-docs").permitAll()
-                        .requestMatchers("/swagger-resources/**").permitAll()
-                        .requestMatchers("/webjars/**").permitAll()
-                          // 🧪 Endpoints de demonstração (públicos)
-                        .requestMatchers("/api/v1/demo/**").permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/swagger-ui.html")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api-docs/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api-docs")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/v3/api-docs")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/swagger-resources/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/webjars/**")).permitAll()
+                        
+                        // 🧪 Endpoints de demonstração (públicos)
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/teste/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/demo/**")).permitAll()
+                        
+                        // 💾 Console H2 Database (apenas em desenvolvimento)
+                        .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                         
                         // 👁️ Endpoints públicos para visitantes (limitados)
-                        .requestMatchers("/api/v1/senai/projeto/findAll").permitAll()
-                        .requestMatchers("/api/v1/senai/projeto/findByUUID/**").permitAll()
-                        .requestMatchers("/api/v1/senai/disciplina/findAll").permitAll()
-                        .requestMatchers("/api/v1/senai/unidadeCurricular/findAll").permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/senai/projeto/findAll")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/senai/projeto/findByUUID/**")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/senai/disciplina/findAll")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/senai/unidadeCurricular/findAll")).permitAll()
                         
                         // 🔒 Endpoints que precisam de autenticação
-                        .requestMatchers("/api/user/refresh-token").authenticated()
-                        .requestMatchers("/api/user/update").authenticated()
-                        .requestMatchers("/api/v1/senai/**").authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/api/user/refresh-token")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/api/user/update")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/senai/**")).authenticated()
                         
                         // 🔒 Todos os outros precisam de autenticação
                         .anyRequest().authenticated()
-                )
-                .oauth2Login(oauth2 -> oauth2
-                        .userInfoEndpoint(u -> u.userService(oauth2UserService))
-                        .successHandler(successHandler)
-                )
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                );
 
         return http.build();
     }
