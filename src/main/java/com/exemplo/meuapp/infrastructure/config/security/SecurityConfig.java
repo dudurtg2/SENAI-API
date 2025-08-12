@@ -98,9 +98,16 @@ public class SecurityConfig {
                         .requestMatchers(new AntPathRequestMatcher("/api/v1/senai/disciplina/findAll")).permitAll()
                         .requestMatchers(new AntPathRequestMatcher("/api/v1/senai/unidadeCurricular/findAll")).permitAll()
                         
+                        // 🌐 Novos endpoints públicos para visitantes
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/dashboard/visitor")).permitAll()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/dashboard/public/**")).permitAll()
+                        
                         // 🔒 Endpoints que precisam de autenticação
                         .requestMatchers(new AntPathRequestMatcher("/api/user/refresh-token")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/api/user/update")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/admin/**")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/dashboard/professor")).authenticated()
+                        .requestMatchers(new AntPathRequestMatcher("/api/v1/dashboard/aluno")).authenticated()
                         .requestMatchers(new AntPathRequestMatcher("/api/v1/senai/**")).authenticated()
                         
                         // 🔒 Todos os outros precisam de autenticação
