@@ -8,13 +8,13 @@ spring:
     url: jdbc:h2:mem:senai_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driver-class-name: org.h2.Driver
     username: sa
-    password: 
-    
+    password:
+
   h2:
     console:
       enabled: true
       path: /h2-console
-      
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
@@ -29,7 +29,28 @@ spring:
   web:
     resources:
       static-locations: classpath:/static/
-      
+
+  # File upload configuration
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 10MB
+      max-request-size: 15MB
+      file-size-threshold: 2KB
+
+  # 📧 Email configuration (development)
+  mail:
+    host: localhost
+    port: 1025
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: false
+          starttls:
+            enable: false
+
   # Actuator
   management:
     endpoints:
@@ -39,6 +60,27 @@ spring:
     endpoint:
       health:
         show-details: always
+
+# File upload configuration
+app:
+  file:
+    upload-dir: uploads
+    profile-photos-dir: uploads/profile-photos
+    documents-dir: uploads/documents
+    max-photo-size: 5MB
+    max-document-size: 10MB
+
+  # 📧 Email verification configuration
+  verificacao:
+    expiracao-horas: 24
+    max-tentativas-dia: 3
+    dominio-senai: "@ba.estudante.senai.br"
+
+  frontend:
+    url: "http://localhost:3000"
+
+  mail:
+    from: "noreply@senai.br"
 
 # API Security configuration
 api:

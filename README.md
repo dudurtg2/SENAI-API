@@ -1,4 +1,4 @@
-# 🚀 SENAI API - Plataforma de Projetos Acadêmicos
+# 🚀 Vitrine de Projetos - API Backend
 
 <div align="center">
   <img src="https://img.shields.io/badge/Java-21-orange" alt="Java 21">
@@ -12,7 +12,7 @@
 
 ## 📋 Sobre o Projeto
 
-Esta API RESTful faz parte de uma **plataforma web educacional** do SENAI que permite aos alunos:
+Esta API RESTful faz parte da **Vitrine de Projetos SENAI**, uma plataforma web educacional que permite aos alunos:
 
 - 📝 **Cadastrar e gerenciar projetos acadêmicos**
 - 🔗 **Compartilhar projetos com links e recursos**  
